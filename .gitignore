@@ -1,0 +1,7 @@
+.DS_Store
+Thumbs.db
+
+# Office temp / lock files
+~$*
+__pycache__
+.venv/

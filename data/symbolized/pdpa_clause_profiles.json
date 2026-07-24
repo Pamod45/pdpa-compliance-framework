@@ -1,0 +1,2070 @@
+{
+  "meta": {
+    "source": "Personal Data Protection Act, No. 9 of 2022 (Sri Lanka)",
+    "source_version": "As certified 2022-03-19; evaluated as published text regardless of commencement status (scoping decision 2026-07-19, see Reasoning/project.md)",
+    "schema_version": "0.1",
+    "schema_status": "draft - structure not yet locked; Pydantic contract to follow once structure survives review",
+    "annotator": "Pubudu Perera (single annotator, no inter-annotator agreement - one interpretation of the clauses)",
+    "extraction_date": "2026-07-19",
+    "selected_clauses": [
+      "s5",
+      "s6",
+      "s7",
+      "s8",
+      "s9",
+      "s10",
+      "s12",
+      "s22",
+      "s23",
+      "s24",
+      "s26"
+    ]
+  },
+  "definitions": [
+    {
+      "def_id": "def-controller",
+      "term": "controller",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "any natural or legal person, public authority, public corporation, non-governmental organization, agency or any other body or entity which alone or jointly with others determines the purposes and means of the processing of personal data",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-processor",
+      "term": "processor",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "a natural or legal person, public authority or other entity established by or under any written law, which processes personal data on behalf of the controller; a separate entity or person from the controller and not under the hierarchical control of the controller, and excludes internal processing such as one department processing for another or an employee processing on behalf of their employer",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-processing",
+      "term": "processing",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "any operation performed on personal data including but not limited to collection, storage, preservation, alteration, retrieval, disclosure, transmission, making available, erasure, destruction of, consultation, alignment, combination, or the carrying out of logical or arithmetical operations on personal data",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-special-categories",
+      "term": "special categories of personal data",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs; genetic data; biometric data for the purpose of uniquely identifying a natural person; data concerning health; data concerning a natural person's sex life or sexual orientation; personal data relating to offences, criminal proceedings and convictions; or personal data relating to a child",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-consent",
+      "term": "consent",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "any freely given, specific, informed and unambiguous indication by way of a written declaration or an affirmative action signifying a data subject's agreement to the processing of his personal data",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-child",
+      "term": "child",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "a natural person who is below the age of sixteen years",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-personal-data-breach",
+      "term": "personal data breach",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "any act or omission that results in accidental or unlawful destruction, loss, alteration, unauthorized disclosure of, or access to, personal data transmitted, stored or otherwise processed",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-dpo",
+      "term": "Data Protection Officer",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "the person designated or appointed under section 20 of this Act",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-public-authority",
+      "term": "public authority",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "a Ministry, any Department or Provincial Council, local authority, statutory body or any institution established by any written law, or a Ministry, Department or other authority or institution established or created by a Provincial Council",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-third-country",
+      "term": "third country",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "a country prescribed under section 26 for the purpose of cross-border data flow",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-cross-border-data-flow",
+      "term": "cross-border data flow",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "the movement of personal data out of the territory of Sri Lanka for the purpose of processing personal data in a third country",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-personnel",
+      "term": "personnel",
+      "source": {
+        "kind": "local",
+        "clause": "PDPA-s22",
+        "subsection": "22(5)"
+      },
+      "text": "any employee, consultant, agent, affiliate or any person who is contracted by the processor to process personal data",
+      "status": "defined",
+      "note": "Locally defined within s.22(5), not in the s.56 glossary - the only local-definition source in the selected set."
+    },
+    {
+      "def_id": "def-public-interest-schI-g",
+      "term": "public interest",
+      "source": {
+        "kind": "schedule",
+        "ref": "Schedule I item (g)"
+      },
+      "text": "includes processing necessary for health purposes such as public health and social protection and the management of health care services; processing necessary for control of communicable diseases and other serious threats to health; and processing necessary by official authorities for achieving purposes or objects laid down by law",
+      "status": "defined",
+      "note": "Defined within Schedule I item (g), reused by s.26(5)(d) - the only schedule-internal definition reused across clauses in the selected set."
+    },
+    {
+      "def_id": "def-encryption",
+      "term": "encryption",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "the act of ciphering or altering data using mathematical algorithm to make such data unintelligible to unauthorized users",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-pseudonymisation",
+      "term": "pseudonymisation",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "the processing of personal data in such a manner that the personal data cannot be used to identify a data subject without the use of additional information, and such additional information is kept separately and is subject to technical and organizational measures to ensure that the personal data is not attributed to a data subject",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-anonymise",
+      "term": "anonymise",
+      "source": {
+        "kind": "s56_glossary"
+      },
+      "text": "permanent removal of any personal identifiers from personal data to render any such personal data from being related to an identified or identifiable natural person",
+      "status": "defined"
+    },
+    {
+      "def_id": "def-specified",
+      "term": "specified",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.6(1)(a); not defined in the Act."
+    },
+    {
+      "def_id": "def-explicit",
+      "term": "explicit",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.6(1)(b); not defined in the Act."
+    },
+    {
+      "def_id": "def-legitimate",
+      "term": "legitimate",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.6(1)(c); not defined in the Act."
+    },
+    {
+      "def_id": "def-adequate",
+      "term": "adequate",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.7(a); not defined in the Act."
+    },
+    {
+      "def_id": "def-relevant",
+      "term": "relevant",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.7(b); not defined in the Act."
+    },
+    {
+      "def_id": "def-proportionate",
+      "term": "proportionate",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Load-bearing quality term in s.7(c); not defined in the Act."
+    },
+    {
+      "def_id": "def-undue-delay",
+      "term": "undue delay",
+      "source": {
+        "kind": "none"
+      },
+      "text": null,
+      "status": "undefined_flagged",
+      "note": "Temporal qualifier in s.8; not defined in the Act and no fixed period given (contrast s.17's explicit 21 working days)."
+    }
+  ],
+  "clauses": [
+    {
+      "clause_id": "PDPA-s5",
+      "title": "Obligation to process personal data in a lawful manner",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "gateway_dispatch"
+      ],
+      "security_domains": [
+        "lawfulness",
+        "authorization"
+      ],
+      "verbatim_text": "The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.",
+      "simplified_text": "Processing is lawful only if it satisfies a lawful basis: any Schedule I condition; additionally a Schedule II condition where special-category data is processed; all Schedule III conditions where the chosen basis is consent; or all Schedule IV conditions for criminal-investigation processing. A gateway clause routing to different Schedules by data type and chosen basis.",
+      "obligation_units": [
+        {
+          "unit_id": "s5-u1",
+          "unit_type": "precondition",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "establish and be able to demonstrate at least one applicable lawful basis under Schedule I before processing",
+          "object": "lawful basis for processing (general)",
+          "attributes": [
+            {
+              "attr_id": "s5-u1-a1",
+              "name": "at least one Schedule I condition satisfied",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null,
+              "quantifier": "any"
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": "prior to processing",
+          "keywords": [
+            "lawful",
+            "lawful basis",
+            "Schedule I",
+            "condition",
+            "consent",
+            "contract",
+            "legal obligation",
+            "legitimate interest",
+            "public interest"
+          ],
+          "control_hints": [
+            {
+              "family": "PT",
+              "candidate_controls": [
+                "pt-2"
+              ],
+              "anchor_strength": "moderate",
+              "note": "PT-2 Authority to Process PII; annotator expectation"
+            }
+          ]
+        },
+        {
+          "unit_id": "s5-u2",
+          "unit_type": "precondition",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "additionally establish an applicable Schedule II condition where special-category data is processed",
+          "object": "lawful basis for special-category processing",
+          "attributes": [
+            {
+              "attr_id": "s5-u2-a1",
+              "name": "at least one Schedule II condition satisfied",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null,
+              "quantifier": "any"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "data_category",
+              "value": "special_categories",
+              "def_ref": "def-special-categories",
+              "note": "applies only when special categories of personal data are processed"
+            }
+          ],
+          "temporal_qualifier": "prior to processing",
+          "keywords": [
+            "special categories",
+            "Schedule II",
+            "sensitive data",
+            "health",
+            "biometric",
+            "genetic"
+          ],
+          "control_hints": [
+            {
+              "family": "PT",
+              "candidate_controls": [
+                "pt-2"
+              ],
+              "anchor_strength": "moderate",
+              "note": "special-category branch of authority-to-process"
+            }
+          ]
+        },
+        {
+          "unit_id": "s5-u3",
+          "unit_type": "precondition",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "satisfy all Schedule III conditions where the chosen lawful basis is consent",
+          "object": "consent conditions",
+          "attributes": [
+            {
+              "attr_id": "s5-u3-a1",
+              "name": "all Schedule III conditions satisfied",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": "def-consent",
+              "quantifier": "all"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "chosen_basis",
+              "value": "consent",
+              "note": "applies only where processing is based on consent under Schedule I item (a) or Schedule II item (a)"
+            }
+          ],
+          "temporal_qualifier": "prior to processing",
+          "keywords": [
+            "consent",
+            "Schedule III",
+            "freely given",
+            "demonstrable",
+            "withdrawable",
+            "distinguishable"
+          ],
+          "control_hints": [
+            {
+              "family": "PT",
+              "candidate_controls": [
+                "pt-4",
+                "pt-5"
+              ],
+              "anchor_strength": "weak",
+              "note": "PT-4 Consent, PT-5 Privacy Notice; weaker anchor, annotator expectation"
+            }
+          ]
+        },
+        {
+          "unit_id": "s5-u4",
+          "unit_type": "precondition",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "satisfy all Schedule IV conditions for criminal-investigation processing",
+          "object": "criminal-investigation lawful basis",
+          "attributes": [
+            {
+              "attr_id": "s5-u4-a1",
+              "name": "all Schedule IV conditions satisfied",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null,
+              "quantifier": "all"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "processing_context",
+              "value": "criminal_investigations",
+              "note": "separate lawful-basis track; replaces Schedule I/II routes"
+            }
+          ],
+          "temporal_qualifier": "prior to processing",
+          "keywords": [
+            "criminal investigation",
+            "Schedule IV",
+            "law enforcement",
+            "offences"
+          ],
+          "control_hints": [
+            {
+              "family": null,
+              "candidate_controls": [],
+              "anchor_strength": "none_found",
+              "note": "no clean 800-53 anchor for criminal-investigation lawful basis; likely out of scope for demo"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "schedule_reference",
+          "target": "Schedule-I",
+          "via_unit": "s5-u1",
+          "confidence": "statutory",
+          "note": "Schedules referenced, not symbolized item-by-item (reference-only scope decision)"
+        },
+        {
+          "dep_type": "schedule_reference",
+          "target": "Schedule-II",
+          "via_unit": "s5-u2",
+          "confidence": "statutory"
+        },
+        {
+          "dep_type": "schedule_reference",
+          "target": "Schedule-III",
+          "via_unit": "s5-u3",
+          "confidence": "statutory"
+        },
+        {
+          "dep_type": "schedule_reference",
+          "target": "Schedule-IV",
+          "via_unit": "s5-u4",
+          "confidence": "statutory"
+        }
+      ],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-special-categories",
+        "def-consent",
+        "def-child"
+      ],
+      "annotation_notes": "Gateway/dispatch clause: four conditional precondition units per Schedule route. Quantifier captures 'any condition' (Sch I/II) vs 'all conditions' (Sch III/IV). Schedules reference-only per logged scope decision. s5-u4 likely out of scope for the demo."
+    },
+    {
+      "clause_id": "PDPA-s6",
+      "title": "Obligation to define a purpose for personal data processing",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "flat_obligation",
+        "conditional_exemption"
+      ],
+      "security_domains": [
+        "data_governance",
+        "purpose_management"
+      ],
+      "verbatim_text": "(1) Every controller shall, ensure that personal data is processed for a - (a) specified; (b) explicit; and (c) legitimate, purposes and such personal data shall not be further processed in a manner which is incompatible with such purposes. (2) Subject to the provisions of section 10 of this Act, further processing of such personal data by a controller for archiving purposes in the public interest, scientific research, historical research or statistical purposes shall not be considered to be incompatible with the initial purposes referred to in paragraphs (a), (b) and (c) of subsection (1).",
+      "simplified_text": "The processing purpose must be specified, explicit, and legitimate, and data must not later be reused incompatibly with that purpose. Reuse for public-interest archiving, scientific/historical research, or statistics is deemed compatible - but only if s.10's safeguards are also met.",
+      "obligation_units": [
+        {
+          "unit_id": "s6-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "ensure processing purposes are defined with the required qualities and prevent incompatible further processing",
+          "object": "personal data processing purposes",
+          "attributes": [
+            {
+              "attr_id": "s6-u1-a1",
+              "name": "purpose specified",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-specified"
+            },
+            {
+              "attr_id": "s6-u1-a2",
+              "name": "purpose explicit",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-explicit"
+            },
+            {
+              "attr_id": "s6-u1-a3",
+              "name": "purpose legitimate",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-legitimate"
+            },
+            {
+              "attr_id": "s6-u1-a4",
+              "name": "no further processing incompatible with stated purpose",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "purpose",
+            "specified",
+            "explicit",
+            "legitimate",
+            "further processing",
+            "incompatible"
+          ],
+          "control_hints": [
+            {
+              "family": "PT",
+              "candidate_controls": [
+                "pt-3"
+              ],
+              "anchor_strength": "moderate",
+              "note": "PT-3 PII Processing Purposes; annotator expectation"
+            }
+          ]
+        },
+        {
+          "unit_id": "s6-u2",
+          "unit_type": "exemption",
+          "actor": "controller",
+          "modality": "deemed",
+          "action": "further processing for the listed purposes is deemed not incompatible with the initial purpose",
+          "object": "further processing for archival/research/statistical purposes",
+          "exempts": [
+            "s6-u1-a4"
+          ],
+          "scope": "archiving purposes in the public interest, scientific research, historical research, statistical purposes",
+          "attributes": [],
+          "applicability_conditions": [
+            {
+              "kind": "clause_satisfaction",
+              "target": "PDPA-s10",
+              "note": "exemption valid only subject to s.10 being satisfied - statutory"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "archiving",
+            "public interest",
+            "scientific research",
+            "historical research",
+            "statistical"
+          ],
+          "control_hints": []
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "exemption_gate",
+          "target": "PDPA-s10",
+          "via_unit": "s6-u2",
+          "confidence": "statutory",
+          "note": "explicit 'subject to the provisions of section 10' in s.6(2)"
+        }
+      ],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-specified",
+        "def-explicit",
+        "def-legitimate"
+      ],
+      "annotation_notes": "Two units: core dual obligation and the deeming exemption. Exemption is not a duty (modality 'deemed') and modifies only s6-u1-a4. Inbound dependencies derived at load time."
+    },
+    {
+      "clause_id": "PDPA-s7",
+      "title": "Obligation to confine personal data processing to the defined purpose",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "flat_obligation"
+      ],
+      "security_domains": [
+        "data_governance",
+        "data_minimisation"
+      ],
+      "verbatim_text": "Every controller shall ensure that personal data that is processed shall be - (a) adequate; (b) relevant; and (c) proportionate, to the extent as is necessary in relation to the purpose for which such data shall be collected or processed.",
+      "simplified_text": "Data minimisation: the personal data collected or processed must be adequate, relevant, and proportionate relative to the s.6 purpose. No independent meaning without a defined purpose to judge against.",
+      "obligation_units": [
+        {
+          "unit_id": "s7-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "ensure processed personal data is adequate, relevant, and proportionate to the purpose",
+          "object": "scope/volume of personal data processed",
+          "attributes": [
+            {
+              "attr_id": "s7-u1-a1",
+              "name": "data adequate for the purpose",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-adequate"
+            },
+            {
+              "attr_id": "s7-u1-a2",
+              "name": "data relevant to the purpose",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-relevant"
+            },
+            {
+              "attr_id": "s7-u1-a3",
+              "name": "data proportionate to the purpose",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": "def-proportionate"
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "adequate",
+            "relevant",
+            "proportionate",
+            "necessary",
+            "purpose",
+            "data minimisation",
+            "excessive"
+          ],
+          "control_hints": [
+            {
+              "family": "PM",
+              "candidate_controls": [
+                "pm-25"
+              ],
+              "anchor_strength": "partial",
+              "note": "PM-25 minimises PII in testing/training/research only - narrower than s.7; scope-mismatch is itself a finding"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "implicit_precondition",
+          "target": "PDPA-s6",
+          "via_unit": "s7-u1",
+          "confidence": "annotator_judgment",
+          "note": "not stated in the Act; the adequate/relevant/proportionate test is meaningless without s.6's defined purpose. First non-statutory edge."
+        }
+      ],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-adequate",
+        "def-relevant",
+        "def-proportionate"
+      ],
+      "annotation_notes": "Single flat obligation, three undefined-flagged quality attributes. The s.6 dependency is annotator judgment, not statutory - marked confidence accordingly."
+    },
+    {
+      "clause_id": "PDPA-s8",
+      "title": "Obligation to ensure accuracy",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "flat_obligation",
+        "proactive_remediation"
+      ],
+      "security_domains": [
+        "data_governance",
+        "data_quality"
+      ],
+      "verbatim_text": "Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.",
+      "simplified_text": "Data must be accurate and current, and the controller has a standing, proactive duty to erase or rectify inaccurate/outdated data without undue delay - independent of any data subject request.",
+      "obligation_units": [
+        {
+          "unit_id": "s8-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "ensure processed personal data is accurate and kept up to date",
+          "object": "quality/currency of personal data",
+          "attributes": [
+            {
+              "attr_id": "s8-u1-a1",
+              "name": "data accurate",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s8-u1-a2",
+              "name": "data kept up to date",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "accurate",
+            "up to date",
+            "data quality",
+            "current"
+          ],
+          "control_hints": [
+            {
+              "family": "SI",
+              "candidate_controls": [
+                "si-18"
+              ],
+              "anchor_strength": "strong",
+              "note": "SI-18 PII Quality Operations; cleanest 1:1 so far"
+            }
+          ]
+        },
+        {
+          "unit_id": "s8-u2",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "take every reasonable step to erase or rectify inaccurate or outdated personal data",
+          "object": "remediation of inaccurate/outdated data",
+          "attributes": [
+            {
+              "attr_id": "s8-u2-a1",
+              "name": "mechanism to erase or rectify inaccurate/outdated data exists",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s8-u2-a2",
+              "name": "remediation carried out without undue delay",
+              "kind": "temporal",
+              "specified_in_act": true,
+              "def_ref": "def-undue-delay"
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": "without undue delay",
+          "keywords": [
+            "erase",
+            "rectify",
+            "inaccurate",
+            "outdated",
+            "reasonable step",
+            "without undue delay"
+          ],
+          "control_hints": [
+            {
+              "family": "SI",
+              "candidate_controls": [
+                "si-18"
+              ],
+              "anchor_strength": "strong",
+              "note": "SI-18 includes correction/remediation of PII quality issues"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-undue-delay"
+      ],
+      "annotation_notes": "Split into two units: the maintain-accuracy state (s8-u1) and the proactive self-triggering remediation duty (s8-u2) with its own temporal qualifier. Related to s.15/s.16 but those are outside the set (Part II). First use of temporal_qualifier."
+    },
+    {
+      "clause_id": "PDPA-s9",
+      "title": "Obligation to limit the period of retention",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "flat_obligation",
+        "conditional_exemption"
+      ],
+      "security_domains": [
+        "data_governance",
+        "retention_management"
+      ],
+      "verbatim_text": "Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.",
+      "simplified_text": "Identifiable personal data may be kept only as long as necessary for its purpose; once no longer needed in identifiable form it should be deleted or de-identified. Longer retention is permitted for archiving/research/statistical purposes, but only subject to s.10.",
+      "obligation_units": [
+        {
+          "unit_id": "s9-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "keep personal data in identifiable form only for the period necessary for the processing purpose",
+          "object": "retention period of identifiable personal data",
+          "attributes": [
+            {
+              "attr_id": "s9-u1-a1",
+              "name": "retention limited to period necessary for the purpose",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s9-u1-a2",
+              "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+              "kind": "process",
+              "specified_in_act": false,
+              "def_ref": null,
+              "note": "not stated verbatim; implied by 'kept in a form which permits identification only for such period' - annotator inference"
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "retention",
+            "identification",
+            "period",
+            "necessary",
+            "purpose",
+            "deletion",
+            "de-identification"
+          ],
+          "control_hints": [
+            {
+              "family": "SI",
+              "candidate_controls": [
+                "si-12",
+                "si-12.1"
+              ],
+              "anchor_strength": "strong",
+              "note": "SI-12 Information Management and Retention; SI-12(1) Limit PII Elements is the sharper enhancement anchor"
+            }
+          ]
+        },
+        {
+          "unit_id": "s9-u2",
+          "unit_type": "exemption",
+          "actor": "controller",
+          "modality": "may",
+          "action": "store personal data for longer periods for the listed purposes",
+          "object": "extended retention for archival/research/statistical purposes",
+          "exempts": [
+            "s9-u1-a1"
+          ],
+          "scope": "archiving purposes in the public interest, scientific research, historical research, statistical purposes",
+          "attributes": [],
+          "applicability_conditions": [
+            {
+              "kind": "clause_satisfaction",
+              "target": "PDPA-s10",
+              "note": "extended retention permitted only subject to s.10 - statutory"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "archiving",
+            "public interest",
+            "scientific research",
+            "historical research",
+            "statistical",
+            "longer period"
+          ],
+          "control_hints": []
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "exemption_gate",
+          "target": "PDPA-s10",
+          "via_unit": "s9-u2",
+          "confidence": "statutory",
+          "note": "explicit 'subject to the provisions of section 10' in the proviso - same shared s.10 gate as s.6(2), forming the s.6/s.9/s.10 cluster"
+        }
+      ],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-controller",
+        "def-processing"
+      ],
+      "annotation_notes": "Mirrors s.6's shape (flat obligation + s.10-gated exemption), modality 'may'. s9-u1-a2 uses specified_in_act:false - the erase/de-identify mechanism is implied, not stated. Completes the s.6/s.9 -> s.10 cluster."
+    },
+    {
+      "clause_id": "PDPA-s10",
+      "title": "Obligation to maintain integrity and confidentiality",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "flat_obligation"
+      ],
+      "security_domains": [
+        "security",
+        "confidentiality",
+        "integrity",
+        "availability"
+      ],
+      "verbatim_text": "Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.",
+      "simplified_text": "The controller must protect data with appropriate technical and organizational measures (encryption, pseudonymisation, anonymisation, access controls named as examples, not a closed list) to prevent both unauthorized/unlawful processing and loss/destruction/damage. Spans two CIA-triad properties; depended upon by s.6(2) and s.9's exemptions.",
+      "obligation_units": [
+        {
+          "unit_id": "s10-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage",
+          "object": "security posture protecting personal data",
+          "attributes": [
+            {
+              "attr_id": "s10-u1-a1",
+              "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+              "kind": "outcome",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s10-u1-a2",
+              "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+              "kind": "outcome",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s10-u1-a3",
+              "name": "appropriate technical measures in place",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s10-u1-a4",
+              "name": "appropriate organizational measures in place",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "integrity",
+            "confidentiality",
+            "encryption",
+            "pseudonymisation",
+            "anonymisation",
+            "access controls",
+            "technical measures",
+            "organizational measures",
+            "unauthorized processing",
+            "loss",
+            "destruction",
+            "damage"
+          ],
+          "control_hints": [
+            {
+              "family": "SC",
+              "candidate_controls": [
+                "sc-8",
+                "sc-13",
+                "sc-28"
+              ],
+              "anchor_strength": "moderate",
+              "note": "SC-8 transmission, SC-13 crypto, SC-28 at rest - multiple candidates, no single 1:1; breadth not weakness"
+            },
+            {
+              "family": "AC",
+              "candidate_controls": [
+                "ac-3"
+              ],
+              "anchor_strength": "moderate",
+              "note": "AC-3 Access Enforcement for the access-controls technique"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "deferred_specifications": [
+        {
+          "aspect": "additional prescribed protective measures",
+          "delegated_to": "measures 'as may be prescribed' by regulations under the Act",
+          "instrument_status": "unknown",
+          "working_reference": "the four named techniques treated as the concrete illustrative set; 'such other measures as may be prescribed' left open",
+          "affects_attributes": [
+            "s10-u1-a3",
+            "s10-u1-a4"
+          ]
+        }
+      ],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-encryption",
+        "def-pseudonymisation",
+        "def-anonymise"
+      ],
+      "annotation_notes": "CACR DECISION: the four named techniques are keywords, NOT attributes, because the Act says 'including' - illustrative, not each mandatory. Counting them as required would make CACR over-demand. Attributes are the two prevention outcomes plus technical/organizational measures existing. Inbound edges from s.6-u2 and s.9-u2 derived at load time; s.10 is the 'depended-upon' node in the three-way cluster."
+    },
+    {
+      "clause_id": "PDPA-s12",
+      "title": "Accountability in the processing of personal data (Data Protection Management Programme)",
+      "status": "symbolized",
+      "part": "I",
+      "clause_shapes": [
+        "aggregating_umbrella"
+      ],
+      "security_domains": [
+        "governance",
+        "accountability"
+      ],
+      "verbatim_text": "(1) It shall be the duty of every controller to implement internal controls and procedures (the 'Data Protection Management Programme') that - (a) establishes and maintains duly catalogued records to demonstrate the manner in which the implementation of the data protection obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11 are carried out; (b) is designed on the basis of structure, scale, volume and sensitivity of processing activities; (c) provides for appropriate safeguards based on data protection impact assessments specified in section 24; (d) is integrated into the governance structure of the controller; (e) establishes internal oversight mechanisms; (f) has a mechanism to receive complaints, conduct inquiries and identify personal data breaches; (g) is updated based on periodic monitoring and assessments; and (h) facilitates the exercise of rights of data subjects under sections 13, 14, 15, 16 and 18, for the purpose of complying with the obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11. (2) The Authority shall from time to time issue guidelines in respect of the Data Protection Management Programme.",
+      "simplified_text": "The meta-obligation of Part I: the controller must build and maintain an internal governance system (the DPMP) that documents, oversees, and continuously updates how it complies with all the other Part I obligations (ss.5-11). Accountability infrastructure - record-keeping, governance integration, complaint/breach detection, periodic review - rather than a data-handling rule itself.",
+      "obligation_units": [
+        {
+          "unit_id": "s12-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "implement and maintain a Data Protection Management Programme meeting the eight specified design requirements",
+          "object": "internal governance programme (DPMP)",
+          "attributes": [
+            {
+              "attr_id": "s12-u1-a1",
+              "name": "catalogued records demonstrating implementation of ss.5-11 obligations",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a2",
+              "name": "designed on basis of structure/scale/volume/sensitivity of processing",
+              "kind": "quality",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a3",
+              "name": "provides safeguards based on s.24 DPIAs",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a4",
+              "name": "integrated into the controller's governance structure",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a5",
+              "name": "establishes internal oversight mechanisms",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a6",
+              "name": "mechanism to receive complaints, conduct inquiries, identify breaches",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a7",
+              "name": "updated based on periodic monitoring and assessments",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s12-u1-a8",
+              "name": "facilitates exercise of data subject rights under ss.13,14,15,16,18",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "accountability",
+            "data protection management programme",
+            "DPMP",
+            "internal controls",
+            "records",
+            "governance",
+            "oversight",
+            "complaints",
+            "monitoring",
+            "periodic review"
+          ],
+          "control_hints": [
+            {
+              "family": "PM",
+              "candidate_controls": [
+                "pm-18",
+                "pm-19"
+              ],
+              "anchor_strength": "moderate",
+              "note": "PM-18 Privacy Program Plan, PM-19 Privacy Program Leadership Role - governance-level match to the DPMP concept"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-I:s5-s11",
+          "via_unit": "s12-u1",
+          "confidence": "statutory",
+          "note": "explicitly names ss.5-11 as the obligations the DPMP governs; s.11 is outside the selected set but s.5-10 are all in it"
+        },
+        {
+          "dep_type": "references",
+          "target": "PDPA-s24",
+          "via_unit": "s12-u1",
+          "confidence": "statutory",
+          "note": "subsection (1)(c) points to s.24 DPIAs - reciprocal of s.24's own reference back to s.12"
+        },
+        {
+          "dep_type": "references",
+          "target": "PDPA-Part-II:s13-s18",
+          "via_unit": "s12-u1",
+          "confidence": "statutory",
+          "note": "subsection (1)(h) references Part II data subject rights - outside the selected set"
+        }
+      ],
+      "deferred_specifications": [
+        {
+          "aspect": "DPMP guidelines",
+          "delegated_to": "guidelines issued by the Authority under s.12(2)",
+          "instrument_status": "unknown",
+          "working_reference": "none - the eight statutory design requirements (a)-(h) are the concrete checkable set; Authority guidelines would refine but not replace them",
+          "affects_attributes": []
+        }
+      ],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-personal-data-breach"
+      ],
+      "annotation_notes": "First aggregating/umbrella clause. Eight sub-requirements become eight attributes on one unit - a governance/process clause, not a data-handling one. The 'aggregates' edge to ss.5-11 is the widest dependency fan-out so far. Reciprocal reference link with s.24. Whether OIAS/CIMS should score a governance clause differently from a data-handling clause is an open parameter-design question."
+    },
+    {
+      "clause_id": "PDPA-s22",
+      "title": "Additional obligations of the processors",
+      "status": "symbolized",
+      "part": "III",
+      "clause_shapes": [
+        "multi_duty_procedural",
+        "reclassification_trigger"
+      ],
+      "security_domains": [
+        "processor_obligations",
+        "third_party_management"
+      ],
+      "verbatim_text": "(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.",
+      "simplified_text": "Four processor duties: act only on written instructions; bind personnel to confidentiality; support compliance audits; delete/return data on instruction at end of service. Subsection (2) reclassifies a processor as a controller if it exceeds instructions or independently sets purposes. Subsections (3)-(4) extend obligations down a sub-processing chain with the processor liable for sub-processor failures.",
+      "obligation_units": [
+        {
+          "unit_id": "s22-u1",
+          "unit_type": "obligation",
+          "actor": "processor",
+          "modality": "shall",
+          "action": "carry out processing activities only on the written instructions of the controller",
+          "object": "instruction-bound processing",
+          "attributes": [
+            {
+              "attr_id": "s22-u1-a1",
+              "name": "processing carried out only on documented written controller instructions",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "written instructions",
+            "controller",
+            "processing on behalf"
+          ],
+          "control_hints": [
+            {
+              "family": "SA",
+              "candidate_controls": [
+                "sa-9"
+              ],
+              "anchor_strength": "moderate",
+              "note": "SA-9 External System Services - contractual/oversight requirements for external providers"
+            }
+          ]
+        },
+        {
+          "unit_id": "s22-u2",
+          "unit_type": "obligation",
+          "actor": "processor",
+          "modality": "shall",
+          "action": "bind personnel to confidentiality and secrecy via appropriate technical and organizational measures",
+          "object": "personnel confidentiality obligations",
+          "attributes": [
+            {
+              "attr_id": "s22-u2-a1",
+              "name": "personnel bound by contractual confidentiality/secrecy obligations",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": "def-personnel"
+            },
+            {
+              "attr_id": "s22-u2-a2",
+              "name": "appropriate technical and organizational measures implemented for personnel binding",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "personnel",
+            "confidentiality",
+            "secrecy",
+            "contractual",
+            "technical and organizational measures"
+          ],
+          "control_hints": [
+            {
+              "family": "SA",
+              "candidate_controls": [
+                "sa-9"
+              ],
+              "anchor_strength": "moderate",
+              "note": "echoes s.10's TOM language but applied to people, not data"
+            }
+          ]
+        },
+        {
+          "unit_id": "s22-u3",
+          "unit_type": "obligation",
+          "actor": "processor",
+          "modality": "shall",
+          "action": "facilitate the controller's compliance audits and inspections on written request",
+          "object": "audit facilitation",
+          "attributes": [
+            {
+              "attr_id": "s22-u3-a1",
+              "name": "mechanism to facilitate controller compliance audits and inspections",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "compliance audit",
+            "inspection",
+            "written request",
+            "facilitate"
+          ],
+          "control_hints": [
+            {
+              "family": "SA",
+              "candidate_controls": [
+                "sa-9"
+              ],
+              "anchor_strength": "moderate"
+            }
+          ]
+        },
+        {
+          "unit_id": "s22-u4",
+          "unit_type": "obligation",
+          "actor": "processor",
+          "modality": "shall",
+          "action": "erase or return all personal data to the controller on written instruction after service completion",
+          "object": "end-of-service data disposition",
+          "attributes": [
+            {
+              "attr_id": "s22-u4-a1",
+              "name": "mechanism to erase or return personal data on controller instruction at end of service",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": "after completion of the provision of services",
+          "keywords": [
+            "erase",
+            "return",
+            "personal data",
+            "completion of services",
+            "written instructions"
+          ],
+          "control_hints": [
+            {
+              "family": "SA",
+              "candidate_controls": [
+                "sa-9"
+              ],
+              "anchor_strength": "moderate"
+            }
+          ]
+        },
+        {
+          "unit_id": "s22-u5",
+          "unit_type": "reclassification",
+          "actor": "processor",
+          "modality": "deemed",
+          "action": "a processor that exceeds instructions or independently sets purposes/means is deemed a controller for that processing",
+          "object": "legal status reclassification trigger",
+          "attributes": [],
+          "applicability_conditions": [
+            {
+              "kind": "behavioural_trigger",
+              "value": "processor exceeds instructions OR independently determines purposes/means",
+              "note": "condition is behavioural, evaluated against conduct, not a documentation attribute"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "deemed controller",
+            "reclassification",
+            "purposes and means",
+            "exceeds instructions"
+          ],
+          "control_hints": [],
+          "scored": false,
+          "scoring_note": "Represented but NOT scored: a conditional legal status-change trigger, not a data-handling or documentation obligation. None of SSS/CACR/CRS/CIMS/OIAS is designed to detect this. Flagged as open in clause_selection.md; whether the parameter set gains a treatment for reclassification triggers is an open decision."
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "sub_processor_extension",
+          "target": "PDPA-s22",
+          "via_unit": null,
+          "confidence": "statutory",
+          "note": "subsections (3)-(4) recursively apply s.22 to sub-processors; self-referential. Sub-processor chain likely OUT OF SCOPE for the PoC (demo SSP describes one system, not a chain) - flagged, not scored."
+        },
+        {
+          "dep_type": "thematic",
+          "target": "PDPA-s10",
+          "via_unit": "s22-u2",
+          "confidence": "annotator_judgment",
+          "note": "s22(1)(b) 'appropriate technical and organizational measures' echoes s.10 almost verbatim but applies to binding personnel, not protecting data - thematic, not statutory"
+        }
+      ],
+      "deferred_specifications": [],
+      "definitions_used": [
+        "def-processor",
+        "def-controller",
+        "def-processing",
+        "def-personnel"
+      ],
+      "annotation_notes": "First processor-actor clause. Four scored duty units plus one reclassification unit (scored:false - the honest representable-but-not-scoreable flag). 'personnel' is the only local (non-s.56) definition in the set. Sub-processor provisions (3)-(4) noted as likely out of scope for the PoC. WHO the obligation falls on (processor, not controller) matters for pairing: a controller-side SSP may be the wrong artefact to check s.22 against."
+    },
+    {
+      "clause_id": "PDPA-s23",
+      "title": "Personal data breach notifications",
+      "status": "symbolized",
+      "part": "III",
+      "clause_shapes": [
+        "deferred_specification"
+      ],
+      "security_domains": [
+        "incident_response",
+        "breach_notification"
+      ],
+      "verbatim_text": "(1) In the event of a personal data breach, a controller shall notify the Authority, regarding such personal data breach in such form, manner and within such period of time as may be determined by rules made under this Act. (2) The Authority shall provide for - (a) the circumstances where the Authority shall be notified of such data breach; (b) the circumstances where the affected data subject shall be notified; and (c) the form, and manner of making such notification, and information which shall be provided in such notification relating to the data breach, by way of rules made under this Act.",
+      "simplified_text": "On a personal data breach, the controller must notify the Authority - but the Act itself does not specify timeline, form, or trigger conditions. Those are deferred to Authority rules under subsection (2). Unlike GDPR Art. 33's explicit 72-hour window, s.23 sets no concrete number in the primary legislation; the operative detail lives in rules that currently exist only in draft.",
+      "obligation_units": [
+        {
+          "unit_id": "s23-u1",
+          "unit_type": "deferred_duty",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "notify the Authority of a personal data breach in the form, manner, and time determined by rules",
+          "object": "breach notification to the Authority",
+          "attributes": [
+            {
+              "attr_id": "s23-u1-a1",
+              "name": "mechanism to notify the Authority of a personal data breach exists",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": "def-personal-data-breach"
+            },
+            {
+              "attr_id": "s23-u1-a2",
+              "name": "notification made within the required period",
+              "kind": "temporal",
+              "specified_in_act": false,
+              "def_ref": null,
+              "note": "period NOT specified in the Act - deferred to Authority rules; see deferred_specifications"
+            },
+            {
+              "attr_id": "s23-u1-a3",
+              "name": "notification made in the required form/manner with required information",
+              "kind": "process",
+              "specified_in_act": false,
+              "def_ref": null,
+              "note": "form/manner NOT specified in the Act - deferred to Authority rules"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "event_trigger",
+              "value": "personal data breach has occurred",
+              "def_ref": "def-personal-data-breach"
+            }
+          ],
+          "temporal_qualifier": "within such period as may be determined by rules",
+          "keywords": [
+            "personal data breach",
+            "notify",
+            "Authority",
+            "notification",
+            "form",
+            "manner",
+            "period"
+          ],
+          "control_hints": [
+            {
+              "family": "IR",
+              "candidate_controls": [
+                "ir-6",
+                "ir-8.1"
+              ],
+              "anchor_strength": "strong",
+              "note": "IR-8(1) Incident Response Plan | Breaches explicitly addresses PII breaches incl. notification determination; IR-6 Incident Reporting - near 1:1, strongest anchor in the set"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "thematic",
+          "target": "PDPA-s10",
+          "via_unit": "s23-u1",
+          "confidence": "annotator_judgment",
+          "note": "a breach is the failure mode s.10's safeguards exist to prevent; s.23 is the 'what happens when s.10 fails' clause - thematic, not statutory"
+        }
+      ],
+      "deferred_specifications": [
+        {
+          "aspect": "notification timeline, form, manner, threshold, and whether data subjects must also be notified",
+          "delegated_to": "Authority rules under s.23(2) read with s.52",
+          "instrument_status": "draft",
+          "working_reference": "72 hours to the Authority (DRAFT rule, public consultation stage, NOT finalized/gazetted as of 2026-07-19 - see sources.md). Usable as a provisional working reference for OIAS/CACR, flagged as draft not settled law.",
+          "affects_attributes": [
+            "s23-u1-a2",
+            "s23-u1-a3"
+          ]
+        }
+      ],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-personal-data-breach"
+      ],
+      "annotation_notes": "Deferred-specification clause: the Act states WHO acts and WHAT triggers the duty, but not HOW or WHEN - those are delegated to Authority rules currently only in draft. Two of three attributes carry specified_in_act:false because their operative content lives in the deferred rules, not the Act. This is the concrete case that motivated the deferred_specifications object and the whole 2026-07-19 scoping decision."
+    },
+    {
+      "clause_id": "PDPA-s24",
+      "title": "Personal data protection impact assessments",
+      "status": "symbolized",
+      "part": "III",
+      "clause_shapes": [
+        "conditional_aggregating",
+        "trigger_gated"
+      ],
+      "security_domains": [
+        "governance",
+        "risk_assessment"
+      ],
+      "verbatim_text": "(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.",
+      "simplified_text": "Before certain higher-risk processing, the controller must conduct a formal DPIA. Three triggers: (a) systematic extensive evaluation/profiling; (b) systematic monitoring of publicly accessible areas or telecom networks; (c) a rule-designated high-risk activity. The DPIA must document mitigations, involve the DPO if designated, be redone on material change, and be submitted to the Authority. Trigger (b) is the most literal fit for the FleetTrack location-tracking scenario.",
+      "obligation_units": [
+        {
+          "unit_id": "s24-t1",
+          "unit_type": "trigger",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "trigger: processing involves systematic and extensive evaluation/profiling of personal or special-category data",
+          "object": "DPIA applicability trigger (a)",
+          "attributes": [
+            {
+              "attr_id": "s24-t1-a1",
+              "name": "processing involves systematic and extensive evaluation including profiling",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "systematic",
+            "extensive",
+            "evaluation",
+            "profiling",
+            "special categories"
+          ],
+          "control_hints": []
+        },
+        {
+          "unit_id": "s24-t2",
+          "unit_type": "trigger",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "trigger: processing involves systematic monitoring of publicly accessible areas or telecommunication networks",
+          "object": "DPIA applicability trigger (b)",
+          "attributes": [
+            {
+              "attr_id": "s24-t2-a1",
+              "name": "processing involves systematic monitoring of publicly accessible areas or telecom networks",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "systematic monitoring",
+            "publicly accessible areas",
+            "telecommunication networks",
+            "tracking",
+            "surveillance"
+          ],
+          "control_hints": []
+        },
+        {
+          "unit_id": "s24-t3",
+          "unit_type": "trigger",
+          "actor": "controller",
+          "modality": "conditional",
+          "action": "trigger: processing is a rule-designated high-risk activity",
+          "object": "DPIA applicability trigger (c)",
+          "attributes": [
+            {
+              "attr_id": "s24-t3-a1",
+              "name": "processing is designated high-risk by Authority rules",
+              "kind": "condition",
+              "specified_in_act": false,
+              "def_ref": null,
+              "note": "content delegated to Authority rules - see deferred_specifications"
+            }
+          ],
+          "applicability_conditions": [],
+          "temporal_qualifier": null,
+          "keywords": [
+            "rules",
+            "scope",
+            "associated risks",
+            "high-risk"
+          ],
+          "control_hints": []
+        },
+        {
+          "unit_id": "s24-u1",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "carry out a personal data protection impact assessment prior to the triggering processing",
+          "object": "DPIA conduct",
+          "attributes": [
+            {
+              "attr_id": "s24-u1-a1",
+              "name": "DPIA carried out prior to processing",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s24-u1-a2",
+              "name": "DPIA ascertains impact on Part I obligations and Part II rights",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            },
+            {
+              "attr_id": "s24-u1-a3",
+              "name": "DPIA documents measures and safeguards to mitigate risk of harm",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "any_trigger_met",
+              "targets": [
+                "s24-t1",
+                "s24-t2",
+                "s24-t3"
+              ],
+              "note": "obligation applies only if at least one trigger fired - applicability before compliance"
+            }
+          ],
+          "temporal_qualifier": "prior to such processing",
+          "keywords": [
+            "impact assessment",
+            "DPIA",
+            "prior to processing",
+            "mitigate",
+            "risk of harm",
+            "safeguards"
+          ],
+          "control_hints": [
+            {
+              "family": "RA",
+              "candidate_controls": [
+                "ra-8"
+              ],
+              "anchor_strength": "strong",
+              "note": "RA-8 Privacy Impact Assessments - near word-for-word intent match, strongest textual anchor in the set"
+            }
+          ]
+        },
+        {
+          "unit_id": "s24-u2",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "seek the assistance of the Data Protection Officer where designated",
+          "object": "DPO involvement in DPIA",
+          "attributes": [
+            {
+              "attr_id": "s24-u2-a1",
+              "name": "DPO involved in the DPIA where one is designated",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": "def-dpo"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "any_trigger_met",
+              "targets": [
+                "s24-t1",
+                "s24-t2",
+                "s24-t3"
+              ]
+            },
+            {
+              "kind": "conditional_on",
+              "value": "a DPO has been designated under s.20",
+              "note": "only applies where a DPO exists"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "Data Protection Officer",
+            "DPO",
+            "assistance",
+            "designated"
+          ],
+          "control_hints": [
+            {
+              "family": "RA",
+              "candidate_controls": [
+                "ra-8"
+              ],
+              "anchor_strength": "moderate"
+            }
+          ]
+        },
+        {
+          "unit_id": "s24-u3",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "conduct a fresh DPIA whenever methodology, technology, or process changes",
+          "object": "DPIA refresh on material change",
+          "attributes": [
+            {
+              "attr_id": "s24-u3-a1",
+              "name": "mechanism to trigger a fresh DPIA on change of methodology/technology/process",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "any_trigger_met",
+              "targets": [
+                "s24-t1",
+                "s24-t2",
+                "s24-t3"
+              ]
+            },
+            {
+              "kind": "event_trigger",
+              "value": "material change in methodology, technology, or process"
+            }
+          ],
+          "temporal_qualifier": "whenever there is any change",
+          "keywords": [
+            "fresh assessment",
+            "change",
+            "methodology",
+            "technology",
+            "process"
+          ],
+          "control_hints": [
+            {
+              "family": "RA",
+              "candidate_controls": [
+                "ra-8"
+              ],
+              "anchor_strength": "moderate"
+            }
+          ]
+        },
+        {
+          "unit_id": "s24-u4",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "shall",
+          "action": "submit the DPIA to the Authority and provide further information on request",
+          "object": "DPIA submission to Authority",
+          "attributes": [
+            {
+              "attr_id": "s24-u4-a1",
+              "name": "DPIA submitted to the Authority",
+              "kind": "process",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "any_trigger_met",
+              "targets": [
+                "s24-t1",
+                "s24-t2",
+                "s24-t3"
+              ]
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "submit",
+            "Authority",
+            "further information",
+            "request"
+          ],
+          "control_hints": [
+            {
+              "family": "RA",
+              "candidate_controls": [
+                "ra-8"
+              ],
+              "anchor_strength": "moderate"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-I:s5-s11",
+          "via_unit": "s24-u1",
+          "confidence": "statutory",
+          "note": "DPIA assesses impact on Part I obligations"
+        },
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-II:s13-s19",
+          "via_unit": "s24-u1",
+          "confidence": "statutory",
+          "note": "DPIA assesses impact on Part II rights - outside the selected set"
+        },
+        {
+          "dep_type": "referenced_by",
+          "target": "PDPA-s12",
+          "via_unit": "s24-u1",
+          "confidence": "statutory",
+          "note": "s.12(1)(c) points to s.24 - reciprocal of s.24's role in the DPMP"
+        },
+        {
+          "dep_type": "references",
+          "target": "PDPA-s20",
+          "via_unit": "s24-u2",
+          "confidence": "statutory",
+          "note": "DPO designated under s.20 - outside the selected set"
+        }
+      ],
+      "deferred_specifications": [
+        {
+          "aspect": "additional rule-designated high-risk processing activities (trigger c)",
+          "delegated_to": "rules under s.24(1)(c)",
+          "instrument_status": "unknown",
+          "working_reference": "none - triggers (a) and (b) are the concrete self-contained triggers; (c) is open-ended",
+          "affects_attributes": [
+            "s24-t3-a1"
+          ]
+        }
+      ],
+      "definitions_used": [
+        "def-controller",
+        "def-processing",
+        "def-special-categories",
+        "def-dpo"
+      ],
+      "annotation_notes": "Conditional aggregating clause: three trigger units gate four obligation units via any_trigger_met - the applicability-before-compliance design made concrete and the first use of trigger units. Reciprocal link with s.12. Trigger (b) is the strongest literal fit for FleetTrack (location tracking); RA-8 is the strongest textual anchor in the whole set. FleetTrack's SSP documents RA-8 as narrative-only (no DPIA conducted) - the honestly-flagged demo gap, useful for discriminant degradation."
+    },
+    {
+      "clause_id": "PDPA-s26",
+      "title": "Cross-border data flow",
+      "status": "symbolized",
+      "part": "III",
+      "clause_shapes": [
+        "actor_branching",
+        "aggregating_umbrella",
+        "tiered_permission"
+      ],
+      "security_domains": [
+        "cross_border_transfer",
+        "data_localisation"
+      ],
+      "verbatim_text": "(1) Where a public authority processes personal data as controller or processor, such personal data shall be processed only in Sri Lanka and shall not be processed in a third country, unless the Authority classifies categories permitted in a third country pursuant to an adequacy decision. (2) [Minister's adequacy-decision process, reviewed at least every two years.] (3) A controller or processor other than a public authority may process personal data - (a) in a third country prescribed pursuant to an adequacy decision; or (b) in a country not so prescribed, only where it ensures compliance with the obligations under Part I, Part II and ss.20-25 of Part III. (4) [Instruments the Authority may specify for binding safeguards.] (5) In the absence of an adequacy decision or appropriate safeguards, a controller or processor other than a public authority may process personal data outside Sri Lanka if - (a) explicit informed consent; (b) contract necessity; (c) legal claims; (d) public interest as defined in Schedule I item (g); (e) vital-interest emergency; or (f) other prescribed conditions.",
+      "simplified_text": "A tiered system differing by actor. Public authorities: data stays in Sri Lanka unless the Authority classifies categories as permitted abroad under an adequacy decision. Private controllers/processors: adequacy-decision countries are fine; non-adequacy countries only if the full Part I/II/20-25 obligation set is independently satisfied; failing both, a narrow list of derogations applies. Cross-border transfer is default-prohibited; permission is the exception that must be affirmatively established.",
+      "obligation_units": [
+        {
+          "unit_id": "s26-u1",
+          "unit_type": "obligation",
+          "actor": "public_authority",
+          "modality": "shall_not",
+          "action": "public authority must not process personal data in a third country absent an adequacy-based classification",
+          "object": "public-authority data localisation",
+          "attributes": [
+            {
+              "attr_id": "s26-u1-a1",
+              "name": "public-authority personal data processed only in Sri Lanka unless adequacy classification permits otherwise",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": "def-public-authority"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "actor_category",
+              "value": "public_authority",
+              "def_ref": "def-public-authority"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "public authority",
+            "third country",
+            "Sri Lanka",
+            "data localisation",
+            "adequacy decision"
+          ],
+          "control_hints": [
+            {
+              "family": null,
+              "candidate_controls": [],
+              "anchor_strength": "none_found",
+              "note": "no 800-53 control for cross-border transfer restriction - see clause-level note"
+            }
+          ]
+        },
+        {
+          "unit_id": "s26-u2",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "may",
+          "action": "private controller/processor may transfer to an adequacy-decision third country",
+          "object": "adequacy-route transfer permission",
+          "attributes": [
+            {
+              "attr_id": "s26-u2-a1",
+              "name": "third country is prescribed pursuant to an adequacy decision",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": "def-third-country"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "actor_category",
+              "value": "private_controller_or_processor",
+              "note": "controller or processor other than a public authority"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "adequacy decision",
+            "third country",
+            "prescribed",
+            "transfer"
+          ],
+          "control_hints": [
+            {
+              "family": null,
+              "candidate_controls": [],
+              "anchor_strength": "none_found"
+            }
+          ]
+        },
+        {
+          "unit_id": "s26-u3",
+          "unit_type": "obligation",
+          "actor": "controller",
+          "modality": "may",
+          "action": "private controller/processor may transfer to a non-adequacy country only by independently ensuring the full domestic obligation set applies",
+          "object": "non-adequacy-route transfer permission",
+          "attributes": [
+            {
+              "attr_id": "s26-u3-a1",
+              "name": "compliance with Part I, Part II and ss.20-25 of Part III independently ensured for the transfer",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": null
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "actor_category",
+              "value": "private_controller_or_processor"
+            },
+            {
+              "kind": "conditional_on",
+              "value": "destination country is NOT an adequacy-decision country"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "non-adequacy",
+            "Part I",
+            "Part II",
+            "sections 20-25",
+            "binding safeguards",
+            "enforceable commitments"
+          ],
+          "control_hints": [
+            {
+              "family": null,
+              "candidate_controls": [],
+              "anchor_strength": "none_found"
+            }
+          ]
+        },
+        {
+          "unit_id": "s26-u4",
+          "unit_type": "exemption",
+          "actor": "controller",
+          "modality": "may",
+          "action": "absent adequacy or safeguards, transfer permitted under one of the enumerated derogations",
+          "object": "derogation-route transfer permission",
+          "exempts": [
+            "s26-u2-a1",
+            "s26-u3-a1"
+          ],
+          "scope": "explicit informed consent; contract necessity; legal claims; public interest (Schedule I item g); vital-interest emergency; other prescribed conditions",
+          "attributes": [
+            {
+              "attr_id": "s26-u4-a1",
+              "name": "at least one enumerated derogation ground established",
+              "kind": "condition",
+              "specified_in_act": true,
+              "def_ref": "def-public-interest-schI-g",
+              "quantifier": "any"
+            }
+          ],
+          "applicability_conditions": [
+            {
+              "kind": "actor_category",
+              "value": "private_controller_or_processor"
+            },
+            {
+              "kind": "conditional_on",
+              "value": "no adequacy decision and no appropriate safeguards available"
+            }
+          ],
+          "temporal_qualifier": null,
+          "keywords": [
+            "derogation",
+            "explicit consent",
+            "contract",
+            "legal claims",
+            "public interest",
+            "emergency",
+            "vital interest"
+          ],
+          "control_hints": [
+            {
+              "family": null,
+              "candidate_controls": [],
+              "anchor_strength": "none_found"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-I:s5-s11",
+          "via_unit": "s26-u3",
+          "confidence": "statutory",
+          "note": "non-adequacy transfer requires full Part I compliance"
+        },
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-II:s13-s19",
+          "via_unit": "s26-u3",
+          "confidence": "statutory",
+          "note": "requires full Part II compliance - outside selected set"
+        },
+        {
+          "dep_type": "aggregates",
+          "target": "PDPA-Part-III:s20-s25",
+          "via_unit": "s26-u3",
+          "confidence": "statutory",
+          "note": "requires ss.20-25 compliance - widest fan-out in the set, spanning three Parts"
+        },
+        {
+          "dep_type": "definition_reuse",
+          "target": "def-public-interest-schI-g",
+          "via_unit": "s26-u4",
+          "confidence": "statutory",
+          "note": "s.26(5)(d) reuses Schedule I(g)'s 'public interest' definition - the only cross-clause internal-definition reuse in the set, closing a loop back to s.5's lawful-basis framework"
+        }
+      ],
+      "deferred_specifications": [
+        {
+          "aspect": "adequacy decisions (which third countries), binding-safeguard instruments, and other prescribed derogation conditions",
+          "delegated_to": "Minister's adequacy decisions under s.26(2); Authority-specified instruments under s.26(4); prescribed conditions under s.26(5)(f)",
+          "instrument_status": "unknown",
+          "working_reference": "none - no adequacy decisions or prescribed instruments confirmed",
+          "affects_attributes": [
+            "s26-u2-a1",
+            "s26-u3-a1"
+          ]
+        }
+      ],
+      "definitions_used": [
+        "def-controller",
+        "def-processor",
+        "def-processing",
+        "def-public-authority",
+        "def-third-country",
+        "def-cross-border-data-flow",
+        "def-public-interest-schI-g"
+      ],
+      "annotation_notes": "Actor-branching: per-unit actor distinguishes public authority (shall_not, localisation) from private controller/processor (tiered may-permissions + derogations) under one section. Widest aggregates fan-out in the set (Parts I, II, III ss.20-25). CONTROL-HINT FINDING: no 800-53 anchor found for cross-border transfer - 800-53 is a US domestic framework without GDPR-style adequacy mechanics. The absence is itself a reportable finding on the limits of cross-framework mapping, directly relevant to the research gap. Open decision: score as none_found or exclude from pairing entirely."
+    }
+  ]
+}
