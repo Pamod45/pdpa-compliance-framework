@@ -8,3 +8,4 @@ src/pcef.egg-info/requires.txt
 src/pcef.egg-info/top_level.txt
 src/pcef/models/__init__.py
 src/pcef/models/clause_profile.py
+tests/test_clause_profile.py

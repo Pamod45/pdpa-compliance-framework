@@ -11,8 +11,14 @@ from .clause_profile import (
     ObligationUnit,
     PDPAProfileSet,
 )
+from .normalized_control import (
+    ByComponent,
+    NormalizedControl,
+    SubPart,
+)
 
 __all__ = [
+    # clause side (locked)
     "ApplicabilityCondition",
     "Attribute",
     "ClauseProfile",
@@ -24,4 +30,8 @@ __all__ = [
     "Meta",
     "ObligationUnit",
     "PDPAProfileSet",
+    # control side (draft)
+    "ByComponent",
+    "NormalizedControl",
+    "SubPart",
 ]
