@@ -15,6 +15,7 @@ from .normalized_control import (
     ByComponent,
     NormalizedControl,
     SubPart,
+    UnmatchedStatement,
 )
 
 __all__ = [
@@ -34,4 +35,5 @@ __all__ = [
     "ByComponent",
     "NormalizedControl",
     "SubPart",
+    "UnmatchedStatement",
 ]
