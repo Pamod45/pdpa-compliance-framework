@@ -25,7 +25,7 @@ from pcef.parsers.catalog import _PLACEHOLDER
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data" / "raw" / "catalogs" / "nist_sp800_53_rev5" / "NIST_SP-800-53_rev5_catalog.json"
-FLEETTRACK = ROOT / "data" / "ssps" / "fleettrack" / "fleettrack_ssp.json"
+FLEETTRACK = ROOT / "data" / "raw" / "ssps" / "fleettrack" / "fleettrack_ssp.json"
 NIST_EXAMPLE = ROOT / "data" / "raw" / "ssps" / "public" / "nist_example" / "enterprise_logging_auditing_ssp.json"
 
 
