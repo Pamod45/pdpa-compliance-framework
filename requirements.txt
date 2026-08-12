@@ -1,3 +1,4 @@
 pydantic>=2.0
 pymupdf
 pytest
+sentence-transformers>=3.0
