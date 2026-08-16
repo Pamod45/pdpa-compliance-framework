@@ -196,6 +196,16 @@ def _resolve_leaf(
     )
 
 
+def _ancestor_context(cat: CatalogControl, smt_id: str) -> str:
+    """Ancestor prose, top-down, so a list-item leaf keeps the stem that gives it meaning."""
+    parts = []
+    for anc in reversed(cat.ancestors(smt_id)):
+        node = cat.node(anc)
+        if node is not None and node.prose.strip():
+            parts.append(node.prose.strip())
+    return " ".join(parts)
+
+
 def normalize_control(
     control_id: str,
     catalog: CatalogIndex,
@@ -219,7 +229,9 @@ def normalize_control(
     ssp_ctrl = ssp.get(control_id) if ssp else None
 
     sub_parts = [
-        _resolve_leaf(leaf.smt_id, leaf.prose, cat, ssp_ctrl, report)
+        _resolve_leaf(leaf.smt_id, leaf.prose, cat, ssp_ctrl, report).model_copy(
+            update={"catalog_context": _ancestor_context(cat, leaf.smt_id)}
+        )
         for leaf in cat.leaves
     ]
 
