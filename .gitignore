@@ -5,3 +5,15 @@ Thumbs.db
 ~$*
 __pycache__
 .venv/
+
+# Build and packaging
+*.egg-info/
+build/
+dist/
+node_modules/
+
+# Output archives
+outputs/*.zip
+
+# Personal notes
+workflow/

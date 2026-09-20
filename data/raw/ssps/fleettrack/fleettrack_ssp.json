@@ -78,6 +78,10 @@
           "name": "hosting",
           "value": "local-development-only",
           "remarks": "Not deployed. Overseas cloud hosting is a narrative device for the s.26 clause only."
+        },
+        { 
+          "name": "pdpa-role", 
+          "value": "processor,controller"
         }
       ],
       "security-sensitivity-level": "moderate",

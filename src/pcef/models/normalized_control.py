@@ -85,6 +85,8 @@ class SubPart(_Base):
 
     smt_id: str                             # join key; a catalog LEAF part id
     catalog_text: str                       # normative prose, ODP placeholders resolved/stripped
+    catalog_context: str = ""               # ancestor prose, top-down; Alignment text only,
+                                            # does not change the row set (A3)
     status: Literal["implemented", "inherited", "na", "absent"]
     source_smt_id: Optional[str] = None     # which statement the by_components actually came from:
                                             #   implemented -> == smt_id
