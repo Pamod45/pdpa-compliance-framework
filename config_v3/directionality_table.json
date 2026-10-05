@@ -1,0 +1,87 @@
+{
+  "_status": "FROZEN 2026-10-05 - method of record. Do not change values without a new dated decision; any change invalidates results produced under the previous config_sha256.",
+  "domain_orientation": {
+    "_why": "Clause security_domains -> orientation. A unit takes the orientation that appears most often among its clause's domains; ties go to the first listed.",
+    "security": "technical",
+    "confidentiality": "technical",
+    "integrity": "technical",
+    "availability": "technical",
+    "incident_response": "procedural",
+    "breach_notification": "procedural",
+    "governance": "governance",
+    "accountability": "governance",
+    "risk_assessment": "governance",
+    "processor_obligations": "governance",
+    "third_party_management": "governance",
+    "lawfulness": "data_governance",
+    "authorization": "data_governance",
+    "data_governance": "data_governance",
+    "purpose_management": "data_governance",
+    "data_minimisation": "data_governance",
+    "data_quality": "data_governance",
+    "retention_management": "data_governance",
+    "cross_border_transfer": "data_governance",
+    "data_localisation": "data_governance"
+  },
+  "family_orientation": {
+    "SC": "technical",
+    "IA": "technical",
+    "AC": "technical",
+    "AU": "technical",
+    "SI": "technical",
+    "MP": "technical",
+    "IR": "procedural",
+    "CP": "procedural",
+    "AT": "procedural",
+    "PM": "governance",
+    "PL": "governance",
+    "RA": "governance",
+    "SA": "governance",
+    "CA": "governance",
+    "SR": "governance",
+    "PT": "data_governance"
+  },
+  "control_orientation": {
+    "_why": "Control-level overrides, checked BEFORE family_orientation. Needed because a family can mix technical and privacy controls (SI holds si-12/si-18/si-19). Lookup order: exact control id, then its base control (si-12.1 -> si-12), then the family.",
+    "si-12": "data_governance",
+    "si-18": "data_governance",
+    "si-19": "data_governance",
+    "ac-21": "data_governance"
+  },
+  "compatibility": {
+    "technical": {
+      "technical": 1.0,
+      "procedural": 0.4,
+      "governance": 0.2,
+      "data_governance": 0.4
+    },
+    "procedural": {
+      "technical": 0.4,
+      "procedural": 1.0,
+      "governance": 0.6,
+      "data_governance": 0.4
+    },
+    "governance": {
+      "technical": 0.2,
+      "procedural": 0.6,
+      "governance": 1.0,
+      "data_governance": 0.7
+    },
+    "data_governance": {
+      "technical": 0.4,
+      "procedural": 0.4,
+      "governance": 0.7,
+      "data_governance": 1.0
+    }
+  },
+  "level_match": {
+    "_why": "Expected catalog implementation-level per orientation. A mismatch multiplies the cell by level_mismatch_factor.",
+    "technical": "system",
+    "procedural": "organization",
+    "governance": "organization",
+    "data_governance": "organization",
+    "level_mismatch_factor": 0.8
+  },
+  "unknown_default": 0.5,
+  "_compatibility_why": "Symmetric by design: whether a duty and a control are the same TYPE does not depend on which side you start from. Three previously asymmetric pairs (technical-procedural, technical-governance, technical-data_governance) were set to the LOWER value (cautious: less credit for a type mismatch). None of the 37 FleetTrack pairs uses the changed cells, so the choice was not results-driven."
+}
