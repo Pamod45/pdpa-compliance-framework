@@ -1,0 +1,128 @@
+{
+  "mode": "CONFIRM on held-out set: richer_text",
+  "bar": {
+    "all_margins_positive": true,
+    "unrelated_pass_rate_below": 0.2
+  },
+  "negative_controls": [
+    "pe-9",
+    "pe-10",
+    "pe-12",
+    "ma-3",
+    "ma-4"
+  ],
+  "models": {
+    "sentence-transformers/all-mpnet-base-v2": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+  },
+  "real_pairs": 37,
+  "variants": {
+    "richer_text": {
+      "worst_margin": -0.0427,
+      "units_negative_margin": 2,
+      "units": 19,
+      "tightest_safe_floor": 0.3287,
+      "unrelated_pass_rate_at_tightest_floor": 0.2,
+      "unrelated_pass_rate_at_config_floor": 0.6842,
+      "median_real": 0.5214,
+      "median_unrelated": 0.2442,
+      "per_unit": [
+        {
+          "unit": "s10-u1",
+          "margin": 0.0895,
+          "top_unrelated": "pe-9"
+        },
+        {
+          "unit": "s12-u1",
+          "margin": 0.1139,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s22-u1",
+          "margin": 0.0386,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s22-u2",
+          "margin": 0.1528,
+          "top_unrelated": "pe-10"
+        },
+        {
+          "unit": "s22-u3",
+          "margin": 0.0646,
+          "top_unrelated": "ma-3"
+        },
+        {
+          "unit": "s22-u4",
+          "margin": -0.0427,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s23-u1",
+          "margin": 0.1831,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s24-u1",
+          "margin": 0.3877,
+          "top_unrelated": "pe-9"
+        },
+        {
+          "unit": "s24-u2",
+          "margin": 0.0806,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s24-u3",
+          "margin": -0.0268,
+          "top_unrelated": "ma-3"
+        },
+        {
+          "unit": "s24-u4",
+          "margin": 0.0511,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s5-u1",
+          "margin": 0.1119,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s5-u2",
+          "margin": 0.2314,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s5-u3",
+          "margin": 0.0766,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s6-u1",
+          "margin": 0.2068,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s7-u1",
+          "margin": 0.0528,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s8-u1",
+          "margin": 0.1135,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s8-u2",
+          "margin": 0.0439,
+          "top_unrelated": "ma-4"
+        },
+        {
+          "unit": "s9-u1",
+          "margin": 0.1865,
+          "top_unrelated": "ma-4"
+        }
+      ],
+      "meets_bar": false
+    }
+  }
+}
