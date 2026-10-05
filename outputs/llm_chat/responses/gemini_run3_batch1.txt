@@ -1,0 +1,116 @@
+[
+{
+"pair_id": "s5-u1|pt-2",
+"alignment": 0.9,
+"realization": 0.9,
+"rationale": "The control directly addresses determining and restricting processing based on legal authority. The implementation strongly enforces this by requiring a lawful basis at the database and application schema levels before any record creation."
+},
+{
+"pair_id": "s5-u1|pt-3",
+"alignment": 0.2,
+"realization": 0.1,
+"rationale": "The control focuses on purpose specification and compatibility, rather than the legal basis for processing. The implementation covers telemetry scoping but does not enforce or track the underlying legal basis."
+},
+{
+"pair_id": "s5-u2|pt-2",
+"alignment": 0.7,
+"realization": 0.3,
+"rationale": "The control requires documenting the authority for processing PII, which applies to special categories, though it doesn't explicitly mention them. The implementation enforces a general lawful basis but lacks any specific mechanism or field to handle special-category conditions."
+},
+{
+"pair_id": "s5-u2|pt-3",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Purpose limitation controls do not address the specific legal obligation of establishing a lawful basis for special categories of data. The implementation is entirely unrelated to special category lawful bases."
+},
+{
+"pair_id": "s5-u3|pt-2",
+"alignment": 0.6,
+"realization": 0.0,
+"rationale": "While the control requires documenting legal authority (which includes consent), it lacks specific mechanisms for managing consent conditions. The implementation hardcodes an employment necessity basis and completely omits consent handling."
+},
+{
+"pair_id": "s5-u3|pt-3",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Purpose limitation and compatibility tracking do not satisfy the specific conditions required for consent. The implementation does not address consent mechanisms at all."
+},
+{
+"pair_id": "s5-u3|pt-4",
+"alignment": 1.0,
+"realization": 0.0,
+"rationale": "The control explicitly requires mechanisms for individuals to provide informed consent, directly aligning with the obligation's consent conditions. However, the organization has not implemented this control."
+},
+{
+"pair_id": "s5-u3|pt-5",
+"alignment": 0.4,
+"realization": 0.0,
+"rationale": "Privacy notices facilitate informed consent by providing necessary information, but do not cover the actual mechanism of obtaining and recording consent. The implementation does not address this control."
+},
+{
+"pair_id": "s6-u1|pt-2",
+"alignment": 0.2,
+"realization": 0.0,
+"rationale": "The control governs the legal authority to process data, rather than the specification of purposes and restriction of incompatible further processing. The implementation's lawful basis enforcement does not restrict secondary data uses."
+},
+{
+"pair_id": "s6-u1|pt-3",
+"alignment": 1.0,
+"realization": 0.4,
+"rationale": "The control perfectly aligns with the obligation to specify purposes and restrict incompatible further processing. The implementation scopes initial collection adequately, but its compatibility assessment for secondary uses is purely narrative and lacks technical enforcement."
+},
+{
+"pair_id": "s7-u1|pm-18",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "A privacy program plan is a high-level governance requirement and does not directly enforce data minimization (adequacy, relevance, and proportionality). The implementation is purely narrative with no actual documentation existing."
+},
+{
+"pair_id": "s7-u1|pm-25",
+"alignment": 0.3,
+"realization": 0.0,
+"rationale": "The control addresses data minimization, but is narrowly scoped only to testing, training, and research environments rather than general processing. The organization has not implemented this control."
+},
+{
+"pair_id": "s8-u1|si-12",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Information retention controls govern how long data is kept, which is distinct from the obligation to ensure data accuracy and currency. The implementation's time-based purging does not ensure the remaining data is accurate."
+},
+{
+"pair_id": "s8-u1|si-18",
+"alignment": 0.9,
+"realization": 0.5,
+"rationale": "The control directly addresses checking for and correcting inaccurate or outdated PII. The implementation provides manual API endpoints for correction but lacks any proactive checks or automated lifecycle reviews."
+},
+{
+"pair_id": "s8-u2|si-12",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Managing data retention lifecycles does not fulfill the requirement to provide a mechanism specifically for rectifying or erasing inaccurate data. The implemented purge mechanism is time-based, not accuracy-based."
+},
+{
+"pair_id": "s8-u2|si-18",
+"alignment": 1.0,
+"realization": 0.7,
+"rationale": "The control explicitly requires correcting or deleting inaccurate or outdated information, perfectly matching the obligation. The implementation provides functional, role-based API endpoints allowing manual rectification of identity records."
+},
+{
+"pair_id": "s9-u1|si-12",
+"alignment": 0.9,
+"realization": 0.7,
+"rationale": "The control mandates managing retention in accordance with laws, directly supporting the obligation to limit the retention period of identifiable data. The implementation technically supports this via an expiration flag and a functional purge script, though it lacks an automated scheduler."
+},
+{
+"pair_id": "s9-u1|si-12.1",
+"alignment": 0.2,
+"realization": 0.0,
+"rationale": "Limiting the specific elements of PII processed is a data minimization control, not a control for limiting the temporal retention period. The organization has not implemented this control."
+},
+{
+"pair_id": "s9-u1|si-18",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Data quality operations focusing on accuracy and completeness do not address the distinct obligation of limiting how long data is retained in an identifiable form. The implementation's correction endpoints are irrelevant to retention limits."
+}
+]

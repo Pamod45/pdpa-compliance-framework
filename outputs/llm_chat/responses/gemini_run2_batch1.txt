@@ -1,0 +1,116 @@
+[
+  {
+    "pair_id": "s5-u1|pt-2",
+    "alignment": 0.9,
+    "realization": 0.9,
+    "rationale": "The control directly requires determining the authority to process, mirroring the obligation to establish a lawful basis. The implementation strictly enforces a recorded lawful basis (Schedule I) at the database layer and API level."
+  },
+  {
+    "pair_id": "s5-u1|pt-3",
+    "alignment": 0.2,
+    "realization": 0.3,
+    "rationale": "The control addresses processing purposes rather than establishing a lawful basis condition. The implementation enforces collection scope for a stated purpose but does not address lawful basis conditions here."
+  },
+  {
+    "pair_id": "s5-u2|pt-2",
+    "alignment": 0.8,
+    "realization": 0.2,
+    "rationale": "The control requires documenting the processing authority, which applies to establishing Schedule II conditions. The implementation establishes a Schedule I basis but fails to mention or implement mechanisms for handling Schedule II special-category data."
+  },
+  {
+    "pair_id": "s5-u2|pt-3",
+    "alignment": 0.1,
+    "realization": 0.1,
+    "rationale": "The control covers processing purposes, not the lawful basis requirements for special-category data. The implementation discusses collection scoping and narrative purpose limitations, ignoring special-category conditions."
+  },
+  {
+    "pair_id": "s5-u3|pt-2",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "While documenting authority relates generally to establishing a lawful basis, consent has specific requirements not explicitly detailed in pt-2. The implementation solely focuses on a Schedule I employment basis and ignores consent (Schedule III)."
+  },
+  {
+    "pair_id": "s5-u3|pt-3",
+    "alignment": 0.1,
+    "realization": 0.0,
+    "rationale": "The control manages purposes, not the conditions required for consent under Schedule III. The implementation does not address consent mechanisms."
+  },
+  {
+    "pair_id": "s5-u3|pt-4",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "The control specifically addresses implementing consent mechanisms, perfectly aligning with the obligation to satisfy Schedule III consent conditions. The organization has not implemented this control."
+  },
+  {
+    "pair_id": "s5-u3|pt-5",
+    "alignment": 0.2,
+    "realization": 0.0,
+    "rationale": "The control focuses on providing privacy notices, which supports transparency but does not fully satisfy the specific consent conditions of Schedule III. The organization has not implemented this control."
+  },
+  {
+    "pair_id": "s6-u1|pt-2",
+    "alignment": 0.2,
+    "realization": 0.2,
+    "rationale": "The control focuses on authority to process, whereas the obligation is specifically about specifying purposes and preventing incompatible processing. The implementation records a lawful basis but does not tackle purpose specification."
+  },
+  {
+    "pair_id": "s6-u1|pt-3",
+    "alignment": 1.0,
+    "realization": 0.4,
+    "rationale": "The control directly requires identifying purposes and restricting processing to compatible ones, perfectly matching the obligation. The implementation provides narrative intent for purpose scoping but lacks code enforcement or actual compatibility assessments for secondary uses."
+  },
+  {
+    "pair_id": "s7-u1|pm-18",
+    "alignment": 0.1,
+    "realization": 0.1,
+    "rationale": "The control requires a general privacy program plan, which does not directly address the obligation to ensure data is adequate, relevant, and proportionate. The implementation only provides a narrative placeholder with no actual program built."
+  },
+  {
+    "pair_id": "s7-u1|pm-25",
+    "alignment": 0.3,
+    "realization": 0.0,
+    "rationale": "The control addresses data minimization (proportionality) but restricts its scope to testing, training, and research, missing general operational processing. The organization has not implemented this control."
+  },
+  {
+    "pair_id": "s8-u1|si-12",
+    "alignment": 0.1,
+    "realization": 0.1,
+    "rationale": "The control focuses on retention policies, which does not address the obligation of maintaining data accuracy. The implementation successfully handles data purging but offers nothing for data accuracy."
+  },
+  {
+    "pair_id": "s8-u1|si-18",
+    "alignment": 1.0,
+    "realization": 0.6,
+    "rationale": "The control directly mandates checking accuracy and correcting or deleting inaccurate data. The implementation provides manual correction capabilities via API endpoints but explicitly lacks automated accuracy checks."
+  },
+  {
+    "pair_id": "s8-u2|si-12",
+    "alignment": 0.1,
+    "realization": 0.1,
+    "rationale": "The control pertains to information retention and output management, not the active rectification or erasure of inaccurate data. The implemented purge logic addresses retention, not accuracy remediation."
+  },
+  {
+    "pair_id": "s8-u2|si-18",
+    "alignment": 1.0,
+    "realization": 0.6,
+    "rationale": "The control mandates correcting or deleting inaccurate information, aligning perfectly with the obligation to erase or rectify inaccurate data. The implementation supports manual correction via PUT endpoints, satisfying the basic requirement despite lacking automation."
+  },
+  {
+    "pair_id": "s9-u1|si-12",
+    "alignment": 0.9,
+    "realization": 0.8,
+    "rationale": "The control requires retaining information according to legal and operational requirements, strongly aligning with the obligation to limit retention periods. The implementation successfully purges expired granular telemetry while keeping aggregated data, though it lacks an automated scheduler."
+  },
+  {
+    "pair_id": "s9-u1|si-12.1",
+    "alignment": 0.2,
+    "realization": 0.0,
+    "rationale": "The control focuses on limiting the specific elements of PII collected, rather than the duration for which data is kept in an identifiable form. The organization has not addressed this control."
+  },
+  {
+    "pair_id": "s9-u1|si-18",
+    "alignment": 0.1,
+    "realization": 0.1,
+    "rationale": "The control addresses data accuracy and quality, unrelated to the obligation's focus on retention periods. The implementation provides accuracy corrections, which do not satisfy retention limits."
+  }
+]

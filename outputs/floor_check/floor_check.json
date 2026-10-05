@@ -1,0 +1,200 @@
+{
+  "embedder": {
+    "model_id": "sentence-transformers/all-mpnet-base-v2",
+    "revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+  },
+  "floor_in_config": 0.2,
+  "negative_controls": [
+    "pe-13",
+    "pe-14",
+    "pe-15",
+    "ma-2",
+    "ma-6"
+  ],
+  "real_pairs": {
+    "n": 37,
+    "min": 0.2374,
+    "p25": 0.4544,
+    "median": 0.5054,
+    "p75": 0.5625,
+    "max": 0.7808
+  },
+  "negative_pairs": {
+    "n": 95,
+    "min": 0.0936,
+    "p25": 0.2197,
+    "median": 0.2854,
+    "p75": 0.3435,
+    "max": 0.5335
+  },
+  "negatives_at_or_above_floor": 77,
+  "real_below_floor": 0,
+  "per_unit": [
+    {
+      "unit": "s22-u4",
+      "lowest_real": 0.3295,
+      "highest_negative": 0.4235,
+      "margin": -0.094
+    },
+    {
+      "unit": "s24-u3",
+      "lowest_real": 0.2374,
+      "highest_negative": 0.2981,
+      "margin": -0.0608
+    },
+    {
+      "unit": "s24-u4",
+      "lowest_real": 0.3196,
+      "highest_negative": 0.3797,
+      "margin": -0.0601
+    },
+    {
+      "unit": "s22-u3",
+      "lowest_real": 0.4776,
+      "highest_negative": 0.5335,
+      "margin": -0.0559
+    },
+    {
+      "unit": "s22-u1",
+      "lowest_real": 0.3484,
+      "highest_negative": 0.3862,
+      "margin": -0.0378
+    },
+    {
+      "unit": "s10-u1",
+      "lowest_real": 0.4861,
+      "highest_negative": 0.4845,
+      "margin": 0.0017
+    },
+    {
+      "unit": "s8-u2",
+      "lowest_real": 0.4283,
+      "highest_negative": 0.4203,
+      "margin": 0.0081
+    },
+    {
+      "unit": "s8-u1",
+      "lowest_real": 0.368,
+      "highest_negative": 0.3444,
+      "margin": 0.0236
+    },
+    {
+      "unit": "s12-u1",
+      "lowest_real": 0.4722,
+      "highest_negative": 0.4363,
+      "margin": 0.0359
+    },
+    {
+      "unit": "s5-u2",
+      "lowest_real": 0.5054,
+      "highest_negative": 0.4312,
+      "margin": 0.0742
+    },
+    {
+      "unit": "s5-u3",
+      "lowest_real": 0.4327,
+      "highest_negative": 0.3446,
+      "margin": 0.0881
+    },
+    {
+      "unit": "s23-u1",
+      "lowest_real": 0.4544,
+      "highest_negative": 0.3578,
+      "margin": 0.0965
+    },
+    {
+      "unit": "s24-u2",
+      "lowest_real": 0.3975,
+      "highest_negative": 0.2942,
+      "margin": 0.1032
+    },
+    {
+      "unit": "s9-u1",
+      "lowest_real": 0.5191,
+      "highest_negative": 0.3979,
+      "margin": 0.1211
+    },
+    {
+      "unit": "s7-u1",
+      "lowest_real": 0.5422,
+      "highest_negative": 0.3991,
+      "margin": 0.1431
+    },
+    {
+      "unit": "s5-u1",
+      "lowest_real": 0.4724,
+      "highest_negative": 0.3206,
+      "margin": 0.1518
+    },
+    {
+      "unit": "s22-u2",
+      "lowest_real": 0.4894,
+      "highest_negative": 0.3025,
+      "margin": 0.1869
+    },
+    {
+      "unit": "s6-u1",
+      "lowest_real": 0.6602,
+      "highest_negative": 0.3948,
+      "margin": 0.2654
+    },
+    {
+      "unit": "s24-u1",
+      "lowest_real": 0.7014,
+      "highest_negative": 0.2757,
+      "margin": 0.4256
+    }
+  ],
+  "top_negatives": [
+    {
+      "unit": "s22-u3",
+      "control": "ma-2",
+      "rel": 0.5335
+    },
+    {
+      "unit": "s10-u1",
+      "control": "ma-2",
+      "rel": 0.4845
+    },
+    {
+      "unit": "s10-u1",
+      "control": "pe-13",
+      "rel": 0.479
+    },
+    {
+      "unit": "s12-u1",
+      "control": "ma-2",
+      "rel": 0.4363
+    },
+    {
+      "unit": "s10-u1",
+      "control": "pe-15",
+      "rel": 0.4362
+    },
+    {
+      "unit": "s5-u2",
+      "control": "ma-2",
+      "rel": 0.4312
+    },
+    {
+      "unit": "s10-u1",
+      "control": "pe-14",
+      "rel": 0.428
+    },
+    {
+      "unit": "s22-u4",
+      "control": "ma-2",
+      "rel": 0.4235
+    },
+    {
+      "unit": "s8-u2",
+      "control": "ma-2",
+      "rel": 0.4203
+    },
+    {
+      "unit": "s22-u3",
+      "control": "pe-14",
+      "rel": 0.402
+    }
+  ]
+}

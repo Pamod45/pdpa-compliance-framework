@@ -1,0 +1,116 @@
+[
+{
+"pair_id": "s5-u1|pt-2",
+"alignment": 1.0,
+"realization": 1.0,
+"rationale": "The control pt-2 directly requires determining and documenting the legal authority to process PII, which perfectly aligns with the obligation to establish a lawful basis. The organization has fully realized this by enforcing a non-nullable 'lawful_basis' field at both the API and database levels."
+},
+{
+"pair_id": "s5-u1|pt-3",
+"alignment": 0.1,
+"realization": 0.4,
+"rationale": "Control pt-3 addresses the specification and restriction of processing purposes, not the establishment of a lawful basis for processing. The implementation partially realizes the control by scoping telemetry collection, but purpose limitation relies merely on narrative rather than enforced code."
+},
+{
+"pair_id": "s5-u2|pt-2",
+"alignment": 1.0,
+"realization": 0.6,
+"rationale": "The control demands documentation and restriction of legal authority to process PII, directly aligning with the need to establish a Schedule II condition for special-category data. While the implementation rigorously enforces a general lawful basis, it lacks specific mechanisms or checks specifically designed for special-category data processing conditions."
+},
+{
+"pair_id": "s5-u2|pt-3",
+"alignment": 0.1,
+"realization": 0.4,
+"rationale": "Control pt-3 focuses on documenting and limiting processing purposes rather than establishing a specific legal basis for special-category data processing. The organization's implementation scopes telemetry but only provides a narrative approach to purpose compatibility without code-level enforcement."
+},
+{
+"pair_id": "s5-u3|pt-2",
+"alignment": 0.7,
+"realization": 0.3,
+"rationale": "While pt-2 requires documenting the legal authority to process PII (which could include consent), it does not specifically address the nuanced conditions of consent required by Schedule III. Furthermore, the implementation strictly enforces a general employment lawful basis without demonstrating mechanisms to capture or manage user consent."
+},
+{
+"pair_id": "s5-u3|pt-3",
+"alignment": 0.1,
+"realization": 0.4,
+"rationale": "Documenting and restricting processing purposes (pt-3) does not align with the requirement to meet specific conditions for valid consent. The implementation partially addresses purpose scoping through code but lacks mechanisms for consent management entirely."
+},
+{
+"pair_id": "s5-u3|pt-4",
+"alignment": 1.0,
+"realization": 0.0,
+"rationale": "Control pt-4 directly maps to the obligation to implement and satisfy consent conditions prior to processing. However, the organization's system security plan completely omits any implementation details for this control."
+},
+{
+"pair_id": "s5-u3|pt-5",
+"alignment": 0.5,
+"realization": 0.0,
+"rationale": "Providing a clear privacy notice (pt-5) supports informed consent by fulfilling transparency requirements, though it is not a direct mechanism for capturing consent itself. No score can be given for realization as the organization's SSP does not address privacy notices."
+},
+{
+"pair_id": "s6-u1|pt-2",
+"alignment": 0.2,
+"realization": 1.0,
+"rationale": "Control pt-2 is fundamentally about establishing legal authority rather than defining and restricting processing purposes, leading to weak alignment. Nevertheless, the organization has fully realized pt-2 as written by enforcing a strict lawful basis field across the API and database layers."
+},
+{
+"pair_id": "s6-u1|pt-3",
+"alignment": 1.0,
+"realization": 0.4,
+"rationale": "The control perfectly mirrors the legal obligation by requiring organizations to identify purposes and restrict incompatible further processing. However, the implementation is weak; while initial data collection is scoped, the restrictions on secondary use are purely narrative and lack technical enforcement."
+},
+{
+"pair_id": "s7-u1|pm-18",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Developing a high-level privacy program plan (pm-18) does not directly address or mandate specific controls for data adequacy, relevance, and proportionality. Furthermore, the organization admits that no actual documentation for such a program exists, resulting in a complete lack of implementation."
+},
+{
+"pair_id": "s7-u1|pm-25",
+"alignment": 0.4,
+"realization": 0.0,
+"rationale": "Control pm-25 addresses data minimization, but its scope is strictly limited to internal testing, training, and research rather than general processing proportionality. The organization's SSP does not contain any implementation details for this control."
+},
+{
+"pair_id": "s8-u1|si-12",
+"alignment": 0.2,
+"realization": 0.6,
+"rationale": "Information management and retention controls (si-12) do not inherently target or ensure the accuracy and up-to-date nature of the data. The organization has implemented basic data purging functionality to manage retention, but this does not actively address data accuracy operations."
+},
+{
+"pair_id": "s8-u1|si-18",
+"alignment": 1.0,
+"realization": 0.5,
+"rationale": "Control si-18 directly fulfills the obligation by explicitly requiring checks for PII accuracy and the correction of outdated data. The implementation provides manual endpoints to rectify identity data but lacks the proactive, scheduled quality checking mechanisms prescribed by the control."
+},
+{
+"pair_id": "s8-u2|si-12",
+"alignment": 0.2,
+"realization": 0.6,
+"rationale": "Control si-12 focuses on general retention and lifecycle management rather than specifically identifying and remediating inaccurate or outdated data. While a data purging function is implemented for expired telemetry, it does not function as a targeted remediation tool for data inaccuracies."
+},
+{
+"pair_id": "s8-u2|si-18",
+"alignment": 1.0,
+"realization": 0.6,
+"rationale": "Control si-18 perfectly aligns with the obligation by explicitly mandating the correction or deletion of inaccurate or outdated PII. The organization has provided manual update endpoints for identity records, fulfilling the basic remediation requirement, though lacking automated checks."
+},
+{
+"pair_id": "s9-u1|si-12",
+"alignment": 0.8,
+"realization": 0.7,
+"rationale": "Control si-12 requires retaining data according to operational and legal requirements, which directly supports limiting retention to necessary periods. The organization has implemented a 90-day retention limit and a functional purge script for telemetry, though it currently lacks automated scheduling."
+},
+{
+"pair_id": "s9-u1|si-12.1",
+"alignment": 0.1,
+"realization": 0.0,
+"rationale": "Control si-12.1 focuses on minimizing the specific elements of PII collected, which does not address the obligation to limit the temporal retention period of identifiable data. Additionally, there are no implementation details provided in the SSP for this control."
+},
+{
+"pair_id": "s9-u1|si-18",
+"alignment": 0.2,
+"realization": 0.5,
+"rationale": "PII quality operations (si-18) deal with correcting or removing inaccurate data, not enforcing maximum retention periods for accurately collected data. The implementation allows manual corrections of identity records, which is irrelevant to temporal storage limits."
+}
+]

@@ -1,0 +1,116 @@
+{
+  "stats": {
+    "relatedness": {
+      "n": 37,
+      "min": 0.3287,
+      "max": 0.7727,
+      "distinct": 36
+    },
+    "coverage": {
+      "n": 37,
+      "min": 0.0,
+      "max": 1.0,
+      "distinct": 27
+    },
+    "strength": {
+      "n": 29,
+      "min": 1.0,
+      "max": 1.0,
+      "distinct": 1
+    },
+    "directionality": {
+      "n": 37,
+      "min": 0.7,
+      "max": 1.0,
+      "distinct": 3
+    },
+    "maturity": {
+      "n": 37,
+      "min": 0.0,
+      "max": 0.9,
+      "distinct": 8
+    }
+  },
+  "pairs": [
+    {
+      "a": "relatedness",
+      "b": "coverage",
+      "n": 37,
+      "r": 0.437,
+      "flag": false,
+      "note": ""
+    },
+    {
+      "a": "relatedness",
+      "b": "strength",
+      "n": 29,
+      "r": null,
+      "flag": false,
+      "note": "zero variance (second measure is constant)"
+    },
+    {
+      "a": "relatedness",
+      "b": "directionality",
+      "n": 37,
+      "r": 0.041,
+      "flag": false,
+      "note": ""
+    },
+    {
+      "a": "relatedness",
+      "b": "maturity",
+      "n": 37,
+      "r": 0.055,
+      "flag": false,
+      "note": ""
+    },
+    {
+      "a": "coverage",
+      "b": "strength",
+      "n": 29,
+      "r": null,
+      "flag": false,
+      "note": "zero variance (second measure is constant)"
+    },
+    {
+      "a": "coverage",
+      "b": "directionality",
+      "n": 37,
+      "r": -0.036,
+      "flag": false,
+      "note": ""
+    },
+    {
+      "a": "coverage",
+      "b": "maturity",
+      "n": 37,
+      "r": 0.04,
+      "flag": false,
+      "note": ""
+    },
+    {
+      "a": "strength",
+      "b": "directionality",
+      "n": 29,
+      "r": null,
+      "flag": false,
+      "note": "zero variance (first measure is constant)"
+    },
+    {
+      "a": "strength",
+      "b": "maturity",
+      "n": 29,
+      "r": null,
+      "flag": false,
+      "note": "zero variance (first measure is constant)"
+    },
+    {
+      "a": "directionality",
+      "b": "maturity",
+      "n": 37,
+      "r": 0.215,
+      "flag": false,
+      "note": ""
+    }
+  ]
+}

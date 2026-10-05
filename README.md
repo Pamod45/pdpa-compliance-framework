@@ -60,11 +60,18 @@ works anywhere, but the test data paths are relative to the root.
 src/pcef/            the package
   models/            schema contracts (ClauseProfile locked; NormalizedControl draft)
   parsers/           Stage 2: catalog loader, SSP loader, A3 fuse -> NormalizedControl
+  pipeline/          Stages 3-7: pairing, gates, measures, aggregation, report
 data/                build/test data inputs (symbolized profiles, catalogs, SSPs)
 tests/               pytest suite (clause contracts + Stage 2 parsers)
-workflow/            dev command reference
 pyproject.toml       package definition + pytest config
 ```
 
-See `workflow/dev_commands.md` for the full command reference, including the
-manual load checks and the canonical-JSON sync step.
+## Running the pipeline (stages 3-7)
+```bash
+pip install -e ".[sbert]"     # adds sentence-transformers and PyTorch
+python -m pcef.pipeline.run --clauses PDPA-s10 PDPA-s23 --embedder sbert --out outputs/run_s10_s23
+python -m pcef.pipeline.run --all --embedder sbert --out outputs/run_full
+```
+Each run writes `run.json` (full results with provenance) and `report.md` (summary tables).
+Parameters are read from `config/`. `--embedder tfidf` is a stand-in for tests and offline
+checks; its scores are not results.

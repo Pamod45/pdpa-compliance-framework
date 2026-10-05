@@ -1,0 +1,19 @@
+{
+  "_status": "DRAFT - chosen a priori as controls with no plausible link to the selected PDPA clauses. Review before relying on the check.",
+  "_why": "Physical-environment and maintenance controls: they govern buildings and equipment, not personal-data handling. pe-3 (physical access) is deliberately EXCLUDED because it overlaps the access-control theme of s.10 and would be a 'hard' negative, not a clean one.",
+  "controls": [
+    "pe-13",
+    "pe-14",
+    "pe-15",
+    "ma-2",
+    "ma-6"
+  ],
+  "holdout_controls": [
+    "pe-9",
+    "pe-10",
+    "pe-12",
+    "ma-3",
+    "ma-4"
+  ],
+  "_holdout_why": "HELD OUT. Never used to choose a Relatedness variant; run only to confirm the chosen one (diagnose_relatedness --confirm). ma-4 is deliberately multi-row (5 rows), like ma-2 (6 rows), so the roll-up effect is tested on unseen data too."
+}

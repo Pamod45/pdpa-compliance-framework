@@ -1,0 +1,110 @@
+[
+  {
+    "pair_id": "s10-u1|ac-2",
+    "alignment": 0.6,
+    "realization": 1.0,
+    "rationale": "AC-2 establishes account management and monitoring, serving as an organizational and technical measure to prevent unauthorized processing. The implementation fully realizes this by enforcing specific account roles, controlled provisioning, and audit logging."
+  },
+  {
+    "pair_id": "s10-u1|ac-3",
+    "alignment": 0.8,
+    "realization": 1.0,
+    "rationale": "AC-3 requires logical access enforcement, directly addressing the clause's requirement to prevent unauthorized or unlawful processing. The organization has fully implemented comprehensive role-based and cross-tenant access controls across all relevant API endpoints."
+  },
+  {
+    "pair_id": "s10-u1|sc-13",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "SC-13 mandates cryptographic protections, which directly aligns with the clause's explicit mention of encryption as a technical measure. The implementation provides no evidence of any cryptographic controls being utilized."
+  },
+  {
+    "pair_id": "s10-u1|sc-28",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "SC-28 safeguards information at rest, providing the technical confidentiality and integrity measures required by the clause. The organization explicitly notes that encryption at rest is unimplemented and remains a known gap."
+  },
+  {
+    "pair_id": "s10-u1|sc-8",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "SC-8 protects information in transit, directly preventing unauthorized access and loss during data transmission. The system currently uses plain HTTP with no TLS termination, explicitly acknowledging this as an unbuilt feature."
+  },
+  {
+    "pair_id": "s12-u1|pm-18",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "PM-18 outlines the creation of a comprehensive privacy program plan, structurally mapping well to the Data Protection Management Programme requirements. The implementation relies entirely on narrative scaffolding without producing any actual documentation."
+  },
+  {
+    "pair_id": "s12-u1|pm-19",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "PM-19 requires a senior privacy official, partially supporting the governance and internal oversight aspects of the mandated DPMP. The implementation does not address this control at all."
+  },
+  {
+    "pair_id": "s22-u1|sa-9",
+    "alignment": 0.5,
+    "realization": 0.0,
+    "rationale": "SA-9 mandates oversight and compliance requirements for external service providers, offering a framework to enforce written controller instructions. The stated vendor relationships are fictional and provide only narrative scaffolding."
+  },
+  {
+    "pair_id": "s22-u2|sa-9",
+    "alignment": 0.2,
+    "realization": 0.0,
+    "rationale": "SA-9 broadly dictates external provider compliance but lacks specific requirements regarding binding provider personnel to confidentiality agreements. The described external integrations are strictly narrative."
+  },
+  {
+    "pair_id": "s22-u3|sa-9",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "SA-9 requires methods to monitor control compliance by external providers, which facilitates the capability to support controller audits. The implementation is fictional and entirely narrative-based."
+  },
+  {
+    "pair_id": "s22-u4|sa-9",
+    "alignment": 0.1,
+    "realization": 0.0,
+    "rationale": "SA-9 does not explicitly cover the disposition, erasure, or return of data at the end of a service contract. The provider implementations are merely narrative placeholders."
+  },
+  {
+    "pair_id": "s23-u1|ir-6",
+    "alignment": 1.0,
+    "realization": 0.1,
+    "rationale": "IR-6 directly mandates reporting incident information to authorities, perfectly matching the core legal obligation. While an audit log exists as a detection substrate, no actual incident reporting workflow or procedure was built."
+  },
+  {
+    "pair_id": "s23-u1|ir-8",
+    "alignment": 0.5,
+    "realization": 0.0,
+    "rationale": "IR-8 establishes the overarching incident response plan and defines reportable incidents, providing the structure needed for notification. The implementation is entirely narrative with no actual response plan documented."
+  },
+  {
+    "pair_id": "s23-u1|ir-8.1",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "IR-8.1 explicitly requires a process to determine if notification to oversight organizations is needed, closely aligning with the breach reporting mandate. The implementation does not address this control."
+  },
+  {
+    "pair_id": "s24-u1|ra-8",
+    "alignment": 1.0,
+    "realization": 0.0,
+    "rationale": "RA-8 requires conducting privacy impact assessments prior to processing personally identifiable information, perfectly mirroring the statutory mandate. The implementation notes that no actual DPIA was conducted, representing a significant gap."
+  },
+  {
+    "pair_id": "s24-u2|ra-8",
+    "alignment": 0.0,
+    "realization": 0.0,
+    "rationale": "RA-8 does not contain any provisions regarding the consultation or involvement of a Data Protection Officer during the assessment. The implementation is purely narrative."
+  },
+  {
+    "pair_id": "s24-u3|ra-8",
+    "alignment": 0.2,
+    "realization": 0.0,
+    "rationale": "The provided text for RA-8 focuses on initial assessments before processing, without explicitly demanding fresh assessments upon subsequent methodological or technological changes. The implementation lacks any DPIA."
+  },
+  {
+    "pair_id": "s24-u4|ra-8",
+    "alignment": 0.0,
+    "realization": 0.0,
+    "rationale": "RA-8 focuses on the internal execution of privacy impact assessments and does not require submitting them to external regulatory authorities. No DPIA artifact exists in the implementation."
+  }
+]

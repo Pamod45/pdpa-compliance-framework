@@ -1,0 +1,110 @@
+[
+  {
+    "pair_id": "s10-u1|ac-2",
+    "alignment": 0.5,
+    "realization": 0.9,
+    "rationale": "Account management (AC-2) establishes logical access controls that prevent unauthorized processing, satisfying the confidentiality aspect of the obligation. It does not address encryption or prevention of data loss/destruction."
+  },
+  {
+    "pair_id": "s10-u1|ac-3",
+    "alignment": 0.5,
+    "realization": 1.0,
+    "rationale": "AC-3 enforces the access control measures to prevent unauthorized processing, fulfilling a key technical measure for confidentiality. Like AC-2, it does not encompass encryption or integrity/availability safeguards."
+  },
+  {
+    "pair_id": "s10-u1|sc-13",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "SC-13 mandates cryptographic protections, which directly maps to the clause's explicit requirement to use encryption to ensure confidentiality and integrity. The implementation is entirely missing in the provided text."
+  },
+  {
+    "pair_id": "s10-u1|sc-28",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "SC-28 protects information at rest, providing the technical measures (like encryption) necessary to prevent unauthorized access or data loss. The organization acknowledges this as a known gap with no implementation."
+  },
+  {
+    "pair_id": "s10-u1|sc-8",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "SC-8 addresses transmission confidentiality and integrity, which is a required technical measure to protect personal data during processing. It is explicitly flagged as not implemented."
+  },
+  {
+    "pair_id": "s12-u1|pm-18",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "PM-18 establishes a comprehensive privacy program plan, mapping closely to the design, structure, and documentation requirements of the Data Protection Management Programme. The implementation is purely narrative with no actual documentation existing."
+  },
+  {
+    "pair_id": "s12-u1|pm-19",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "PM-19 requires a senior privacy official, which fulfills the obligation to integrate the program into the governance structure and establish internal oversight. The SSP does not address this control."
+  },
+  {
+    "pair_id": "s22-u1|sa-9",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "SA-9 governs external service providers and organizational oversight, aligning with the requirement to bind processors to written instructions. However, the implementation is strictly fictional scaffolding."
+  },
+  {
+    "pair_id": "s22-u2|sa-9",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "While SA-9 requires external providers to comply with privacy requirements, it lacks explicit mandates for contractual confidentiality and secrecy obligations for the processor's personnel. The implementation is narrative-only."
+  },
+  {
+    "pair_id": "s22-u3|sa-9",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "SA-9(c) requires processes to monitor control compliance by external providers, which directly facilitates the controller's compliance audits and inspections. There is no actual implementation."
+  },
+  {
+    "pair_id": "s22-u4|sa-9",
+    "alignment": 0.3,
+    "realization": 0.0,
+    "rationale": "SA-9 broadly mandates compliance with privacy requirements but does not explicitly detail end-of-service data return or erasure. The described implementation is completely fictional."
+  },
+  {
+    "pair_id": "s23-u1|ir-6",
+    "alignment": 1.0,
+    "realization": 0.2,
+    "rationale": "IR-6(b) explicitly requires reporting incident information to authorities, perfectly aligning with the core obligation to notify the Authority of a breach. Only foundational audit logging exists without any formal reporting or alerting workflow."
+  },
+  {
+    "pair_id": "s23-u1|ir-8",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "IR-8 establishes the overall incident response plan and defines reportable incidents, providing the structure needed for notification, but does not strictly dictate the notification act itself. It is explicitly narrative-only."
+  },
+  {
+    "pair_id": "s23-u1|ir-8.1",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "IR-8.1 specifically requires a process to determine if notice to oversight organizations is needed following a breach, closely matching the requirement to notify the Authority. The SSP does not address this control."
+  },
+  {
+    "pair_id": "s24-u1|ra-8",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "RA-8 dictates conducting privacy impact assessments prior to new processing, aligning directly with the core DPIA obligation. The system is missing any actual DPIA implementation."
+  },
+  {
+    "pair_id": "s24-u2|ra-8",
+    "alignment": 0.2,
+    "realization": 0.0,
+    "rationale": "RA-8 covers the execution of PIAs but does not specify seeking the assistance of a designated Data Protection Officer. The implementation is absent."
+  },
+  {
+    "pair_id": "s24-u3|ra-8",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "RA-8 mandates PIAs before initiating new collections or developments, implying triggers for new processes, but lacks explicit language regarding refreshing assessments upon methodology changes. The implementation is absent."
+  },
+  {
+    "pair_id": "s24-u4|ra-8",
+    "alignment": 0.0,
+    "realization": 0.0,
+    "rationale": "RA-8 contains no provisions for submitting the privacy impact assessment to an external authority or regulatory body. The implementation is entirely narrative."
+  }
+]

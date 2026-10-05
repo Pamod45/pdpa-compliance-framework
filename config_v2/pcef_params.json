@@ -1,0 +1,106 @@
+{
+  "_status": "FROZEN v2.0 2026-10-05 - DSR iteration 2 (relevance check). Identical to v1.1 except maturity.relevance. v1.1 remains in config/ and stays reproducible.",
+  "unit_text_mode": {
+    "_why": "How an obligation unit is embedded for Relatedness. 'keywords' = action + object + the unit's annotated keywords. Chosen 2026-10-05: best separation on the primary negative set, improvement confirmed on the held-out set (which still FAILED the pre-set bar narrowly - reported as such).",
+    "value": "keywords"
+  },
+  "relatedness_floor_enabled": {
+    "_why": "Method of record = true. A run with false is a declared sensitivity check only, never the reported result.",
+    "value": true
+  },
+  "relatedness_floor": {
+    "_why": "Stage 0 gate. Pairs whose best catalog-row cosine is below this are EXCLUDED, not scored low. Value is per embedder because cosine scales differ between models.",
+    "sbert": 0.2,
+    "tfidf": 0.02
+  },
+  "coverage_mode": {
+    "_why": "'ramp' = method of record (chosen 2026-10-05 by reasoning: removes the 0/1 cliff that flipped attributes on small text changes, while keeping Coverage's meaning as 'fraction of attributes addressed'). 'threshold' kept only as a declared sensitivity run.",
+    "value": "ramp"
+  },
+  "coverage_ramp": {
+    "_why": "Per-attribute score = 0 at/below low, 1 at/above high, linear between. Coverage = mean over attributes. Values are a-priori drafts: low ~ where clearly-unrelated text sits, high ~ where clear matches sit. Per embedder because cosine scales differ.",
+    "sbert": [
+      0.25,
+      0.45
+    ],
+    "tfidf": [
+      0.0,
+      0.1
+    ]
+  },
+  "coverage_threshold": {
+    "_why": "An attribute counts as addressed by the control if its best cosine against any catalog leaf row reaches this value.",
+    "sbert": 0.35,
+    "tfidf": 0.05
+  },
+  "alignment_weights": {
+    "_why": "Stage 1 weighted sum. If a measure is not applicable for a pair (e.g. Strength Match for a 'conditional' unit), its weight is dropped and the rest are re-normalised.",
+    "coverage": 0.35,
+    "relatedness": 0.25,
+    "directionality": 0.25,
+    "strength": 0.0,
+    "_v1_1_why": "2026-10-05, triggered by the pre-planned non-redundancy check: Strength Match = 1.000 on all 29 pairs where it applies, so its correlation with any measure is undefined and the named cut test could not run. It is not redundant but UNINFORMATIVE: it added a constant 0.15 to every applicable Alignment and changed no ranking. Weight set to 0 (still computed and reported). Remaining weights re-normalise: Coverage 0.35/0.85, Relatedness 0.25/0.85, Directionality 0.25/0.85."
+  },
+  "modality_strength": {
+    "_why": "Strength the clause DEMANDS. null = not applicable (unit is not a plain duty).",
+    "shall": 1.0,
+    "shall_not": 1.0,
+    "may": 0.5,
+    "deemed": null,
+    "conditional": null
+  },
+  "catalog_hedge_cues": [
+    "as needed",
+    "where feasible",
+    "if applicable",
+    "as appropriate",
+    "when necessary",
+    "may "
+  ],
+  "maturity": {
+    "_why": "Stage 2 prose-feature heuristics (decision 3, 2026-07-23: deterministic only, no LLM).",
+    "feature_weights": {
+      "specificity": 0.3,
+      "concrete_artefacts": 0.3,
+      "set_parameters": 0.1,
+      "operational_component": 0.1,
+      "commitment": 0.2
+    },
+    "specificity_full_words": 40,
+    "artefacts_full_count": 3,
+    "negation_cues": [
+      "not implemented",
+      "not yet implemented",
+      "to be implemented",
+      "planned",
+      "known gap"
+    ],
+    "inheritance_discount": 0.5,
+    "horizontal_rule": "max",
+    "vertical_rule": "mean_excluding_na",
+    "_negation_cues_why": "Narrowed 2026-10-05 when the cap was added: a cap makes false positives costly, so only phrases that unambiguously mean 'not done' are kept ('will be', 'future', 'todo', 'not yet' removed - e.g. 'logs will be retained' describes a built control). No FleetTrack result changed: only 'not implemented' and 'known gap' had ever matched.",
+    "declared_gap_cap": 0.2,
+    "_declared_gap_cap_why": "A by-component whose text declares the control not done is capped at this score: well-written prose about a gap is not evidence of realization. Above 0 so a documented gap stays distinguishable from a control the SSP never mentions (absent = 0). Applied before the inheritance discount.",
+    "_horizontal_rule_why": "DECIDED 2026-10-05 (max): one component that properly implements a statement satisfies it; others are usually supporting. Cost: a weak component can hide behind a strong one. In FleetTrack it only affects ac-3 and sa-9.",
+    "_vertical_rule_why": "DECIDED 2026-10-05 (mean, na excluded, absent=0): Realization measures DEGREE. min (weakest link) would score ac-2 as 0 because 15 of 18 rows are absent, collapsing Realization to complete/not. mean keeps ac-2 at 0.129 = 3 of 18 parts, done well.",
+    "_inheritance_discount_why": "x 0.5 kept: inherited (parent-level) text is real but weaker evidence (A3, 2026-08-06); half credit is the most neutral defensible value. Not changed after seeing it halves 8 of 20 FleetTrack controls, to avoid a results-driven choice. Revisit-if from decisions.md 2026-08-06 still applies.",
+    "relevance": {
+      "enabled": true,
+      "ramp": {
+        "sbert": [
+          0.25,
+          0.45
+        ],
+        "tfidf": [
+          0.0,
+          0.1
+        ]
+      },
+      "_why": "Iteration 2, decided 2026-10-05 BEFORE any relevance score was computed. Targets v1 H3/H4 failures: Maturity never checked whether a text is ABOUT the control it is attached to. Each by-component score is multiplied by a 0-1 ramp of cosine(by-component text, the catalog row it is attached to, incl. parent stem). Ramp values reuse the Coverage ramp (no new constants): the floor check put unrelated text near 0.24-0.29 and real matches near 0.50. Order: features -> gap cap -> x relevance -> horizontal max -> inheritance discount -> vertical mean. Realization still never reads the CLAUSE, so the Alignment/Realization separation holds."
+    }
+  },
+  "relatedness_rollup": {
+    "_why": "DECIDED 2026-10-05 (max = best-matching catalog row). The top-2 mean was tested in the Relatedness diagnostic and did not help (6/19 units with negative margin vs 5/19 for max).",
+    "value": "max"
+  }
+}

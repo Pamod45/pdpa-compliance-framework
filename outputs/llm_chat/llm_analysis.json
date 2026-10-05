@@ -1,0 +1,274 @@
+{
+  "pcef_digests": [
+    "c614f88168ebd514aaf79c0c988523a77c8705ea5e8da79327006618ed87adc4",
+    "c614f88168ebd514aaf79c0c988523a77c8705ea5e8da79327006618ed87adc4",
+    "c614f88168ebd514aaf79c0c988523a77c8705ea5e8da79327006618ed87adc4",
+    "c614f88168ebd514aaf79c0c988523a77c8705ea5e8da79327006618ed87adc4",
+    "c614f88168ebd514aaf79c0c988523a77c8705ea5e8da79327006618ed87adc4"
+  ],
+  "rows": [
+    {
+      "provider": "chatgpt",
+      "condition": "chat_default",
+      "served_models": [
+        "ChatGPT 5.6 Sol (medium)"
+      ],
+      "calls": 111,
+      "failed": 0,
+      "temperature_rejected": 0,
+      "pairs_complete": 37,
+      "pairs_identical_all_runs": 1,
+      "pct_identical": 2.7,
+      "mean_sd": {
+        "alignment": 0.0409,
+        "realization": 0.0589
+      },
+      "max_range": {
+        "alignment": 0.35,
+        "realization": 0.7
+      },
+      "spearman_vs_pcef": {
+        "alignment": 0.581,
+        "realization": 0.882
+      }
+    },
+    {
+      "provider": "claude",
+      "condition": "chat_default",
+      "served_models": [
+        "Claude Opus 5.5 (medium)"
+      ],
+      "calls": 111,
+      "failed": 0,
+      "temperature_rejected": 0,
+      "pairs_complete": 37,
+      "pairs_identical_all_runs": 3,
+      "pct_identical": 8.1,
+      "mean_sd": {
+        "alignment": 0.0257,
+        "realization": 0.0175
+      },
+      "max_range": {
+        "alignment": 0.15,
+        "realization": 0.15
+      },
+      "spearman_vs_pcef": {
+        "alignment": 0.498,
+        "realization": 0.884
+      }
+    },
+    {
+      "provider": "gemini",
+      "condition": "chat_default",
+      "served_models": [
+        "Gemini 3.1 Pro"
+      ],
+      "calls": 111,
+      "failed": 0,
+      "temperature_rejected": 0,
+      "pairs_complete": 37,
+      "pairs_identical_all_runs": 1,
+      "pct_identical": 2.7,
+      "mean_sd": {
+        "alignment": 0.0645,
+        "realization": 0.0621
+      },
+      "max_range": {
+        "alignment": 0.4,
+        "realization": 1.0
+      },
+      "spearman_vs_pcef": {
+        "alignment": 0.559,
+        "realization": 0.741
+      }
+    }
+  ],
+  "shortlist": {
+    "alignment": [
+      {
+        "pair": "s5-u1|pt-2",
+        "pcef": 0.442,
+        "llm_mean": 0.9,
+        "abs_diff": 0.458
+      },
+      {
+        "pair": "s8-u1|si-12",
+        "pcef": 0.561,
+        "llm_mean": 0.117,
+        "abs_diff": 0.445
+      },
+      {
+        "pair": "s9-u1|si-18",
+        "pcef": 0.658,
+        "llm_mean": 0.217,
+        "abs_diff": 0.441
+      },
+      {
+        "pair": "s9-u1|si-12.1",
+        "pcef": 0.626,
+        "llm_mean": 0.25,
+        "abs_diff": 0.376
+      },
+      {
+        "pair": "s22-u2|sa-9",
+        "pcef": 0.731,
+        "llm_mean": 0.367,
+        "abs_diff": 0.364
+      },
+      {
+        "pair": "s5-u2|pt-3",
+        "pcef": 0.467,
+        "llm_mean": 0.133,
+        "abs_diff": 0.333
+      },
+      {
+        "pair": "s24-u4|ra-8",
+        "pcef": 0.393,
+        "llm_mean": 0.06,
+        "abs_diff": 0.333
+      },
+      {
+        "pair": "s5-u3|pt-4",
+        "pcef": 0.462,
+        "llm_mean": 0.783,
+        "abs_diff": 0.321
+      }
+    ],
+    "realization": [
+      {
+        "pair": "s10-u1|ac-2",
+        "pcef": 0.129,
+        "llm_mean": 0.6,
+        "abs_diff": 0.471
+      },
+      {
+        "pair": "s8-u2|si-12",
+        "pcef": 0.9,
+        "llm_mean": 0.433,
+        "abs_diff": 0.467
+      },
+      {
+        "pair": "s8-u1|si-12",
+        "pcef": 0.9,
+        "llm_mean": 0.433,
+        "abs_diff": 0.467
+      },
+      {
+        "pair": "s5-u1|pt-2",
+        "pcef": 0.45,
+        "llm_mean": 0.817,
+        "abs_diff": 0.367
+      },
+      {
+        "pair": "s9-u1|si-12",
+        "pcef": 0.9,
+        "llm_mean": 0.633,
+        "abs_diff": 0.267
+      },
+      {
+        "pair": "s10-u1|sc-8",
+        "pcef": 0.2,
+        "llm_mean": 0.0,
+        "abs_diff": 0.2
+      },
+      {
+        "pair": "s10-u1|sc-28",
+        "pcef": 0.2,
+        "llm_mean": 0.0,
+        "abs_diff": 0.2
+      },
+      {
+        "pair": "s5-u2|pt-2",
+        "pcef": 0.45,
+        "llm_mean": 0.583,
+        "abs_diff": 0.133
+      }
+    ]
+  },
+  "construct_separation": {
+    "chatgpt/chat_default": {
+      "groups": 21,
+      "inconsistent": 5,
+      "examples": {
+        "run2:pt-2": [
+          0.9,
+          0.2,
+          0.15,
+          0.25
+        ],
+        "run2:pt-3": [
+          0.35,
+          0.1,
+          0.1,
+          0.5
+        ],
+        "run2:pm-18": [
+          0.05,
+          0.0
+        ]
+      }
+    },
+    "claude/chat_default": {
+      "groups": 21,
+      "inconsistent": 2,
+      "examples": {
+        "run2:ra-8": [
+          0.05,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "run3:ra-8": [
+          0.05,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "gemini/chat_default": {
+      "groups": 21,
+      "inconsistent": 12,
+      "examples": {
+        "run1:pt-2": [
+          1.0,
+          0.6,
+          0.3,
+          1.0
+        ],
+        "run2:pt-2": [
+          0.9,
+          0.2,
+          0.0,
+          0.2
+        ],
+        "run3:pt-2": [
+          0.9,
+          0.3,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "llm_to_llm": [
+    {
+      "a": "chatgpt/chat_default",
+      "b": "claude/chat_default",
+      "alignment": 0.936,
+      "realization": 0.956
+    },
+    {
+      "a": "chatgpt/chat_default",
+      "b": "gemini/chat_default",
+      "alignment": 0.95,
+      "realization": 0.819
+    },
+    {
+      "a": "claude/chat_default",
+      "b": "gemini/chat_default",
+      "alignment": 0.892,
+      "realization": 0.811
+    }
+  ]
+}

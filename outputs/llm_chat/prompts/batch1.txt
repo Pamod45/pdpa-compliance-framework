@@ -1,0 +1,345 @@
+You are an experienced information security and data protection compliance assessor.
+
+You will assess 19 separate clause-control pairs. Assess EACH pair on its own; do not let one pair influence another.
+For each pair give two scores between 0 and 1:
+- "alignment": does the CONTROL, as written in the catalog, address the obligation on paper? 0 = not at all; 1 = it addresses every element. Ignore the implementation.
+- "realization": how fully and specifically has the organization IMPLEMENTED this control, judging only the implementation text? 0 = nothing implemented or described; 1 = fully and specifically implemented.
+
+Reply with ONLY a JSON array, one object per pair, in the same order, no other text:
+[{"pair_id": "<as given>", "alignment": <0-1>, "realization": <0-1>, "rationale": "<at most 2 sentences>"}, ...]
+
+Pairs (Sri Lanka Personal Data Protection Act No. 9 of 2022 vs NIST SP 800-53 Rev 5):
+
+==================== pair_id: s5-u1|pt-2 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+establish and be able to demonstrate at least one applicable lawful basis under Schedule I before processing. lawful basis for processing (general)
+Elements the obligation requires:
+- at least one Schedule I condition satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-2: Authority to Process Personally Identifiable Information)
+- pt-2_smt.a: Determine and document the authority that permits the processing of personally identifiable information; and
+- pt-2_smt.b: Restrict the processing of personally identifiable information to only that which is authorized.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-2_smt: DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).
+
+==================== pair_id: s5-u1|pt-3 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+establish and be able to demonstrate at least one applicable lawful basis under Schedule I before processing. lawful basis for processing (general)
+Elements the obligation requires:
+- at least one Schedule I condition satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-3: Personally Identifiable Information Processing Purposes)
+- pt-3_smt.a: Identify and document the purpose(s) for processing personally identifiable information;
+- pt-3_smt.b: Describe the purpose(s) in the public privacy notices and policies of the organization;
+- pt-3_smt.c: Restrict the processing of personally identifiable information to only that which is compatible with the identified purpose(s); and
+- pt-3_smt.d: Monitor changes in processing personally identifiable information and implement mechanisms to ensure that any changes are made in accordance with requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-3_smt: Telemetry is collected only via authenticated driver POSTs to /telemetry, scoped to the driver's own assigned vehicle within their own company (app/routers/telemetry.py, ingest_telemetry()) - no broader collection than the stated logistics purpose. NARRATIVE, not enforced in code: the secondary use of this data for driver performance review via GET /reports is the deliberate s.6 purpose-limitation tension point; the skeleton does not implement a compatibility assessment or a purpose-tagging mechanism distinguishing the two uses. [remarks: Collection-scoping is real and verified; the purpose-reuse compatibility assessment itself is narrative only.]
+
+==================== pair_id: s5-u2|pt-2 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+additionally establish an applicable Schedule II condition where special-category data is processed. lawful basis for special-category processing
+Elements the obligation requires:
+- at least one Schedule II condition satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-2: Authority to Process Personally Identifiable Information)
+- pt-2_smt.a: Determine and document the authority that permits the processing of personally identifiable information; and
+- pt-2_smt.b: Restrict the processing of personally identifiable information to only that which is authorized.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-2_smt: DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).
+
+==================== pair_id: s5-u2|pt-3 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+additionally establish an applicable Schedule II condition where special-category data is processed. lawful basis for special-category processing
+Elements the obligation requires:
+- at least one Schedule II condition satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-3: Personally Identifiable Information Processing Purposes)
+- pt-3_smt.a: Identify and document the purpose(s) for processing personally identifiable information;
+- pt-3_smt.b: Describe the purpose(s) in the public privacy notices and policies of the organization;
+- pt-3_smt.c: Restrict the processing of personally identifiable information to only that which is compatible with the identified purpose(s); and
+- pt-3_smt.d: Monitor changes in processing personally identifiable information and implement mechanisms to ensure that any changes are made in accordance with requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-3_smt: Telemetry is collected only via authenticated driver POSTs to /telemetry, scoped to the driver's own assigned vehicle within their own company (app/routers/telemetry.py, ingest_telemetry()) - no broader collection than the stated logistics purpose. NARRATIVE, not enforced in code: the secondary use of this data for driver performance review via GET /reports is the deliberate s.6 purpose-limitation tension point; the skeleton does not implement a compatibility assessment or a purpose-tagging mechanism distinguishing the two uses. [remarks: Collection-scoping is real and verified; the purpose-reuse compatibility assessment itself is narrative only.]
+
+==================== pair_id: s5-u3|pt-2 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+satisfy all Schedule III conditions where the chosen lawful basis is consent. consent conditions
+Elements the obligation requires:
+- all Schedule III conditions satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-2: Authority to Process Personally Identifiable Information)
+- pt-2_smt.a: Determine and document the authority that permits the processing of personally identifiable information; and
+- pt-2_smt.b: Restrict the processing of personally identifiable information to only that which is authorized.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-2_smt: DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).
+
+==================== pair_id: s5-u3|pt-3 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+satisfy all Schedule III conditions where the chosen lawful basis is consent. consent conditions
+Elements the obligation requires:
+- all Schedule III conditions satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-3: Personally Identifiable Information Processing Purposes)
+- pt-3_smt.a: Identify and document the purpose(s) for processing personally identifiable information;
+- pt-3_smt.b: Describe the purpose(s) in the public privacy notices and policies of the organization;
+- pt-3_smt.c: Restrict the processing of personally identifiable information to only that which is compatible with the identified purpose(s); and
+- pt-3_smt.d: Monitor changes in processing personally identifiable information and implement mechanisms to ensure that any changes are made in accordance with requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-3_smt: Telemetry is collected only via authenticated driver POSTs to /telemetry, scoped to the driver's own assigned vehicle within their own company (app/routers/telemetry.py, ingest_telemetry()) - no broader collection than the stated logistics purpose. NARRATIVE, not enforced in code: the secondary use of this data for driver performance review via GET /reports is the deliberate s.6 purpose-limitation tension point; the skeleton does not implement a compatibility assessment or a purpose-tagging mechanism distinguishing the two uses. [remarks: Collection-scoping is real and verified; the purpose-reuse compatibility assessment itself is narrative only.]
+
+==================== pair_id: s5-u3|pt-4 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+satisfy all Schedule III conditions where the chosen lawful basis is consent. consent conditions
+Elements the obligation requires:
+- all Schedule III conditions satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-4: Consent)
+- pt-4_smt: Implement tools or mechanisms for individuals to consent to the processing of their personally identifiable information prior to its collection that facilitate individuals’ informed decision-making.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s5-u3|pt-5 ====================
+## Legal clause (verbatim)
+The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.
+
+## The specific obligation being assessed
+satisfy all Schedule III conditions where the chosen lawful basis is consent. consent conditions
+Elements the obligation requires:
+- all Schedule III conditions satisfied
+
+## Security control (NIST SP 800-53 Rev 5, pt-5: Privacy Notice)
+- pt-5_smt.a: Provide notice to individuals about the processing of personally identifiable information that: Is available to individuals upon first interacting with an organization, and subsequently at frequency;
+- pt-5_smt.b: Provide notice to individuals about the processing of personally identifiable information that: Is clear and easy-to-understand, expressing information about personally identifiable information processing in plain language;
+- pt-5_smt.c: Provide notice to individuals about the processing of personally identifiable information that: Identifies the authority that authorizes the processing of personally identifiable information;
+- pt-5_smt.d: Provide notice to individuals about the processing of personally identifiable information that: Identifies the purposes for which personally identifiable information is to be processed; and
+- pt-5_smt.e: Provide notice to individuals about the processing of personally identifiable information that: Includes information.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s6-u1|pt-2 ====================
+## Legal clause (verbatim)
+(1) Every controller shall, ensure that personal data is processed for a - (a) specified; (b) explicit; and (c) legitimate, purposes and such personal data shall not be further processed in a manner which is incompatible with such purposes. (2) Subject to the provisions of section 10 of this Act, further processing of such personal data by a controller for archiving purposes in the public interest, scientific research, historical research or statistical purposes shall not be considered to be incompatible with the initial purposes referred to in paragraphs (a), (b) and (c) of subsection (1).
+
+## The specific obligation being assessed
+ensure processing purposes are defined with the required qualities and prevent incompatible further processing. personal data processing purposes
+Elements the obligation requires:
+- purpose specified
+- purpose explicit
+- purpose legitimate
+- no further processing incompatible with stated purpose
+
+## Security control (NIST SP 800-53 Rev 5, pt-2: Authority to Process Personally Identifiable Information)
+- pt-2_smt.a: Determine and document the authority that permits the processing of personally identifiable information; and
+- pt-2_smt.b: Restrict the processing of personally identifiable information to only that which is authorized.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-2_smt: DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).
+
+==================== pair_id: s6-u1|pt-3 ====================
+## Legal clause (verbatim)
+(1) Every controller shall, ensure that personal data is processed for a - (a) specified; (b) explicit; and (c) legitimate, purposes and such personal data shall not be further processed in a manner which is incompatible with such purposes. (2) Subject to the provisions of section 10 of this Act, further processing of such personal data by a controller for archiving purposes in the public interest, scientific research, historical research or statistical purposes shall not be considered to be incompatible with the initial purposes referred to in paragraphs (a), (b) and (c) of subsection (1).
+
+## The specific obligation being assessed
+ensure processing purposes are defined with the required qualities and prevent incompatible further processing. personal data processing purposes
+Elements the obligation requires:
+- purpose specified
+- purpose explicit
+- purpose legitimate
+- no further processing incompatible with stated purpose
+
+## Security control (NIST SP 800-53 Rev 5, pt-3: Personally Identifiable Information Processing Purposes)
+- pt-3_smt.a: Identify and document the purpose(s) for processing personally identifiable information;
+- pt-3_smt.b: Describe the purpose(s) in the public privacy notices and policies of the organization;
+- pt-3_smt.c: Restrict the processing of personally identifiable information to only that which is compatible with the identified purpose(s); and
+- pt-3_smt.d: Monitor changes in processing personally identifiable information and implement mechanisms to ensure that any changes are made in accordance with requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pt-3_smt: Telemetry is collected only via authenticated driver POSTs to /telemetry, scoped to the driver's own assigned vehicle within their own company (app/routers/telemetry.py, ingest_telemetry()) - no broader collection than the stated logistics purpose. NARRATIVE, not enforced in code: the secondary use of this data for driver performance review via GET /reports is the deliberate s.6 purpose-limitation tension point; the skeleton does not implement a compatibility assessment or a purpose-tagging mechanism distinguishing the two uses. [remarks: Collection-scoping is real and verified; the purpose-reuse compatibility assessment itself is narrative only.]
+
+==================== pair_id: s7-u1|pm-18 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) adequate; (b) relevant; and (c) proportionate, to the extent as is necessary in relation to the purpose for which such data shall be collected or processed.
+
+## The specific obligation being assessed
+ensure processed personal data is adequate, relevant, and proportionate to the purpose. scope/volume of personal data processed
+Elements the obligation requires:
+- data adequate for the purpose
+- data relevant to the purpose
+- data proportionate to the purpose
+
+## Security control (NIST SP 800-53 Rev 5, pm-18: Privacy Program Plan)
+- pm-18_smt.a.1: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Includes a description of the structure of the privacy program and the resources dedicated to the privacy program;
+- pm-18_smt.a.2: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Provides an overview of the requirements for the privacy program and a description of the privacy program management controls and common controls in place or planned for meeting those requirements;
+- pm-18_smt.a.3: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Includes the role of the senior agency official for privacy and the identification and assignment of roles of other privacy officials and staff and their responsibilities;
+- pm-18_smt.a.4: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Describes management commitment, compliance, and the strategic goals and objectives of the privacy program;
+- pm-18_smt.a.5: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Reflects coordination among organizational entities responsible for the different aspects of privacy; and
+- pm-18_smt.a.6: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Is approved by a senior official with responsibility and accountability for the privacy risk being incurred to organizational operations (including mission, functions, image, and reputation), organizational assets, individuals, other organizations, and the Nation; and
+- pm-18_smt.b: Update the plan frequency and to address changes in federal privacy laws and policy and organizational changes and problems identified during plan implementation or privacy control assessments.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pm-18_smt: NARRATIVE-ONLY. No Data Protection Management Programme documentation (data inventory, complaints process, periodic review schedule, named internal oversight role) actually exists for FleetTrack. Described here only to support the s.12 accountability clause narrative.
+
+==================== pair_id: s7-u1|pm-25 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) adequate; (b) relevant; and (c) proportionate, to the extent as is necessary in relation to the purpose for which such data shall be collected or processed.
+
+## The specific obligation being assessed
+ensure processed personal data is adequate, relevant, and proportionate to the purpose. scope/volume of personal data processed
+Elements the obligation requires:
+- data adequate for the purpose
+- data relevant to the purpose
+- data proportionate to the purpose
+
+## Security control (NIST SP 800-53 Rev 5, pm-25: Minimization of Personally Identifiable Information Used in Testing, Training, and Research)
+- pm-25_smt.a: Develop, document, and implement policies and procedures that address the use of personally identifiable information for internal testing, training, and research;
+- pm-25_smt.b: Limit or minimize the amount of personally identifiable information used for internal testing, training, and research purposes;
+- pm-25_smt.c: Authorize the use of personally identifiable information when such information is required for internal testing, training, and research; and
+- pm-25_smt.d: Review and update policies and procedures organization-defined frequency.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s8-u1|si-12 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.
+
+## The specific obligation being assessed
+ensure processed personal data is accurate and kept up to date. quality/currency of personal data
+Elements the obligation requires:
+- data accurate
+- data kept up to date
+
+## Security control (NIST SP 800-53 Rev 5, si-12: Information Management and Retention)
+- si-12_smt: Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-12_smt: Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.
+
+==================== pair_id: s8-u1|si-18 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.
+
+## The specific obligation being assessed
+ensure processed personal data is accurate and kept up to date. quality/currency of personal data
+Elements the obligation requires:
+- data accurate
+- data kept up to date
+
+## Security control (NIST SP 800-53 Rev 5, si-18: Personally Identifiable Information Quality Operations)
+- si-18_smt.a: Check the accuracy, relevance, timeliness, and completeness of personally identifiable information across the information life cycle organization-defined frequency; and
+- si-18_smt.b: Correct or delete inaccurate or outdated personally identifiable information.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-18_smt: Driver and vehicle identity records (name, contact, employee ID, vehicle registration, assignment) are correctable via PUT /drivers/{id} and PUT /vehicles/{id} (app/routers/drivers.py, app/routers/vehicles.py), each RBAC-scoped to the Fleet Manager role and the record's own company. No automated data-quality check (e.g. flagging stale contact details) was built - correction is manual, on request, via these endpoints. Deliberately anchored to identity data, not the raw GPS telemetry stream, per the scope.md coverage-table note that accuracy obligations don't naturally attach to a location stream.
+
+==================== pair_id: s8-u2|si-12 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.
+
+## The specific obligation being assessed
+take every reasonable step to erase or rectify inaccurate or outdated personal data. remediation of inaccurate/outdated data
+Elements the obligation requires:
+- mechanism to erase or rectify inaccurate/outdated data exists
+- remediation carried out without undue delay
+
+## Security control (NIST SP 800-53 Rev 5, si-12: Information Management and Retention)
+- si-12_smt: Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-12_smt: Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.
+
+==================== pair_id: s8-u2|si-18 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.
+
+## The specific obligation being assessed
+take every reasonable step to erase or rectify inaccurate or outdated personal data. remediation of inaccurate/outdated data
+Elements the obligation requires:
+- mechanism to erase or rectify inaccurate/outdated data exists
+- remediation carried out without undue delay
+
+## Security control (NIST SP 800-53 Rev 5, si-18: Personally Identifiable Information Quality Operations)
+- si-18_smt.a: Check the accuracy, relevance, timeliness, and completeness of personally identifiable information across the information life cycle organization-defined frequency; and
+- si-18_smt.b: Correct or delete inaccurate or outdated personally identifiable information.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-18_smt: Driver and vehicle identity records (name, contact, employee ID, vehicle registration, assignment) are correctable via PUT /drivers/{id} and PUT /vehicles/{id} (app/routers/drivers.py, app/routers/vehicles.py), each RBAC-scoped to the Fleet Manager role and the record's own company. No automated data-quality check (e.g. flagging stale contact details) was built - correction is manual, on request, via these endpoints. Deliberately anchored to identity data, not the raw GPS telemetry stream, per the scope.md coverage-table note that accuracy obligations don't naturally attach to a location stream.
+
+==================== pair_id: s9-u1|si-12 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.
+
+## The specific obligation being assessed
+keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data
+Elements the obligation requires:
+- retention limited to period necessary for the purpose
+- mechanism to de-identify or erase data once purpose no longer requires identification
+
+## Security control (NIST SP 800-53 Rev 5, si-12: Information Management and Retention)
+- si-12_smt: Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-12_smt: Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.
+
+==================== pair_id: s9-u1|si-12.1 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.
+
+## The specific obligation being assessed
+keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data
+Elements the obligation requires:
+- retention limited to period necessary for the purpose
+- mechanism to de-identify or erase data once purpose no longer requires identification
+
+## Security control (NIST SP 800-53 Rev 5, si-12.1: Limit Personally Identifiable Information Elements)
+- si-12.1_smt: Limit personally identifiable information being processed in the information life cycle to the following elements of personally identifiable information: elements of personally identifiable information.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s9-u1|si-18 ====================
+## Legal clause (verbatim)
+Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.
+
+## The specific obligation being assessed
+keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data
+Elements the obligation requires:
+- retention limited to period necessary for the purpose
+- mechanism to de-identify or erase data once purpose no longer requires identification
+
+## Security control (NIST SP 800-53 Rev 5, si-18: Personally Identifiable Information Quality Operations)
+- si-18_smt.a: Check the accuracy, relevance, timeliness, and completeness of personally identifiable information across the information life cycle organization-defined frequency; and
+- si-18_smt.b: Correct or delete inaccurate or outdated personally identifiable information.
+
+## The organization's implementation of this control (from its System Security Plan)
+- si-18_smt: Driver and vehicle identity records (name, contact, employee ID, vehicle registration, assignment) are correctable via PUT /drivers/{id} and PUT /vehicles/{id} (app/routers/drivers.py, app/routers/vehicles.py), each RBAC-scoped to the Fleet Manager role and the record's own company. No automated data-quality check (e.g. flagging stale contact details) was built - correction is manual, on request, via these endpoints. Deliberately anchored to identity data, not the raw GPS telemetry stream, per the scope.md coverage-table note that accuracy obligations don't naturally attach to a location stream.
