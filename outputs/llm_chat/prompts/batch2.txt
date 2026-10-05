@@ -1,0 +1,382 @@
+You are an experienced information security and data protection compliance assessor.
+
+You will assess 18 separate clause-control pairs. Assess EACH pair on its own; do not let one pair influence another.
+For each pair give two scores between 0 and 1:
+- "alignment": does the CONTROL, as written in the catalog, address the obligation on paper? 0 = not at all; 1 = it addresses every element. Ignore the implementation.
+- "realization": how fully and specifically has the organization IMPLEMENTED this control, judging only the implementation text? 0 = nothing implemented or described; 1 = fully and specifically implemented.
+
+Reply with ONLY a JSON array, one object per pair, in the same order, no other text:
+[{"pair_id": "<as given>", "alignment": <0-1>, "realization": <0-1>, "rationale": "<at most 2 sentences>"}, ...]
+
+Pairs (Sri Lanka Personal Data Protection Act No. 9 of 2022 vs NIST SP 800-53 Rev 5):
+
+==================== pair_id: s10-u1|ac-2 ====================
+## Legal clause (verbatim)
+Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.
+
+## The specific obligation being assessed
+ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data
+Elements the obligation requires:
+- prevents unauthorized or unlawful processing (confidentiality outcome)
+- prevents loss, destruction, or damage (integrity/availability outcome)
+- appropriate technical measures in place
+- appropriate organizational measures in place
+
+## Security control (NIST SP 800-53 Rev 5, ac-2: Account Management)
+- ac-2_smt.a: Define and document the types of accounts allowed and specifically prohibited for use within the system;
+- ac-2_smt.b: Assign account managers;
+- ac-2_smt.c: Require prerequisites and criteria for group and role membership;
+- ac-2_smt.d.1: Specify: Authorized users of the system;
+- ac-2_smt.d.2: Specify: Group and role membership; and
+- ac-2_smt.d.3: Specify: Access authorizations (i.e., privileges) and attributes (as required) for each account;
+- ac-2_smt.e: Require approvals by personnel or roles for requests to create accounts;
+- ac-2_smt.f: Create, enable, modify, disable, and remove accounts in accordance with policy, procedures, prerequisites, and criteria;
+- ac-2_smt.g: Monitor the use of accounts;
+- ac-2_smt.h.1: Notify account managers and personnel or roles within: time period when accounts are no longer required;
+- ac-2_smt.h.2: Notify account managers and personnel or roles within: time period when users are terminated or transferred; and
+- ac-2_smt.h.3: Notify account managers and personnel or roles within: time period when system usage or need-to-know changes for an individual;
+- ac-2_smt.i.1: Authorize access to the system based on: A valid access authorization;
+- ac-2_smt.i.2: Authorize access to the system based on: Intended system usage; and
+- ac-2_smt.i.3: Authorize access to the system based on: attributes (as required);
+- ac-2_smt.j: Review accounts for compliance with account management requirements frequency;
+- ac-2_smt.k: Establish and implement a process for changing shared or group account authenticators (if deployed) when individuals are removed from the group; and
+- ac-2_smt.l: Align account management processes with personnel termination and transfer processes.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ac-2_smt.a: Four account types are defined and enforced: fleet_manager, driver, system_administrator, tenant_owner (app/models.py, Role enum; app/rbac.py, require_roles()).
+- ac-2_smt.f: Accounts are created via POST /auth/register (self-registration restricted to tenant_owner/fleet_manager roles against an existing company_id, enforced at the Pydantic layer via SelfRegisterableRole in app/schemas.py) or provisioned out-of-band via scripts/seed.py for system_administrator and driver roles.
+- ac-2_smt.g: Account use is monitored via the audit log: every create/update/delete on drivers and vehicles, and every read of trips/reports/telemetry-derived dashboard data, is attributed to the acting user (app/audit.py, write_audit_log(); see AU-2 below).
+
+==================== pair_id: s10-u1|ac-3 ====================
+## Legal clause (verbatim)
+Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.
+
+## The specific obligation being assessed
+ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data
+Elements the obligation requires:
+- prevents unauthorized or unlawful processing (confidentiality outcome)
+- prevents loss, destruction, or damage (integrity/availability outcome)
+- appropriate technical measures in place
+- appropriate organizational measures in place
+
+## Security control (NIST SP 800-53 Rev 5, ac-3: Access Enforcement)
+- ac-3_smt: Enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ac-3_smt: A single reusable dependency chain enforces access: get_current_user() (JWT/cookie verification), require_roles(*allowed) (role gate, 403 on mismatch), and require_same_company() (cross-tenant guard, 403 unless caller's company_id matches the target resource's or caller is system_administrator) - all in app/rbac.py. Applied consistently across app/routers/drivers.py, vehicles.py, telemetry.py, trips.py, reports.py, dashboard.py.
+- ac-3_smt: The dashboard reuses the same require_roles()/require_same_company() dependencies as the JSON API rather than separate access-control logic (app/routers/dashboard.py). Verified: a Fleet Manager from a different company hitting another company's driver's trip-history URL directly is rejected (403 under the hood, surfaced as a login redirect).
+
+==================== pair_id: s10-u1|sc-13 ====================
+## Legal clause (verbatim)
+Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.
+
+## The specific obligation being assessed
+ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data
+Elements the obligation requires:
+- prevents unauthorized or unlawful processing (confidentiality outcome)
+- prevents loss, destruction, or damage (integrity/availability outcome)
+- appropriate technical measures in place
+- appropriate organizational measures in place
+
+## Security control (NIST SP 800-53 Rev 5, sc-13: Cryptographic Protection)
+- sc-13_smt.a: Determine the cryptographic uses; and
+- sc-13_smt.b: Implement the following types of cryptography required for each specified cryptographic use: types of cryptography.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s10-u1|sc-28 ====================
+## Legal clause (verbatim)
+Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.
+
+## The specific obligation being assessed
+ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data
+Elements the obligation requires:
+- prevents unauthorized or unlawful processing (confidentiality outcome)
+- prevents loss, destruction, or damage (integrity/availability outcome)
+- appropriate technical measures in place
+- appropriate organizational measures in place
+
+## Security control (NIST SP 800-53 Rev 5, sc-28: Protection of Information at Rest)
+- sc-28_smt: Protect the one or more of: confidentiality; integrity of the following information at rest: information at rest.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sc-28_smt: NOT IMPLEMENTED in the current skeleton. fleettrack.db is an unencrypted SQLite file on local disk. CLAUDE.md's build brief did not include encryption-at-rest as a required behavior. Described here as a known gap, not a tested or real behavior. [remarks: KNOWN GAP - flagged explicitly, not glossed over. See chat discussion, 2026-07-16.]
+
+==================== pair_id: s10-u1|sc-8 ====================
+## Legal clause (verbatim)
+Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.
+
+## The specific obligation being assessed
+ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data
+Elements the obligation requires:
+- prevents unauthorized or unlawful processing (confidentiality outcome)
+- prevents loss, destruction, or damage (integrity/availability outcome)
+- appropriate technical measures in place
+- appropriate organizational measures in place
+
+## Security control (NIST SP 800-53 Rev 5, sc-8: Transmission Confidentiality and Integrity)
+- sc-8_smt: Protect the one or more of: confidentiality; integrity of transmitted information.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sc-8_smt: NOT IMPLEMENTED in the current skeleton. The dev server runs over plain HTTP (uvicorn app.main:app --reload); no TLS termination exists anywhere in the stack. CLAUDE.md's build brief did not include TLS as a required behavior, so it was never built. Intended production architecture would terminate TLS at a reverse proxy in front of the API, but this is unimplemented and unverified - described here as an architectural intent, not a tested behavior. [remarks: KNOWN GAP - flagged explicitly, not glossed over. See chat discussion, 2026-07-16.]
+
+==================== pair_id: s12-u1|pm-18 ====================
+## Legal clause (verbatim)
+(1) It shall be the duty of every controller to implement internal controls and procedures (the 'Data Protection Management Programme') that - (a) establishes and maintains duly catalogued records to demonstrate the manner in which the implementation of the data protection obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11 are carried out; (b) is designed on the basis of structure, scale, volume and sensitivity of processing activities; (c) provides for appropriate safeguards based on data protection impact assessments specified in section 24; (d) is integrated into the governance structure of the controller; (e) establishes internal oversight mechanisms; (f) has a mechanism to receive complaints, conduct inquiries and identify personal data breaches; (g) is updated based on periodic monitoring and assessments; and (h) facilitates the exercise of rights of data subjects under sections 13, 14, 15, 16 and 18, for the purpose of complying with the obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11. (2) The Authority shall from time to time issue guidelines in respect of the Data Protection Management Programme.
+
+## The specific obligation being assessed
+implement and maintain a Data Protection Management Programme meeting the eight specified design requirements. internal governance programme (DPMP)
+Elements the obligation requires:
+- catalogued records demonstrating implementation of ss.5-11 obligations
+- designed on basis of structure/scale/volume/sensitivity of processing
+- provides safeguards based on s.24 DPIAs
+- integrated into the controller's governance structure
+- establishes internal oversight mechanisms
+- mechanism to receive complaints, conduct inquiries, identify breaches
+- updated based on periodic monitoring and assessments
+- facilitates exercise of data subject rights under ss.13,14,15,16,18
+
+## Security control (NIST SP 800-53 Rev 5, pm-18: Privacy Program Plan)
+- pm-18_smt.a.1: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Includes a description of the structure of the privacy program and the resources dedicated to the privacy program;
+- pm-18_smt.a.2: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Provides an overview of the requirements for the privacy program and a description of the privacy program management controls and common controls in place or planned for meeting those requirements;
+- pm-18_smt.a.3: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Includes the role of the senior agency official for privacy and the identification and assignment of roles of other privacy officials and staff and their responsibilities;
+- pm-18_smt.a.4: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Describes management commitment, compliance, and the strategic goals and objectives of the privacy program;
+- pm-18_smt.a.5: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Reflects coordination among organizational entities responsible for the different aspects of privacy; and
+- pm-18_smt.a.6: Develop and disseminate an organization-wide privacy program plan that provides an overview of the agency’s privacy program, and: Is approved by a senior official with responsibility and accountability for the privacy risk being incurred to organizational operations (including mission, functions, image, and reputation), organizational assets, individuals, other organizations, and the Nation; and
+- pm-18_smt.b: Update the plan frequency and to address changes in federal privacy laws and policy and organizational changes and problems identified during plan implementation or privacy control assessments.
+
+## The organization's implementation of this control (from its System Security Plan)
+- pm-18_smt: NARRATIVE-ONLY. No Data Protection Management Programme documentation (data inventory, complaints process, periodic review schedule, named internal oversight role) actually exists for FleetTrack. Described here only to support the s.12 accountability clause narrative.
+
+==================== pair_id: s12-u1|pm-19 ====================
+## Legal clause (verbatim)
+(1) It shall be the duty of every controller to implement internal controls and procedures (the 'Data Protection Management Programme') that - (a) establishes and maintains duly catalogued records to demonstrate the manner in which the implementation of the data protection obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11 are carried out; (b) is designed on the basis of structure, scale, volume and sensitivity of processing activities; (c) provides for appropriate safeguards based on data protection impact assessments specified in section 24; (d) is integrated into the governance structure of the controller; (e) establishes internal oversight mechanisms; (f) has a mechanism to receive complaints, conduct inquiries and identify personal data breaches; (g) is updated based on periodic monitoring and assessments; and (h) facilitates the exercise of rights of data subjects under sections 13, 14, 15, 16 and 18, for the purpose of complying with the obligations referred to in sections 5, 6, 7, 8, 9, 10 and 11. (2) The Authority shall from time to time issue guidelines in respect of the Data Protection Management Programme.
+
+## The specific obligation being assessed
+implement and maintain a Data Protection Management Programme meeting the eight specified design requirements. internal governance programme (DPMP)
+Elements the obligation requires:
+- catalogued records demonstrating implementation of ss.5-11 obligations
+- designed on basis of structure/scale/volume/sensitivity of processing
+- provides safeguards based on s.24 DPIAs
+- integrated into the controller's governance structure
+- establishes internal oversight mechanisms
+- mechanism to receive complaints, conduct inquiries, identify breaches
+- updated based on periodic monitoring and assessments
+- facilitates exercise of data subject rights under ss.13,14,15,16,18
+
+## Security control (NIST SP 800-53 Rev 5, pm-19: Privacy Program Leadership Role)
+- pm-19_smt: Appoint a senior agency official for privacy with the authority, mission, accountability, and resources to coordinate, develop, and implement, applicable privacy requirements and manage privacy risks through the organization-wide privacy program.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s22-u1|sa-9 ====================
+## Legal clause (verbatim)
+(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.
+
+## The specific obligation being assessed
+carry out processing activities only on the written instructions of the controller. instruction-bound processing
+Elements the obligation requires:
+- processing carried out only on documented written controller instructions
+
+## Security control (NIST SP 800-53 Rev 5, sa-9: External System Services)
+- sa-9_smt.a: Require that providers of external system services comply with organizational security and privacy requirements and employ the following controls: controls;
+- sa-9_smt.b: Define and document organizational oversight and user roles and responsibilities with regard to external system services; and
+- sa-9_smt.c: Employ the following processes, methods, and techniques to monitor control compliance by external service providers on an ongoing basis: processes, methods, and techniques.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sa-9_smt: NARRATIVE-ONLY. No real mapping/geocoding vendor integration exists. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+- sa-9_smt: NARRATIVE-ONLY. No real overseas hosting arrangement exists; described for the s.26 clause only. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+
+==================== pair_id: s22-u2|sa-9 ====================
+## Legal clause (verbatim)
+(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.
+
+## The specific obligation being assessed
+bind personnel to confidentiality and secrecy via appropriate technical and organizational measures. personnel confidentiality obligations
+Elements the obligation requires:
+- personnel bound by contractual confidentiality/secrecy obligations
+- appropriate technical and organizational measures implemented for personnel binding
+
+## Security control (NIST SP 800-53 Rev 5, sa-9: External System Services)
+- sa-9_smt.a: Require that providers of external system services comply with organizational security and privacy requirements and employ the following controls: controls;
+- sa-9_smt.b: Define and document organizational oversight and user roles and responsibilities with regard to external system services; and
+- sa-9_smt.c: Employ the following processes, methods, and techniques to monitor control compliance by external service providers on an ongoing basis: processes, methods, and techniques.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sa-9_smt: NARRATIVE-ONLY. No real mapping/geocoding vendor integration exists. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+- sa-9_smt: NARRATIVE-ONLY. No real overseas hosting arrangement exists; described for the s.26 clause only. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+
+==================== pair_id: s22-u3|sa-9 ====================
+## Legal clause (verbatim)
+(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.
+
+## The specific obligation being assessed
+facilitate the controller's compliance audits and inspections on written request. audit facilitation
+Elements the obligation requires:
+- mechanism to facilitate controller compliance audits and inspections
+
+## Security control (NIST SP 800-53 Rev 5, sa-9: External System Services)
+- sa-9_smt.a: Require that providers of external system services comply with organizational security and privacy requirements and employ the following controls: controls;
+- sa-9_smt.b: Define and document organizational oversight and user roles and responsibilities with regard to external system services; and
+- sa-9_smt.c: Employ the following processes, methods, and techniques to monitor control compliance by external service providers on an ongoing basis: processes, methods, and techniques.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sa-9_smt: NARRATIVE-ONLY. No real mapping/geocoding vendor integration exists. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+- sa-9_smt: NARRATIVE-ONLY. No real overseas hosting arrangement exists; described for the s.26 clause only. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+
+==================== pair_id: s22-u4|sa-9 ====================
+## Legal clause (verbatim)
+(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.
+
+## The specific obligation being assessed
+erase or return all personal data to the controller on written instruction after service completion. end-of-service data disposition
+Elements the obligation requires:
+- mechanism to erase or return personal data on controller instruction at end of service
+
+## Security control (NIST SP 800-53 Rev 5, sa-9: External System Services)
+- sa-9_smt.a: Require that providers of external system services comply with organizational security and privacy requirements and employ the following controls: controls;
+- sa-9_smt.b: Define and document organizational oversight and user roles and responsibilities with regard to external system services; and
+- sa-9_smt.c: Employ the following processes, methods, and techniques to monitor control compliance by external service providers on an ongoing basis: processes, methods, and techniques.
+
+## The organization's implementation of this control (from its System Security Plan)
+- sa-9_smt: NARRATIVE-ONLY. No real mapping/geocoding vendor integration exists. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+- sa-9_smt: NARRATIVE-ONLY. No real overseas hosting arrangement exists; described for the s.26 clause only. [remarks: Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations.]
+
+==================== pair_id: s23-u1|ir-6 ====================
+## Legal clause (verbatim)
+(1) In the event of a personal data breach, a controller shall notify the Authority, regarding such personal data breach in such form, manner and within such period of time as may be determined by rules made under this Act. (2) The Authority shall provide for - (a) the circumstances where the Authority shall be notified of such data breach; (b) the circumstances where the affected data subject shall be notified; and (c) the form, and manner of making such notification, and information which shall be provided in such notification relating to the data breach, by way of rules made under this Act.
+
+## The specific obligation being assessed
+notify the Authority of a personal data breach in the form, manner, and time determined by rules. breach notification to the Authority
+Elements the obligation requires:
+- mechanism to notify the Authority of a personal data breach exists
+- notification made within the required period
+- notification made in the required form/manner with required information
+
+## Security control (NIST SP 800-53 Rev 5, ir-6: Incident Reporting)
+- ir-6_smt.a: Require personnel to report suspected incidents to the organizational incident response capability within time period; and
+- ir-6_smt.b: Report incident information to authorities.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ir-6_smt: NARRATIVE-ONLY formal incident-reporting procedure. What IS real: the audit_log table (see AU-2) would be the actual detection substrate for an incident (e.g. anomalous access to telemetry_pings or drivers), but no anomaly-detection, alerting, or formal reporting workflow was built on top of it.
+
+==================== pair_id: s23-u1|ir-8 ====================
+## Legal clause (verbatim)
+(1) In the event of a personal data breach, a controller shall notify the Authority, regarding such personal data breach in such form, manner and within such period of time as may be determined by rules made under this Act. (2) The Authority shall provide for - (a) the circumstances where the Authority shall be notified of such data breach; (b) the circumstances where the affected data subject shall be notified; and (c) the form, and manner of making such notification, and information which shall be provided in such notification relating to the data breach, by way of rules made under this Act.
+
+## The specific obligation being assessed
+notify the Authority of a personal data breach in the form, manner, and time determined by rules. breach notification to the Authority
+Elements the obligation requires:
+- mechanism to notify the Authority of a personal data breach exists
+- notification made within the required period
+- notification made in the required form/manner with required information
+
+## Security control (NIST SP 800-53 Rev 5, ir-8: Incident Response Plan)
+- ir-8_smt.a.1: Develop an incident response plan that: Provides the organization with a roadmap for implementing its incident response capability;
+- ir-8_smt.a.2: Develop an incident response plan that: Describes the structure and organization of the incident response capability;
+- ir-8_smt.a.3: Develop an incident response plan that: Provides a high-level approach for how the incident response capability fits into the overall organization;
+- ir-8_smt.a.4: Develop an incident response plan that: Meets the unique requirements of the organization, which relate to mission, size, structure, and functions;
+- ir-8_smt.a.5: Develop an incident response plan that: Defines reportable incidents;
+- ir-8_smt.a.6: Develop an incident response plan that: Provides metrics for measuring the incident response capability within the organization;
+- ir-8_smt.a.7: Develop an incident response plan that: Defines the resources and management support needed to effectively maintain and mature an incident response capability;
+- ir-8_smt.a.8: Develop an incident response plan that: Addresses the sharing of incident information;
+- ir-8_smt.a.9: Develop an incident response plan that: Is reviewed and approved by personnel or roles frequency; and
+- ir-8_smt.a.10: Develop an incident response plan that: Explicitly designates responsibility for incident response to entities, personnel, or roles.
+- ir-8_smt.b: Distribute copies of the incident response plan to incident response personnel;
+- ir-8_smt.c: Update the incident response plan to address system and organizational changes or problems encountered during plan implementation, execution, or testing;
+- ir-8_smt.d: Communicate incident response plan changes to organization-defined incident response personnel (identified by name and/or by role) and organizational elements; and
+- ir-8_smt.e: Protect the incident response plan from unauthorized disclosure and modification.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ir-8_smt: NARRATIVE-ONLY. No incident response plan document exists; described here only to support the s.23 breach-notification clause narrative.
+
+==================== pair_id: s23-u1|ir-8.1 ====================
+## Legal clause (verbatim)
+(1) In the event of a personal data breach, a controller shall notify the Authority, regarding such personal data breach in such form, manner and within such period of time as may be determined by rules made under this Act. (2) The Authority shall provide for - (a) the circumstances where the Authority shall be notified of such data breach; (b) the circumstances where the affected data subject shall be notified; and (c) the form, and manner of making such notification, and information which shall be provided in such notification relating to the data breach, by way of rules made under this Act.
+
+## The specific obligation being assessed
+notify the Authority of a personal data breach in the form, manner, and time determined by rules. breach notification to the Authority
+Elements the obligation requires:
+- mechanism to notify the Authority of a personal data breach exists
+- notification made within the required period
+- notification made in the required form/manner with required information
+
+## Security control (NIST SP 800-53 Rev 5, ir-8.1: Breaches)
+- ir-8.1_smt.a: Include the following in the Incident Response Plan for breaches involving personally identifiable information: A process to determine if notice to individuals or other organizations, including oversight organizations, is needed;
+- ir-8.1_smt.b: Include the following in the Incident Response Plan for breaches involving personally identifiable information: An assessment process to determine the extent of the harm, embarrassment, inconvenience, or unfairness to affected individuals and any mechanisms to mitigate such harms; and
+- ir-8.1_smt.c: Include the following in the Incident Response Plan for breaches involving personally identifiable information: Identification of applicable privacy requirements.
+
+## The organization's implementation of this control (from its System Security Plan)
+(The System Security Plan does not address this control.)
+
+==================== pair_id: s24-u1|ra-8 ====================
+## Legal clause (verbatim)
+(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.
+
+## The specific obligation being assessed
+carry out a personal data protection impact assessment prior to the triggering processing. DPIA conduct
+Elements the obligation requires:
+- DPIA carried out prior to processing
+- DPIA ascertains impact on Part I obligations and Part II rights
+- DPIA documents measures and safeguards to mitigate risk of harm
+
+## Security control (NIST SP 800-53 Rev 5, ra-8: Privacy Impact Assessments)
+- ra-8_smt.a: Conduct privacy impact assessments for systems, programs, or other activities before: Developing or procuring information technology that processes personally identifiable information; and
+- ra-8_smt.b.1: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Will be processed using information technology; and
+- ra-8_smt.b.2: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Includes personally identifiable information permitting the physical or virtual (online) contacting of a specific individual, if identical questions have been posed to, or identical reporting requirements imposed on, ten or more individuals, other than agencies, instrumentalities, or employees of the federal government.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ra-8_smt: NARRATIVE-ONLY. No DPIA was actually conducted for FleetTrack. This is a genuine gap, not just a formality: s.24(1)(b) is the strongest, most literal clause-fit in the whole scenario (systematic location monitoring), and the skeleton has no artefact backing it beyond the collection-scoping behavior already cited under PT-3. If a real DPIA were written, it should assess telemetry frequency/granularity against the stated logistics purpose. [remarks: Flagged prominently: this is the single largest gap between narrative ambition and built reality in this SSP.]
+
+==================== pair_id: s24-u2|ra-8 ====================
+## Legal clause (verbatim)
+(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.
+
+## The specific obligation being assessed
+seek the assistance of the Data Protection Officer where designated. DPO involvement in DPIA
+Elements the obligation requires:
+- DPO involved in the DPIA where one is designated
+
+## Security control (NIST SP 800-53 Rev 5, ra-8: Privacy Impact Assessments)
+- ra-8_smt.a: Conduct privacy impact assessments for systems, programs, or other activities before: Developing or procuring information technology that processes personally identifiable information; and
+- ra-8_smt.b.1: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Will be processed using information technology; and
+- ra-8_smt.b.2: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Includes personally identifiable information permitting the physical or virtual (online) contacting of a specific individual, if identical questions have been posed to, or identical reporting requirements imposed on, ten or more individuals, other than agencies, instrumentalities, or employees of the federal government.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ra-8_smt: NARRATIVE-ONLY. No DPIA was actually conducted for FleetTrack. This is a genuine gap, not just a formality: s.24(1)(b) is the strongest, most literal clause-fit in the whole scenario (systematic location monitoring), and the skeleton has no artefact backing it beyond the collection-scoping behavior already cited under PT-3. If a real DPIA were written, it should assess telemetry frequency/granularity against the stated logistics purpose. [remarks: Flagged prominently: this is the single largest gap between narrative ambition and built reality in this SSP.]
+
+==================== pair_id: s24-u3|ra-8 ====================
+## Legal clause (verbatim)
+(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.
+
+## The specific obligation being assessed
+conduct a fresh DPIA whenever methodology, technology, or process changes. DPIA refresh on material change
+Elements the obligation requires:
+- mechanism to trigger a fresh DPIA on change of methodology/technology/process
+
+## Security control (NIST SP 800-53 Rev 5, ra-8: Privacy Impact Assessments)
+- ra-8_smt.a: Conduct privacy impact assessments for systems, programs, or other activities before: Developing or procuring information technology that processes personally identifiable information; and
+- ra-8_smt.b.1: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Will be processed using information technology; and
+- ra-8_smt.b.2: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Includes personally identifiable information permitting the physical or virtual (online) contacting of a specific individual, if identical questions have been posed to, or identical reporting requirements imposed on, ten or more individuals, other than agencies, instrumentalities, or employees of the federal government.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ra-8_smt: NARRATIVE-ONLY. No DPIA was actually conducted for FleetTrack. This is a genuine gap, not just a formality: s.24(1)(b) is the strongest, most literal clause-fit in the whole scenario (systematic location monitoring), and the skeleton has no artefact backing it beyond the collection-scoping behavior already cited under PT-3. If a real DPIA were written, it should assess telemetry frequency/granularity against the stated logistics purpose. [remarks: Flagged prominently: this is the single largest gap between narrative ambition and built reality in this SSP.]
+
+==================== pair_id: s24-u4|ra-8 ====================
+## Legal clause (verbatim)
+(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.
+
+## The specific obligation being assessed
+submit the DPIA to the Authority and provide further information on request. DPIA submission to Authority
+Elements the obligation requires:
+- DPIA submitted to the Authority
+
+## Security control (NIST SP 800-53 Rev 5, ra-8: Privacy Impact Assessments)
+- ra-8_smt.a: Conduct privacy impact assessments for systems, programs, or other activities before: Developing or procuring information technology that processes personally identifiable information; and
+- ra-8_smt.b.1: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Will be processed using information technology; and
+- ra-8_smt.b.2: Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Includes personally identifiable information permitting the physical or virtual (online) contacting of a specific individual, if identical questions have been posed to, or identical reporting requirements imposed on, ten or more individuals, other than agencies, instrumentalities, or employees of the federal government.
+
+## The organization's implementation of this control (from its System Security Plan)
+- ra-8_smt: NARRATIVE-ONLY. No DPIA was actually conducted for FleetTrack. This is a genuine gap, not just a formality: s.24(1)(b) is the strongest, most literal clause-fit in the whole scenario (systematic location monitoring), and the skeleton has no artefact backing it beyond the collection-scoping behavior already cited under PT-3. If a real DPIA were written, it should assess telemetry frequency/granularity against the stated logistics purpose. [remarks: Flagged prominently: this is the single largest gap between narrative ambition and built reality in this SSP.]
