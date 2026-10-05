@@ -1,0 +1,110 @@
+[
+  {
+    "pair_id": "s10-u1|ac-2",
+    "alignment": 0.7,
+    "realization": 1.0,
+    "rationale": "AC-2 establishes strict account management practices, providing the access controls necessary to prevent unauthorized processing as required by the law. The organization has fully implemented robust role-based account creation, enforcement, and monitoring within the application."
+  },
+  {
+    "pair_id": "s10-u1|ac-3",
+    "alignment": 0.8,
+    "realization": 1.0,
+    "rationale": "Enforcing approved logical access authorizations directly fulfills the mandate for access controls to prevent unauthorized processing of personal data. The organization has successfully implemented and verified reusable dependency chains for strict role and cross-tenant access enforcement."
+  },
+  {
+    "pair_id": "s10-u1|sc-13",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "The control directly maps to the legal clause's explicit requirement to use encryption as a technical measure to protect data. The organization has not addressed or implemented any cryptographic protections in the SSP."
+  },
+  {
+    "pair_id": "s10-u1|sc-28",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "Protecting information at rest acts as a core technical safeguard against loss, destruction, and unauthorized access. The organization explicitly documented this as a known gap, utilizing an unencrypted SQLite database."
+  },
+  {
+    "pair_id": "s10-u1|sc-8",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "Securing data in transit is essential for preventing unauthorized processing and ensuring confidentiality during data exchanges. The organization runs plain HTTP with no TLS termination, acknowledging this as an unimplemented architectural gap."
+  },
+  {
+    "pair_id": "s12-u1|pm-18",
+    "alignment": 0.9,
+    "realization": 0.0,
+    "rationale": "PM-18 closely aligns with the statutory requirement to develop, implement, and maintain a comprehensive Data Protection Management Programme. The organization has provided only a narrative placeholder without producing any actual DPMP documentation."
+  },
+  {
+    "pair_id": "s12-u1|pm-19",
+    "alignment": 0.7,
+    "realization": 0.0,
+    "rationale": "Designating a senior privacy official fulfills the law's requirement for internal oversight mechanisms and integration into the governance structure. The SSP completely omits this control with no real or narrative implementation."
+  },
+  {
+    "pair_id": "s22-u1|sa-9",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "SA-9 requires external providers to comply with organizational requirements, providing a mechanism to enforce written processing instructions, albeit broadly. The documented vendor integrations are purely fictional scaffolding with no actual implementation."
+  },
+  {
+    "pair_id": "s22-u2|sa-9",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "SA-9 governs external service providers rather than internally binding the processor's own personnel to confidentiality, creating a weak alignment. There is no actual implementation provided, only fictional narrative."
+  },
+  {
+    "pair_id": "s22-u3|sa-9",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "The requirement in SA-9 to monitor external service providers' control compliance maps directly to facilitating controller compliance audits. The organization has not implemented this capability beyond a theoretical narrative."
+  },
+  {
+    "pair_id": "s22-u4|sa-9",
+    "alignment": 0.5,
+    "realization": 0.0,
+    "rationale": "While SA-9 enforces general privacy requirements on external providers, it lacks explicit mechanisms for data return or erasure post-service. The described vendor relationships are entirely fictional."
+  },
+  {
+    "pair_id": "s23-u1|ir-6",
+    "alignment": 1.0,
+    "realization": 0.1,
+    "rationale": "IR-6 directly addresses the obligation by explicitly requiring the reporting of incident information to authorities. Although basic logging exists, the formal incident reporting workflow to the Authority is entirely unbuilt."
+  },
+  {
+    "pair_id": "s23-u1|ir-8",
+    "alignment": 0.6,
+    "realization": 0.0,
+    "rationale": "Developing an incident response plan provides the structural foundation for breach notification, though it does not explicitly dictate the notification itself. The organization has no actual documented plan, relying solely on a narrative description."
+  },
+  {
+    "pair_id": "s23-u1|ir-8.1",
+    "alignment": 0.8,
+    "realization": 0.0,
+    "rationale": "This control explicitly requires a process to determine if notice to oversight organizations is necessary, perfectly aligning with the statutory reporting mandate. The SSP does not address this control at all."
+  },
+  {
+    "pair_id": "s24-u1|ra-8",
+    "alignment": 1.0,
+    "realization": 0.0,
+    "rationale": "RA-8 is a perfect match for the legal obligation to conduct privacy impact assessments prior to sensitive data processing. The organization admits this is a major gap and has not conducted a real DPIA for the system."
+  },
+  {
+    "pair_id": "s24-u2|ra-8",
+    "alignment": 0.3,
+    "realization": 0.0,
+    "rationale": "While RA-8 governs the creation of privacy impact assessments, its text lacks any specific requirement for involving a Data Protection Officer. No DPIA process has been implemented by the organization."
+  },
+  {
+    "pair_id": "s24-u3|ra-8",
+    "alignment": 0.4,
+    "realization": 0.0,
+    "rationale": "The control mandates assessments for new collections but does not explicitly require refreshing them upon methodological or technological changes as the law demands. The implementation is completely absent."
+  },
+  {
+    "pair_id": "s24-u4|ra-8",
+    "alignment": 0.1,
+    "realization": 0.0,
+    "rationale": "RA-8 is an internal assessment control and does not contain requirements for submitting the resulting impact assessment to external regulatory authorities. The organization has zero implementation for this requirement."
+  }
+]

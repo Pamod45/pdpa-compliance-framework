@@ -1,0 +1,19 @@
+app,model_shown,date,run,batch,temporary_or_memory_off,notes
+claude,Claude Opus 5.5 (medium),2026-10-05,1,1,yes,https://claude.ai/share/45b4a4a2-7cba-432e-997d-dd7ad911b1e1
+claude,Claude Opus 5.5 (medium),2026-10-05,1,2,yes,https://claude.ai/share/b2bcc8e9-7c71-449e-8ac8-06612bfa32da
+claude,Claude Opus 5.5 (medium),2026-10-05,2,1,yes,https://claude.ai/share/2ac946f5-3db3-47d3-90d6-e95dd2eedbb4
+claude,Claude Opus 5.5 (medium),2026-10-05,2,2,yes,https://claude.ai/share/b99c3e8d-0bb1-4658-a485-3559054a552b
+claude,Claude Opus 5.5 (medium),2026-10-05,3,1,yes,https://claude.ai/share/b69797ee-becf-4396-8327-bc794960e56f
+claude,Claude Opus 5.5 (medium),2026-10-05,3,2,yes,https://claude.ai/share/8c4b13dd-7914-4956-a574-e7dccd18ad46
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,1,1,yes,https://chatgpt.com/share/6ac39eae-1b10-83ee-a9f0-a8c9f451112e
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,1,2,yes,https://chatgpt.com/share/6ac39e9f-ad18-83ee-a73b-5aed99d58dc7
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,2,1,yes,https://chatgpt.com/share/6ac39e90-6074-83ee-8a65-d9ba5ed4d934
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,2,2,yes,https://chatgpt.com/share/6ac39e36-cad8-83e8-b81b-79c2c1d31949
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,3,1,yes,https://chatgpt.com/share/6ac39dfd-25cc-83ee-ad91-9b37eea9bdd1
+chatgpt,ChatGPT 5.6 Sol (medium),2026-10-05,3,2,yes,https://chatgpt.com/share/6ac39db8-3da0-83ee-8448-058ac76977ad
+gemini,Gemini 3.1 Pro,2026-10-05,1,1,yes,https://share.gemini.google/X7PxsvtIUWHV
+gemini,Gemini 3.1 Pro,2026-10-05,1,2,yes,https://share.gemini.google/s8uFUgwOOpWZ
+gemini,Gemini 3.1 Pro,2026-10-05,2,1,yes,https://share.gemini.google/QuXCQwEM6rw2
+gemini,Gemini 3.1 Pro,2026-10-05,2,2,yes,https://share.gemini.google/Fi1vqasozpRh
+gemini,Gemini 3.1 Pro,2026-10-05,3,1,yes,https://share.gemini.google/Y96xUqJT7X8Z
+gemini,Gemini 3.1 Pro,2026-10-05,3,2,yes,https://share.gemini.google/BniJJqxPjNko
