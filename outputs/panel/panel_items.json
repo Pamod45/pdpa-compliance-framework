@@ -1,0 +1,3423 @@
+{
+  "version": "panel-pack v1 (2026-10-05)",
+  "seed": 20261005,
+  "source_run": "outputs/run_method_of_record_v1_1/run.json",
+  "pcef_config": "FROZEN v1.1 2026-10-05",
+  "items": [
+    {
+      "pair": "s5-u2|pt-3",
+      "context": {
+        "clause_id": "PDPA-s5",
+        "clause_title": "Obligation to process personal data in a lawful manner",
+        "clause_text": "The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.",
+        "obligation": "additionally establish an applicable Schedule II condition where special-category data is processed. lawful basis for special-category processing",
+        "modality": "conditional",
+        "actor": "controller",
+        "attributes": [
+          "at least one Schedule II condition satisfied"
+        ],
+        "control_id": "pt-3",
+        "control_title": "Personally Identifiable Information Processing Purposes",
+        "catalog_rows": [
+          {
+            "id": "pt-3_smt.a",
+            "text": "Identify and document the purpose(s) for processing personally identifiable information;"
+          },
+          {
+            "id": "pt-3_smt.b",
+            "text": "Describe the purpose(s) in the public privacy notices and policies of the organization;"
+          },
+          {
+            "id": "pt-3_smt.c",
+            "text": "Restrict the processing of personally identifiable information to only that which is compatible with the identified purpose(s); and"
+          },
+          {
+            "id": "pt-3_smt.d",
+            "text": "Monitor changes in processing personally identifiable information and implement mechanisms to ensure that any changes are made in accordance with requirements."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "pt-3_smt",
+            "text": "Telemetry is collected only via authenticated driver POSTs to /telemetry, scoped to the driver's own assigned vehicle within their own company (app/routers/telemetry.py, ingest_telemetry()) - no broader collection than the stated logistics purpose. NARRATIVE, not enforced in code: the secondary use of this data for driver performance review via GET /reports is the deliberate s.6 purpose-limitation tension point; the skeleton does not implement a compatibility assessment or a purpose-tagging mechanism distinguishing the two uses.",
+            "remarks": "Collection-scoping is real and verified; the purpose-reuse compatibility assessment itself is narrative only."
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.4667,
+          "realization": 0.4,
+          "product_reporting_only": 0.1867
+        },
+        "measures": {
+          "relatedness": 0.5866,
+          "coverage": 0.0,
+          "strength": null,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 1,
+          "attributes": {
+            "s5-u2-a1": {
+              "name": "at least one Schedule II condition satisfied",
+              "best": 0.2197,
+              "row": "pt-3_smt.b",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5866,
+          "best_row": "pt-3_smt.a",
+          "per_row": {
+            "pt-3_smt.a": 0.5866,
+            "pt-3_smt.b": 0.5556,
+            "pt-3_smt.c": 0.5522,
+            "pt-3_smt.d": 0.4499
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.4,
+          "rows": {
+            "pt-3_smt.a": {
+              "status": "inherited",
+              "source": "pt-3_smt",
+              "score": 0.4,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "ingest_telemetry",
+                    "telemetry.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.8,
+                  "capped": false,
+                  "score": 0.8
+                }
+              ]
+            },
+            "pt-3_smt.b": {
+              "status": "inherited",
+              "source": "pt-3_smt",
+              "score": 0.4,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "ingest_telemetry",
+                    "telemetry.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.8,
+                  "capped": false,
+                  "score": 0.8
+                }
+              ]
+            },
+            "pt-3_smt.c": {
+              "status": "inherited",
+              "source": "pt-3_smt",
+              "score": 0.4,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "ingest_telemetry",
+                    "telemetry.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.8,
+                  "capped": false,
+                  "score": 0.8
+                }
+              ]
+            },
+            "pt-3_smt.d": {
+              "status": "inherited",
+              "source": "pt-3_smt",
+              "score": 0.4,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "ingest_telemetry",
+                    "telemetry.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.8,
+                  "capped": false,
+                  "score": 0.8
+                }
+              ]
+            }
+          },
+          "counted_rows": 4,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.1,
+              "realization": 0.45,
+              "rationale": "Purpose identification and compatibility controls do not materially establish the additional Schedule II lawful condition required for special-category data. The implementation concretely restricts telemetry collection but lacks several PT-3 mechanisms, including compatibility assessment and purpose-change controls.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.25,
+              "realization": 0.1,
+              "rationale": "PT-3 focuses on processing purposes and compatibility, not the additional lawful condition required for special-category data. The implementation contains no Schedule II authorization or equivalent special-category lawful-basis mechanism.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.45,
+              "rationale": "PT-3 addresses purposes and compatible use, not the requirement to establish an additional Schedule II condition for special-category data. The implementation scopes telemetry collection but does not implement several substantive PT-3 elements.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.45
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.4,
+              "rationale": "Purpose identification doesn't address the extra conditions needed to process special-category data. Collection scoping is real, but purpose compatibility controls are only narrative.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.2,
+              "realization": 0.45,
+              "rationale": "Purpose identification and restriction does not address establishing a Schedule II condition for special-category processing. Collection scoping is real, but the purpose compatibility controls are narrative only.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.25,
+              "realization": 0.35,
+              "rationale": "Purpose specification only indirectly supports establishing a Schedule II condition for special-category data. Collection scoping is real, but notices, the compatibility assessment and change monitoring are missing or narrative only.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.2,
+          "median_realization": 0.4
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.1,
+              "realization": 0.4,
+              "rationale": "Control pt-3 focuses on documenting and limiting processing purposes rather than establishing a specific legal basis for special-category data processing. The organization's implementation scopes telemetry but only provides a narrative approach to purpose compatibility without code-level enforcement.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.1,
+              "realization": 0.1,
+              "rationale": "The control covers processing purposes, not the lawful basis requirements for special-category data. The implementation discusses collection scoping and narrative purpose limitations, ignoring special-category conditions.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "Purpose limitation controls do not address the specific legal obligation of establishing a lawful basis for special categories of data. The implementation is entirely unrelated to special category lawful bases.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.1
+        }
+      }
+    },
+    {
+      "pair": "s10-u1|sc-28",
+      "context": {
+        "clause_id": "PDPA-s10",
+        "clause_title": "Obligation to maintain integrity and confidentiality",
+        "clause_text": "Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.",
+        "obligation": "ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "prevents unauthorized or unlawful processing (confidentiality outcome)",
+          "prevents loss, destruction, or damage (integrity/availability outcome)",
+          "appropriate technical measures in place",
+          "appropriate organizational measures in place"
+        ],
+        "control_id": "sc-28",
+        "control_title": "Protection of Information at Rest",
+        "catalog_rows": [
+          {
+            "id": "sc-28_smt",
+            "text": "Protect the one or more of: confidentiality; integrity of the following information at rest: information at rest."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "sc-28_smt",
+            "text": "NOT IMPLEMENTED in the current skeleton. fleettrack.db is an unencrypted SQLite file on local disk. CLAUDE.md's build brief did not include encryption-at-rest as a required behavior. Described here as a known gap, not a tested or real behavior.",
+            "remarks": "KNOWN GAP - flagged explicitly, not glossed over. See chat discussion, 2026-07-16."
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6613,
+          "realization": 0.2,
+          "product_reporting_only": 0.1323
+        },
+        "measures": {
+          "relatedness": 0.6052,
+          "coverage": 0.4595,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 4,
+          "attributes": {
+            "s10-u1-a1": {
+              "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+              "best": 0.4274,
+              "row": "sc-28_smt",
+              "score": 0.887
+            },
+            "s10-u1-a2": {
+              "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+              "best": 0.4402,
+              "row": "sc-28_smt",
+              "score": 0.951
+            },
+            "s10-u1-a3": {
+              "name": "appropriate technical measures in place",
+              "best": 0.2372,
+              "row": "sc-28_smt",
+              "score": 0.0
+            },
+            "s10-u1-a4": {
+              "name": "appropriate organizational measures in place",
+              "best": 0.1918,
+              "row": "sc-28_smt",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.6052,
+          "best_row": "sc-28_smt",
+          "per_row": {
+            "sc-28_smt": 0.6052
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "technical",
+          "control_orientation": "technical",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "system",
+          "expected_level": "system",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.2,
+          "rows": {
+            "sc-28_smt": {
+              "status": "implemented",
+              "source": "sc-28_smt",
+              "score": 0.2,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [
+                    "CLAUDE.md",
+                    "fleettrack.db"
+                  ],
+                  "negation_hits": [
+                    "not implemented",
+                    "known gap"
+                  ],
+                  "uncapped": 0.6,
+                  "capped": true,
+                  "score": 0.2
+                }
+              ]
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.56,
+              "realization": 0.0,
+              "rationale": "Protection of information at rest directly supports confidentiality and integrity of stored personal data, but does not fully address availability, all processing states, or organizational measures. The implementation explicitly states that the SQLite database is unencrypted and that protection at rest is not implemented.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.55,
+              "realization": 0.0,
+              "rationale": "Protection of information at rest directly supports confidentiality and integrity of stored personal data, but does not by itself cover availability or organizational measures. The implementation explicitly states that the SQLite database is unencrypted and the control is not implemented.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.5,
+              "realization": 0.0,
+              "rationale": "Protection of information at rest directly supports confidentiality and integrity of stored personal data, but does not by itself cover organizational measures or the full availability and loss/destruction aspects. The implementation explicitly states that the SQLite database is unencrypted and the control is not implemented.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.55,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.45,
+              "realization": 0.0,
+              "rationale": "Protecting data at rest covers both confidentiality and integrity for stored personal data, but it does not address transit, availability/loss, or organizational measures. The SSP explicitly states it is not implemented: the SQLite database is unencrypted.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.45,
+              "realization": 0.0,
+              "rationale": "Protecting confidentiality and integrity at rest covers core elements of the clause but not availability or loss, nor organizational measures. The control is explicitly not implemented: the SQLite database is unencrypted on local disk.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.45,
+              "realization": 0.0,
+              "rationale": "Protecting data at rest addresses confidentiality and integrity of stored personal data, but not availability or loss, and not organizational measures. The SSP explicitly states the database is an unencrypted SQLite file, a known gap.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.45,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.6,
+              "realization": 0.0,
+              "rationale": "SC-28 protects information at rest, providing the technical measures (like encryption) necessary to prevent unauthorized access or data loss. The organization acknowledges this as a known gap with no implementation.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.7,
+              "realization": 0.0,
+              "rationale": "SC-28 safeguards information at rest, providing the technical confidentiality and integrity measures required by the clause. The organization explicitly notes that encryption at rest is unimplemented and remains a known gap.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.8,
+              "realization": 0.0,
+              "rationale": "Protecting information at rest acts as a core technical safeguard against loss, destruction, and unauthorized access. The organization explicitly documented this as a known gap, utilizing an unencrypted SQLite database.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.7,
+          "median_realization": 0.0
+        }
+      }
+    },
+    {
+      "pair": "s9-u1|si-12.1",
+      "context": {
+        "clause_id": "PDPA-s9",
+        "clause_title": "Obligation to limit the period of retention",
+        "clause_text": "Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.",
+        "obligation": "keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "retention limited to period necessary for the purpose",
+          "mechanism to de-identify or erase data once purpose no longer requires identification"
+        ],
+        "control_id": "si-12.1",
+        "control_title": "Limit Personally Identifiable Information Elements",
+        "catalog_rows": [
+          {
+            "id": "si-12.1_smt",
+            "text": "Limit personally identifiable information being processed in the information life cycle to the following elements of personally identifiable information: elements of personally identifiable information."
+          }
+        ],
+        "ssp_text": []
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6258,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        "measures": {
+          "relatedness": 0.5831,
+          "coverage": 0.389,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s9-u1-a1": {
+              "name": "retention limited to period necessary for the purpose",
+              "best": 0.3059,
+              "row": "si-12.1_smt",
+              "score": 0.2794
+            },
+            "s9-u1-a2": {
+              "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+              "best": 0.3497,
+              "row": "si-12.1_smt",
+              "score": 0.4985
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5831,
+          "best_row": "si-12.1_smt",
+          "per_row": {
+            "si-12.1_smt": 0.5831
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "base_control_override",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.0,
+          "rows": {
+            "si-12.1_smt": {
+              "status": "absent",
+              "score": 0.0
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.0,
+              "rationale": "SI-12.1 limits which PII elements are processed but does not regulate how long identifiable data may be retained or require deletion or de-identification after the necessary period. The System Security Plan provides no implementation for this control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.35,
+              "realization": 0.0,
+              "rationale": "SI-12.1 limits which PII elements are processed and therefore supports minimization, but it does not govern how long identifiable data is retained or require erasure or de-identification after the purpose ends. The System Security Plan does not address this control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.25,
+              "realization": 0.0,
+              "rationale": "SI-12.1 limits which PII elements are processed and therefore supports minimization, but it does not regulate the duration of identifiability or require later de-identification or erasure. The SSP does not address the control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.25,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.3,
+              "realization": 0.0,
+              "rationale": "Limiting which PII elements are processed is minimization, not time-bound retention. The SSP doesn't address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.3,
+              "realization": 0.0,
+              "rationale": "SI-12.1 limits which PII elements are processed, not how long data stays in identifiable form. The SSP does not address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.35,
+              "realization": 0.0,
+              "rationale": "SI-12.1 limits which PII elements are processed rather than how long data stays identifiable. The SSP does not address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.3,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "Control si-12.1 focuses on minimizing the specific elements of PII collected, which does not address the obligation to limit the temporal retention period of identifiable data. Additionally, there are no implementation details provided in the SSP for this control.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.2,
+              "realization": 0.0,
+              "rationale": "The control focuses on limiting the specific elements of PII collected, rather than the duration for which data is kept in an identifiable form. The organization has not addressed this control.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.2,
+              "realization": 0.0,
+              "rationale": "Limiting the specific elements of PII processed is a data minimization control, not a control for limiting the temporal retention period. The organization has not implemented this control.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.2,
+          "median_realization": 0.0
+        }
+      }
+    },
+    {
+      "pair": "s10-u1|sc-8",
+      "context": {
+        "clause_id": "PDPA-s10",
+        "clause_title": "Obligation to maintain integrity and confidentiality",
+        "clause_text": "Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.",
+        "obligation": "ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "prevents unauthorized or unlawful processing (confidentiality outcome)",
+          "prevents loss, destruction, or damage (integrity/availability outcome)",
+          "appropriate technical measures in place",
+          "appropriate organizational measures in place"
+        ],
+        "control_id": "sc-8",
+        "control_title": "Transmission Confidentiality and Integrity",
+        "catalog_rows": [
+          {
+            "id": "sc-8_smt",
+            "text": "Protect the one or more of: confidentiality; integrity of transmitted information."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "sc-8_smt",
+            "text": "NOT IMPLEMENTED in the current skeleton. The dev server runs over plain HTTP (uvicorn app.main:app --reload); no TLS termination exists anywhere in the stack. CLAUDE.md's build brief did not include TLS as a required behavior, so it was never built. Intended production architecture would terminate TLS at a reverse proxy in front of the API, but this is unimplemented and unverified - described here as an architectural intent, not a tested behavior.",
+            "remarks": "KNOWN GAP - flagged explicitly, not glossed over. See chat discussion, 2026-07-16."
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6219,
+          "realization": 0.2,
+          "product_reporting_only": 0.1244
+        },
+        "measures": {
+          "relatedness": 0.5732,
+          "coverage": 0.3865,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 4,
+          "attributes": {
+            "s10-u1-a1": {
+              "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+              "best": 0.4065,
+              "row": "sc-8_smt",
+              "score": 0.7826
+            },
+            "s10-u1-a2": {
+              "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+              "best": 0.4027,
+              "row": "sc-8_smt",
+              "score": 0.7634
+            },
+            "s10-u1-a3": {
+              "name": "appropriate technical measures in place",
+              "best": 0.196,
+              "row": "sc-8_smt",
+              "score": 0.0
+            },
+            "s10-u1-a4": {
+              "name": "appropriate organizational measures in place",
+              "best": 0.1942,
+              "row": "sc-8_smt",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5732,
+          "best_row": "sc-8_smt",
+          "per_row": {
+            "sc-8_smt": 0.5732
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "technical",
+          "control_orientation": "technical",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "system",
+          "expected_level": "system",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.2,
+          "rows": {
+            "sc-8_smt": {
+              "status": "implemented",
+              "source": "sc-8_smt",
+              "score": 0.2,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [
+                    "CLAUDE.md",
+                    "TLS"
+                  ],
+                  "negation_hits": [
+                    "not implemented",
+                    "known gap"
+                  ],
+                  "uncapped": 0.6,
+                  "capped": true,
+                  "score": 0.2
+                }
+              ]
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.56,
+              "realization": 0.0,
+              "rationale": "Transmission confidentiality and integrity directly protects personal data in transit from unauthorized disclosure or alteration, but does not address data at rest, availability, or organizational measures. The SSP expressly states that communications use plain HTTP with no implemented TLS termination.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.55,
+              "realization": 0.0,
+              "rationale": "Transmission confidentiality and integrity directly protect personal data in transit against unauthorized disclosure and modification, but do not cover the full statutory security posture or organizational measures. The SSP explicitly states that communications use plain HTTP and no TLS protection is implemented.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.5,
+              "realization": 0.0,
+              "rationale": "Transmission confidentiality and integrity directly protects personal data in transit from unauthorized access or alteration, but does not cover the obligation's broader organizational and availability requirements. The implementation explicitly states that traffic uses plain HTTP with no implemented TLS termination.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.55,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.4,
+              "realization": 0.0,
+              "rationale": "Transmission protection addresses confidentiality and integrity for data in transit only, with no coverage of loss/destruction or organizational measures. The SSP explicitly states no TLS exists anywhere in the stack; the reverse-proxy plan is unimplemented intent.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.4,
+              "realization": 0.0,
+              "rationale": "Transmission confidentiality and integrity addresses part of the confidentiality and integrity outcome for data in transit only. The control is explicitly not implemented: the system serves plain HTTP with no TLS, and production TLS remains intent only.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.4,
+              "realization": 0.0,
+              "rationale": "Transmission protection covers confidentiality and integrity in transit only, so it is a partial fit for the obligation. The system runs plain HTTP with no TLS, and production TLS is only an unverified intent.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.4,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.6,
+              "realization": 0.0,
+              "rationale": "SC-8 addresses transmission confidentiality and integrity, which is a required technical measure to protect personal data during processing. It is explicitly flagged as not implemented.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.7,
+              "realization": 0.0,
+              "rationale": "SC-8 protects information in transit, directly preventing unauthorized access and loss during data transmission. The system currently uses plain HTTP with no TLS termination, explicitly acknowledging this as an unbuilt feature.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.8,
+              "realization": 0.0,
+              "rationale": "Securing data in transit is essential for preventing unauthorized processing and ensuring confidentiality during data exchanges. The organization runs plain HTTP with no TLS termination, acknowledging this as an unimplemented architectural gap.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.7,
+          "median_realization": 0.0
+        }
+      }
+    },
+    {
+      "pair": "s8-u2|si-12",
+      "context": {
+        "clause_id": "PDPA-s8",
+        "clause_title": "Obligation to ensure accuracy",
+        "clause_text": "Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.",
+        "obligation": "take every reasonable step to erase or rectify inaccurate or outdated personal data. remediation of inaccurate/outdated data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "mechanism to erase or rectify inaccurate/outdated data exists",
+          "remediation carried out without undue delay"
+        ],
+        "control_id": "si-12",
+        "control_title": "Information Management and Retention",
+        "catalog_rows": [
+          {
+            "id": "si-12_smt",
+            "text": "Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "si-12_smt",
+            "text": "Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.4657,
+          "realization": 0.9,
+          "product_reporting_only": 0.4191
+        },
+        "measures": {
+          "relatedness": 0.3749,
+          "coverage": 0.1489,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s8-u2-a1": {
+              "name": "mechanism to erase or rectify inaccurate/outdated data exists",
+              "best": 0.3096,
+              "row": "si-12_smt",
+              "score": 0.2978
+            },
+            "s8-u2-a2": {
+              "name": "remediation carried out without undue delay",
+              "best": 0.0881,
+              "row": "si-12_smt",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.3749,
+          "best_row": "si-12_smt",
+          "per_row": {
+            "si-12_smt": 0.3749
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "control_override",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.9,
+          "rows": {
+            "si-12_smt": {
+              "status": "implemented",
+              "source": "si-12_smt",
+              "score": 0.9,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "90 days",
+                    "CLAUDE.md",
+                    "end_time",
+                    "purge_expired_telemetry",
+                    "retention_expires_at",
+                    "telemetry_pings",
+                    "trips.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.15,
+              "realization": 0.65,
+              "rationale": "SI-12 can support deletion under retention requirements but does not specifically address detecting and promptly correcting or erasing inaccurate or outdated data. A tested deletion function and retention marker exist, but the mechanism is aimed at age-based retention and has no scheduler.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.4,
+              "realization": 0.25,
+              "rationale": "SI-12 can support erasure through lifecycle and retention management, but it does not specifically require remediation of inaccurate or outdated data or action without undue delay. The implementation deletes telemetry based on retention expiry rather than inaccuracy, and the purge is not scheduled.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.15,
+              "realization": 0.65,
+              "rationale": "SI-12 can support deletion under retention rules but does not specifically require remediation of inaccurate or outdated data or action without undue delay. The implementation has a tested purge mechanism for expired telemetry, although it is retention-driven and unscheduled.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.15,
+          "median_realization": 0.65
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.3,
+              "realization": 0.55,
+              "rationale": "Retention management can erase outdated data but doesn't target rectifying inaccurate data or remediating without undue delay. The purge function is verified but unscheduled and covers only telemetry pings.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.2,
+              "realization": 0.6,
+              "rationale": "Retention management only incidentally supports erasing outdated data and does not target inaccuracy or remediation without undue delay. The purge mechanism has been verified but is not scheduled.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.3,
+              "realization": 0.55,
+              "rationale": "Retention-based deletion removes aged data but does not target inaccurate data or rectification. The purge function is real and verified, but it runs only when called manually because no scheduler is wired up, and its period was builder-set.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.3,
+          "median_realization": 0.55
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.6,
+              "rationale": "Control si-12 focuses on general retention and lifecycle management rather than specifically identifying and remediating inaccurate or outdated data. While a data purging function is implemented for expired telemetry, it does not function as a targeted remediation tool for data inaccuracies.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.1,
+              "realization": 0.1,
+              "rationale": "The control pertains to information retention and output management, not the active rectification or erasure of inaccurate data. The implemented purge logic addresses retention, not accuracy remediation.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "Managing data retention lifecycles does not fulfill the requirement to provide a mechanism specifically for rectifying or erasing inaccurate data. The implemented purge mechanism is time-based, not accuracy-based.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.1
+        }
+      }
+    },
+    {
+      "pair": "s9-u1|si-12",
+      "context": {
+        "clause_id": "PDPA-s9",
+        "clause_title": "Obligation to limit the period of retention",
+        "clause_text": "Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.",
+        "obligation": "keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "retention limited to period necessary for the purpose",
+          "mechanism to de-identify or erase data once purpose no longer requires identification"
+        ],
+        "control_id": "si-12",
+        "control_title": "Information Management and Retention",
+        "catalog_rows": [
+          {
+            "id": "si-12_smt",
+            "text": "Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "si-12_smt",
+            "text": "Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6812,
+          "realization": 0.9,
+          "product_reporting_only": 0.6131
+        },
+        "measures": {
+          "relatedness": 0.5279,
+          "coverage": 0.5631,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s9-u1-a1": {
+              "name": "retention limited to period necessary for the purpose",
+              "best": 0.4112,
+              "row": "si-12_smt",
+              "score": 0.806
+            },
+            "s9-u1-a2": {
+              "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+              "best": 0.314,
+              "row": "si-12_smt",
+              "score": 0.3201
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5279,
+          "best_row": "si-12_smt",
+          "per_row": {
+            "si-12_smt": 0.5279
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "control_override",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.9,
+          "rows": {
+            "si-12_smt": {
+              "status": "implemented",
+              "source": "si-12_smt",
+              "score": 0.9,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "90 days",
+                    "CLAUDE.md",
+                    "end_time",
+                    "purge_expired_telemetry",
+                    "retention_expires_at",
+                    "telemetry_pings",
+                    "trips.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.85,
+              "realization": 0.65,
+              "rationale": "SI-12 directly governs retention according to applicable legal and operational requirements and can encompass deletion or other disposition when retention is no longer justified, though it does not expressly mandate de-identification. The implementation defines a 90-day expiry and tested deletion of granular telemetry, but the period is not shown to derive from necessity and the purge is not automatically scheduled.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.9,
+              "realization": 0.65,
+              "rationale": "SI-12 directly addresses managing and retaining information according to applicable requirements and is well suited to enforcing purpose-based retention limits, though it does not expressly require de-identification. The implementation sets a 90-day expiry and provides verified deletion of granular telemetry, but the period is not justified against necessity and the purge has no scheduler.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.8,
+              "realization": 0.65,
+              "rationale": "SI-12 broadly requires information retention to conform to applicable legal and operational requirements, making it substantially relevant to purpose-based retention, though it does not expressly mandate de-identification or erasure after identification is no longer needed. The implementation establishes a 90-day expiry and tested telemetry deletion but lacks an automated scheduler and does not justify the 90-day period as necessary for the purpose.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.85,
+          "median_realization": 0.65
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.7,
+              "realization": 0.55,
+              "rationale": "SI-12 requires retention per legal requirements, which covers storage limitation, but it doesn't explicitly mandate de-identification once identification is no longer needed. A retention period and a purge that keeps aggregates are implemented and verified, but the purge isn't automated and the period lacks a documented justification.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.65,
+              "realization": 0.6,
+              "rationale": "SI-12 covers retention according to requirements, which supports purpose-limited retention, but it does not explicitly require de-identification or erasure once identification is no longer needed. A retention expiry and a verified telemetry purge exist, but there is no scheduler, the period is unjustified, and identity records are not covered.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.7,
+              "realization": 0.55,
+              "rationale": "SI-12 covers retaining information per legal requirements, which encompasses storage limitation, but it does not explicitly require de-identification once the purpose is spent. The implementation defines a retention expiry and a verified purge of granular pings, but it is not scheduled, the 90-day period lacks a purpose-based justification, and the retained trip summaries may remain identifiable.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.7,
+          "median_realization": 0.55
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.8,
+              "realization": 0.7,
+              "rationale": "Control si-12 requires retaining data according to operational and legal requirements, which directly supports limiting retention to necessary periods. The organization has implemented a 90-day retention limit and a functional purge script for telemetry, though it currently lacks automated scheduling.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.9,
+              "realization": 0.8,
+              "rationale": "The control requires retaining information according to legal and operational requirements, strongly aligning with the obligation to limit retention periods. The implementation successfully purges expired granular telemetry while keeping aggregated data, though it lacks an automated scheduler.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.9,
+              "realization": 0.7,
+              "rationale": "The control mandates managing retention in accordance with laws, directly supporting the obligation to limit the retention period of identifiable data. The implementation technically supports this via an expiration flag and a functional purge script, though it lacks an automated scheduler.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.9,
+          "median_realization": 0.7
+        }
+      }
+    },
+    {
+      "pair": "s5-u3|pt-4",
+      "context": {
+        "clause_id": "PDPA-s5",
+        "clause_title": "Obligation to process personal data in a lawful manner",
+        "clause_text": "The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.",
+        "obligation": "satisfy all Schedule III conditions where the chosen lawful basis is consent. consent conditions",
+        "modality": "conditional",
+        "actor": "controller",
+        "attributes": [
+          "all Schedule III conditions satisfied"
+        ],
+        "control_id": "pt-4",
+        "control_title": "Consent",
+        "catalog_rows": [
+          {
+            "id": "pt-4_smt",
+            "text": "Implement tools or mechanisms for individuals to consent to the processing of their personally identifiable information prior to its collection that facilitate individuals\u2019 informed decision-making."
+          }
+        ],
+        "ssp_text": []
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.4619,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        "measures": {
+          "relatedness": 0.5706,
+          "coverage": 0.0,
+          "strength": null,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 1,
+          "attributes": {
+            "s5-u3-a1": {
+              "name": "all Schedule III conditions satisfied",
+              "best": 0.0922,
+              "row": "pt-4_smt",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5706,
+          "best_row": "pt-4_smt",
+          "per_row": {
+            "pt-4_smt": 0.5706
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.0,
+          "rows": {
+            "pt-4_smt": {
+              "status": "absent",
+              "score": 0.0
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.65,
+              "realization": 0.0,
+              "rationale": "PT-4 directly addresses obtaining consent before collection and informed decision-making, but it does not necessarily cover every condition imposed by Schedule III. The System Security Plan provides no implementation for this control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.75,
+              "realization": 0.0,
+              "rationale": "PT-4 directly addresses obtaining informed consent before collection, although it may not cover every condition contained in Schedule III. The System Security Plan provides no implementation for this control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.75,
+              "realization": 0.0,
+              "rationale": "PT-4 directly requires mechanisms for prior, informed consent and therefore addresses an important portion of Schedule III consent compliance, though not necessarily every statutory consent condition. The SSP provides no implementation for this control.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.75,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.6,
+              "realization": 0.0,
+              "rationale": "PT-4 requires informed consent mechanisms before collection, which covers much of Schedule III but not explicitly withdrawal or demonstrability of consent. The SSP doesn't address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.6,
+              "realization": 0.0,
+              "rationale": "PT-4 requires prior, informed consent mechanisms, which cover core Schedule III elements, though the base control does not explicitly address withdrawal or freely given consent. The SSP does not address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.75,
+              "realization": 0.0,
+              "rationale": "PT-4 directly requires mechanisms for prior, informed consent, which covers the core of Schedule III, though the base control does not explicitly address withdrawal or proof of consent. The SSP does not address this control.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.6,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 1.0,
+              "realization": 0.0,
+              "rationale": "Control pt-4 directly maps to the obligation to implement and satisfy consent conditions prior to processing. However, the organization's system security plan completely omits any implementation details for this control.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.9,
+              "realization": 0.0,
+              "rationale": "The control specifically addresses implementing consent mechanisms, perfectly aligning with the obligation to satisfy Schedule III consent conditions. The organization has not implemented this control.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 1.0,
+              "realization": 0.0,
+              "rationale": "The control explicitly requires mechanisms for individuals to provide informed consent, directly aligning with the obligation's consent conditions. However, the organization has not implemented this control.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 1.0,
+          "median_realization": 0.0
+        }
+      }
+    },
+    {
+      "pair": "s5-u1|pt-2",
+      "context": {
+        "clause_id": "PDPA-s5",
+        "clause_title": "Obligation to process personal data in a lawful manner",
+        "clause_text": "The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.",
+        "obligation": "establish and be able to demonstrate at least one applicable lawful basis under Schedule I before processing. lawful basis for processing (general)",
+        "modality": "conditional",
+        "actor": "controller",
+        "attributes": [
+          "at least one Schedule I condition satisfied"
+        ],
+        "control_id": "pt-2",
+        "control_title": "Authority to Process Personally Identifiable Information",
+        "catalog_rows": [
+          {
+            "id": "pt-2_smt.a",
+            "text": "Determine and document the authority that permits the processing of personally identifiable information; and"
+          },
+          {
+            "id": "pt-2_smt.b",
+            "text": "Restrict the processing of personally identifiable information to only that which is authorized."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "pt-2_smt",
+            "text": "DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.4422,
+          "realization": 0.45,
+          "product_reporting_only": 0.199
+        },
+        "measures": {
+          "relatedness": 0.5036,
+          "coverage": 0.0,
+          "strength": null,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 1,
+          "attributes": {
+            "s5-u1-a1": {
+              "name": "at least one Schedule I condition satisfied",
+              "best": 0.1353,
+              "row": "pt-2_smt.b",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5036,
+          "best_row": "pt-2_smt.a",
+          "per_row": {
+            "pt-2_smt.a": 0.5036,
+            "pt-2_smt.b": 0.4413
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.45,
+          "rows": {
+            "pt-2_smt.a": {
+              "status": "inherited",
+              "source": "pt-2_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "lawful_basis",
+                    "models.py",
+                    "schemas.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            },
+            "pt-2_smt.b": {
+              "status": "inherited",
+              "source": "pt-2_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "lawful_basis",
+                    "models.py",
+                    "schemas.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 2,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.95,
+              "realization": 0.85,
+              "rationale": "PT-2 directly requires determining/documenting processing authority and restricting processing to what is authorized, closely matching the need for a lawful basis. The implementation requires and stores a lawful basis before driver creation and identifies a Schedule I basis, though it does not describe validation that the recorded basis is legally applicable in each case.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.95,
+              "realization": 0.9,
+              "rationale": "PT-2 directly requires determining/documenting authority and restricting processing to authorized PII, closely matching the need for a lawful basis. The implementation requires and persists a lawful-basis field and identifies a Schedule I basis, with validation preventing creation without it.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.85,
+              "realization": 0.75,
+              "rationale": "PT-2 substantially addresses documenting the authority for PII processing and restricting processing to that authority, which closely maps to establishing a lawful basis. The implementation requires and stores a lawful basis and identifies a Schedule I basis, although it does not show validation that every recorded basis is legally applicable.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.95,
+          "median_realization": 0.85
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.85,
+              "realization": 0.7,
+              "rationale": "PT-2 requires documenting the authority for processing and restricting processing to it, which maps directly to establishing a lawful basis before processing. A mandatory lawful_basis field is enforced at both the schema and DB layers and verified to block creation, but the text doesn't say whether values are validated against Schedule I or show any enforcement beyond record creation.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.85,
+              "realization": 0.75,
+              "rationale": "PT-2's requirement to determine and document the authority for processing maps closely to establishing and demonstrating a Schedule I lawful basis. A mandatory lawful_basis field is enforced at both the schema and DB layers and has been verified, but restricting downstream processing to what is authorized is not shown.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.85,
+              "realization": 0.6,
+              "rationale": "PT-2 requires documenting the authority for processing and restricting processing to what is authorized, which maps closely to establishing a Schedule I lawful basis. The implementation enforces a mandatory lawful_basis field at both the schema and DB layers, but it only records a basis; it does not validate it or show that processing is restricted to what that basis authorizes.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.85,
+          "median_realization": 0.7
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 1.0,
+              "realization": 1.0,
+              "rationale": "The control pt-2 directly requires determining and documenting the legal authority to process PII, which perfectly aligns with the obligation to establish a lawful basis. The organization has fully realized this by enforcing a non-nullable 'lawful_basis' field at both the API and database levels.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.9,
+              "realization": 0.9,
+              "rationale": "The control directly requires determining the authority to process, mirroring the obligation to establish a lawful basis. The implementation strictly enforces a recorded lawful basis (Schedule I) at the database layer and API level.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.9,
+              "realization": 0.9,
+              "rationale": "The control directly addresses determining and restricting processing based on legal authority. The implementation strongly enforces this by requiring a lawful basis at the database and application schema levels before any record creation.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.9,
+          "median_realization": 0.9
+        }
+      }
+    },
+    {
+      "pair": "s8-u1|si-12",
+      "context": {
+        "clause_id": "PDPA-s8",
+        "clause_title": "Obligation to ensure accuracy",
+        "clause_text": "Every controller shall ensure that personal data that is processed shall be - (a) accurate; and (b) kept up to date, with every reasonable step being taken to erase or rectify any inaccurate or outdated personal data, without undue delay.",
+        "obligation": "ensure processed personal data is accurate and kept up to date. quality/currency of personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "data accurate",
+          "data kept up to date"
+        ],
+        "control_id": "si-12",
+        "control_title": "Information Management and Retention",
+        "catalog_rows": [
+          {
+            "id": "si-12_smt",
+            "text": "Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "si-12_smt",
+            "text": "Trips carry a retention_expires_at (90 days after trip end_time - RETENTION_DAYS in app/trips.py; this value was not specified in CLAUDE.md and was set by the builder). purge_expired_telemetry(db) (app/trips.py) deletes only the granular telemetry_pings rows for expired trips, keeping the aggregated trip summary - consistent with data minimization. Plain callable, no scheduler wired up yet. Verified: purge deleted exactly the pings for an expired trip while leaving an unrelated recent ping and the trip row itself untouched.",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.5614,
+          "realization": 0.9,
+          "product_reporting_only": 0.5053
+        },
+        "measures": {
+          "relatedness": 0.4549,
+          "coverage": 0.3241,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s8-u1-a1": {
+              "name": "data accurate",
+              "best": 0.1589,
+              "row": "si-12_smt",
+              "score": 0.0
+            },
+            "s8-u1-a2": {
+              "name": "data kept up to date",
+              "best": 0.3797,
+              "row": "si-12_smt",
+              "score": 0.6483
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.4549,
+          "best_row": "si-12_smt",
+          "per_row": {
+            "si-12_smt": 0.4549
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "control_override",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.9,
+          "rows": {
+            "si-12_smt": {
+              "status": "implemented",
+              "source": "si-12_smt",
+              "score": 0.9,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "90 days",
+                    "CLAUDE.md",
+                    "end_time",
+                    "purge_expired_telemetry",
+                    "retention_expires_at",
+                    "telemetry_pings",
+                    "trips.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 1,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.1,
+              "realization": 0.65,
+              "rationale": "SI-12 is a retention and information-management control and does not directly require information to be accurate or kept current. The implementation provides a concrete retention field and tested purge function, but the purge is not scheduled and therefore the overall SI-12 lifecycle mechanism is only partially operationalized.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.25,
+              "realization": 0.2,
+              "rationale": "SI-12 concerns information management and retention and does not specifically require data accuracy or currency. The implementation provides retention and deletion behavior but no mechanism for checking or maintaining accuracy or keeping records up to date.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.65,
+              "rationale": "SI-12 is principally a retention and information-management control and does not specifically require accuracy or currency of personal data. The implementation contains a concrete retention field and tested purge function, but automatic execution is not wired up.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.65
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.15,
+              "realization": 0.55,
+              "rationale": "Retention management doesn't address keeping data accurate or up to date. A 90-day retention and selective purge are implemented and verified, but no scheduler is wired up and the retention value was set by the builder without justification.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.15,
+              "realization": 0.6,
+              "rationale": "Information management and retention does not address data accuracy or keeping data up to date. Retention expiry and a verified purge function exist, but no scheduler is wired up and the 90-day value was set ad hoc.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.2,
+              "realization": 0.55,
+              "rationale": "Retention management does not address accuracy or keeping data up to date. The implementation has a concrete retention field and a verified purge function, but the 90-day period was set by the builder without a documented justification and no scheduler is wired up.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.15,
+          "median_realization": 0.55
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.6,
+              "rationale": "Information management and retention controls (si-12) do not inherently target or ensure the accuracy and up-to-date nature of the data. The organization has implemented basic data purging functionality to manage retention, but this does not actively address data accuracy operations.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.1,
+              "realization": 0.1,
+              "rationale": "The control focuses on retention policies, which does not address the obligation of maintaining data accuracy. The implementation successfully handles data purging but offers nothing for data accuracy.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "Information retention controls govern how long data is kept, which is distinct from the obligation to ensure data accuracy and currency. The implementation's time-based purging does not ensure the remaining data is accurate.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.1
+        }
+      }
+    },
+    {
+      "pair": "s9-u1|si-18",
+      "context": {
+        "clause_id": "PDPA-s9",
+        "clause_title": "Obligation to limit the period of retention",
+        "clause_text": "Every controller shall ensure that personal data that is being processed shall be kept in a form which permits identification of data subjects only for such period as may be necessary or required for the purposes for which such personal data is processed: Provided however, subject to the provisions of section 10 of this Act, a controller may store personal data for longer periods in so far as the personal data shall be processed further for archiving purposes in the public interest, scientific research, historical research or statistical purposes.",
+        "obligation": "keep personal data in identifiable form only for the period necessary for the processing purpose. retention period of identifiable personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "retention limited to period necessary for the purpose",
+          "mechanism to de-identify or erase data once purpose no longer requires identification"
+        ],
+        "control_id": "si-18",
+        "control_title": "Personally Identifiable Information Quality Operations",
+        "catalog_rows": [
+          {
+            "id": "si-18_smt.a",
+            "text": "Check the accuracy, relevance, timeliness, and completeness of personally identifiable information across the information life cycle organization-defined frequency; and"
+          },
+          {
+            "id": "si-18_smt.b",
+            "text": "Correct or delete inaccurate or outdated personally identifiable information."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "si-18_smt",
+            "text": "Driver and vehicle identity records (name, contact, employee ID, vehicle registration, assignment) are correctable via PUT /drivers/{id} and PUT /vehicles/{id} (app/routers/drivers.py, app/routers/vehicles.py), each RBAC-scoped to the Fleet Manager role and the record's own company. No automated data-quality check (e.g. flagging stale contact details) was built - correction is manual, on request, via these endpoints. Deliberately anchored to identity data, not the raw GPS telemetry stream, per the scope.md coverage-table note that accuracy obligations don't naturally attach to a location stream.",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6581,
+          "realization": 0.45,
+          "product_reporting_only": 0.2962
+        },
+        "measures": {
+          "relatedness": 0.5376,
+          "coverage": 0.5,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s9-u1-a1": {
+              "name": "retention limited to period necessary for the purpose",
+              "best": 0.2491,
+              "row": "si-18_smt.a",
+              "score": 0.0
+            },
+            "s9-u1-a2": {
+              "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+              "best": 0.5121,
+              "row": "si-18_smt.b",
+              "score": 1.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5376,
+          "best_row": "si-18_smt.a",
+          "per_row": {
+            "si-18_smt.a": 0.5376,
+            "si-18_smt.b": 0.53
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "control_override",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.45,
+          "rows": {
+            "si-18_smt.a": {
+              "status": "inherited",
+              "source": "si-18_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "drivers.py",
+                    "scope.md",
+                    "vehicles.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            },
+            "si-18_smt.b": {
+              "status": "inherited",
+              "source": "si-18_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "drivers.py",
+                    "scope.md",
+                    "vehicles.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 2,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.25,
+              "realization": 0.7,
+              "rationale": "SI-18 permits deletion of outdated PII but is primarily a data-quality control and does not establish purpose-based retention limits or de-identification after the identification need ends. The implementation provides concrete correction mechanisms for identity records but lacks periodic quality checking and does not implement purpose-based retention or de-identification.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.25,
+              "realization": 0.15,
+              "rationale": "SI-18 concerns PII quality and correction or deletion of inaccurate or outdated data, not purpose-based retention of identifiable data. The implementation provides manual correction of identity records but no retention limit, de-identification, or erasure mechanism tied to the processing purpose.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.35,
+              "realization": 0.6,
+              "rationale": "SI-18 can cause deletion of outdated PII, but its trigger is information quality rather than the end of the period for which identification is necessary. The implementation provides manual correction of identity records but no purpose-based retention or de-identification mechanism.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.25,
+          "median_realization": 0.6
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.35,
+              "realization": 0.5,
+              "rationale": "Deleting outdated PII and checking timeliness only partially overlap with time-limited retention. Correction endpoints exist, but there are no periodic quality checks and the work is manual and on request.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.2,
+              "realization": 0.5,
+              "rationale": "SI-18 deletes outdated or inaccurate PII for quality reasons but does not address retention limits tied to purpose necessity. Manual correction endpoints exist without automated quality checks.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.3,
+              "realization": 0.45,
+              "rationale": "Deleting outdated PII partly overlaps with storage limitation, but SI-18 is about data quality, not purpose-bound retention periods. The implementation offers only manual, on-request correction of identity records with no periodic checks.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.3,
+          "median_realization": 0.5
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.5,
+              "rationale": "PII quality operations (si-18) deal with correcting or removing inaccurate data, not enforcing maximum retention periods for accurately collected data. The implementation allows manual corrections of identity records, which is irrelevant to temporal storage limits.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.1,
+              "realization": 0.1,
+              "rationale": "The control addresses data accuracy and quality, unrelated to the obligation's focus on retention periods. The implementation provides accuracy corrections, which do not satisfy retention limits.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "Data quality operations focusing on accuracy and completeness do not address the distinct obligation of limiting how long data is retained in an identifiable form. The implementation's correction endpoints are irrelevant to retention limits.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.1
+        }
+      }
+    },
+    {
+      "pair": "s24-u4|ra-8",
+      "context": {
+        "clause_id": "PDPA-s24",
+        "clause_title": "Personal data protection impact assessments",
+        "clause_text": "(1) Where a Controller intends to carry out any processing which involves - (a) a systematic and extensive evaluation of personal data or special categories of personal data including profiling; (b) a systematic monitoring of publicly accessible areas or telecommunication networks; or (c) a processing activity as may be determined by way of rules taking into consideration the scope and associated risks, such controller shall, prior to such processing, carry out a personal data protection impact assessment to ascertain the impact of the intended processing on the obligations under Part I and the rights of data subjects under Part II. (2) The assessment shall contain measures and safeguards to mitigate any risk of harm. (3) The controller shall seek the assistance of the Data Protection Officer, where designated. (4) The controller shall conduct a fresh assessment whenever there is any change in methodology, technology or process. (5) The controller shall submit the assessment to the Authority and provide any other information on request.",
+        "obligation": "submit the DPIA to the Authority and provide further information on request. DPIA submission to Authority",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "DPIA submitted to the Authority"
+        ],
+        "control_id": "ra-8",
+        "control_title": "Privacy Impact Assessments",
+        "catalog_rows": [
+          {
+            "id": "ra-8_smt.a",
+            "text": "Conduct privacy impact assessments for systems, programs, or other activities before: Developing or procuring information technology that processes personally identifiable information; and"
+          },
+          {
+            "id": "ra-8_smt.b.1",
+            "text": "Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Will be processed using information technology; and"
+          },
+          {
+            "id": "ra-8_smt.b.2",
+            "text": "Conduct privacy impact assessments for systems, programs, or other activities before: Initiating a new collection of personally identifiable information that: Includes personally identifiable information permitting the physical or virtual (online) contacting of a specific individual, if identical questions have been posed to, or identical reporting requirements imposed on, ten or more individuals, other than agencies, instrumentalities, or employees of the federal government."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "ra-8_smt",
+            "text": "NARRATIVE-ONLY. No DPIA was actually conducted for FleetTrack. This is a genuine gap, not just a formality: s.24(1)(b) is the strongest, most literal clause-fit in the whole scenario (systematic location monitoring), and the skeleton has no artefact backing it beyond the collection-scoping behavior already cited under PT-3. If a real DPIA were written, it should assess telemetry frequency/granularity against the stated logistics purpose.",
+            "remarks": "Flagged prominently: this is the single largest gap between narrative ambition and built reality in this SSP."
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.3929,
+          "realization": 0.1,
+          "product_reporting_only": 0.0393
+        },
+        "measures": {
+          "relatedness": 0.3357,
+          "coverage": 0.0,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 1,
+          "attributes": {
+            "s24-u4-a1": {
+              "name": "DPIA submitted to the Authority",
+              "best": 0.2473,
+              "row": "ra-8_smt.b.1",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.3357,
+          "best_row": "ra-8_smt.b.1",
+          "per_row": {
+            "ra-8_smt.a": 0.32,
+            "ra-8_smt.b.1": 0.3357,
+            "ra-8_smt.b.2": 0.2604
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "governance",
+          "control_orientation": "governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.1,
+          "rows": {
+            "ra-8_smt.a": {
+              "status": "inherited",
+              "source": "ra-8_smt",
+              "score": 0.1,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.3,
+                  "capped": true,
+                  "score": 0.2
+                }
+              ]
+            },
+            "ra-8_smt.b.1": {
+              "status": "inherited",
+              "source": "ra-8_smt",
+              "score": 0.1,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.3,
+                  "capped": true,
+                  "score": 0.2
+                }
+              ]
+            },
+            "ra-8_smt.b.2": {
+              "status": "inherited",
+              "source": "ra-8_smt",
+              "score": 0.1,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.3,
+                  "capped": true,
+                  "score": 0.2
+                }
+              ]
+            }
+          },
+          "counted_rows": 3,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.08,
+              "realization": 0.0,
+              "rationale": "RA-8 governs conducting privacy impact assessments but does not require submission of the assessment to a supervisory Authority or provision of further information on request. No DPIA was conducted or submitted, and no submission mechanism is described.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.05,
+              "realization": 0.0,
+              "rationale": "RA-8 requires conducting privacy impact assessments but does not require submitting them to the Authority or providing further information on request. No DPIA was conducted or submitted.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "RA-8 addresses conducting privacy impact assessments but does not require submission of the assessment to a regulatory authority or provision of further information on request. No DPIA was conducted or submitted.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.08,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.05,
+              "realization": 0.0,
+              "rationale": "RA-8 contains no requirement to submit the assessment to an external authority or to answer its information requests. No DPIA was conducted, so none could be submitted.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "RA-8 does not require submitting the assessment to a regulator. No DPIA was conducted, so nothing was submitted.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "RA-8 does not require submitting the assessment to a regulator. No DPIA exists to submit.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.1,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.0,
+              "realization": 0.0,
+              "rationale": "RA-8 contains no provisions for submitting the privacy impact assessment to an external authority or regulatory body. The implementation is entirely narrative.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.0,
+              "realization": 0.0,
+              "rationale": "RA-8 focuses on the internal execution of privacy impact assessments and does not require submitting them to external regulatory authorities. No DPIA artifact exists in the implementation.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.1,
+              "realization": 0.0,
+              "rationale": "RA-8 is an internal assessment control and does not contain requirements for submitting the resulting impact assessment to external regulatory authorities. The organization has zero implementation for this requirement.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.0,
+          "median_realization": 0.0
+        }
+      }
+    },
+    {
+      "pair": "s5-u2|pt-2",
+      "context": {
+        "clause_id": "PDPA-s5",
+        "clause_title": "Obligation to process personal data in a lawful manner",
+        "clause_text": "The processing of personal data shall be lawful if a controller is in compliance with - (a) any condition specified in Schedule I hereto; (b) any condition specified in Schedule II hereto in the case of processing special categories of personal data; (c) all the conditions specified in Schedule III hereto in the case of processing personal data based on the consent of the data subject under item (a) of Schedule I or under item (a) of Schedule II hereto; or (d) all the conditions specified in Schedule IV hereto in the case of processing personal data in respect of criminal investigations.",
+        "obligation": "additionally establish an applicable Schedule II condition where special-category data is processed. lawful basis for special-category processing",
+        "modality": "conditional",
+        "actor": "controller",
+        "attributes": [
+          "at least one Schedule II condition satisfied"
+        ],
+        "control_id": "pt-2",
+        "control_title": "Authority to Process Personally Identifiable Information",
+        "catalog_rows": [
+          {
+            "id": "pt-2_smt.a",
+            "text": "Determine and document the authority that permits the processing of personally identifiable information; and"
+          },
+          {
+            "id": "pt-2_smt.b",
+            "text": "Restrict the processing of personally identifiable information to only that which is authorized."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "pt-2_smt",
+            "text": "DriverCreate.lawful_basis (app/schemas.py) is a required, non-Optional field with no default; Driver.lawful_basis (app/models.py, non-nullable column) enforces it at the DB layer too. POST /drivers without it returns 422 before any row is created - verified directly. Default basis recorded at onboarding: necessity for performance of the employment relationship (Schedule I).",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.4648,
+          "realization": 0.45,
+          "product_reporting_only": 0.2092
+        },
+        "measures": {
+          "relatedness": 0.5804,
+          "coverage": 0.0,
+          "strength": null,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 1,
+          "attributes": {
+            "s5-u2-a1": {
+              "name": "at least one Schedule II condition satisfied",
+              "best": 0.1987,
+              "row": "pt-2_smt.a",
+              "score": 0.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5804,
+          "best_row": "pt-2_smt.a",
+          "per_row": {
+            "pt-2_smt.a": 0.5804,
+            "pt-2_smt.b": 0.5098
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "data_governance",
+          "control_orientation": "data_governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.45,
+          "rows": {
+            "pt-2_smt.a": {
+              "status": "inherited",
+              "source": "pt-2_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "lawful_basis",
+                    "models.py",
+                    "schemas.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            },
+            "pt-2_smt.b": {
+              "status": "inherited",
+              "source": "pt-2_smt",
+              "score": 0.45,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 1.0,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "lawful_basis",
+                    "models.py",
+                    "schemas.py"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.9,
+                  "capped": false,
+                  "score": 0.9
+                }
+              ]
+            }
+          },
+          "counted_rows": 2,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.75,
+              "realization": 0.85,
+              "rationale": "PT-2 can encompass documenting the additional legal authority required for special-category processing, but it does not expressly require a distinct Schedule II condition. The implementation strongly enforces recording a lawful basis generally, but describes only a Schedule I employment basis and no specific Schedule II authority.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.9,
+              "realization": 0.2,
+              "rationale": "PT-2 is well aligned to documenting the authority for special-category processing and restricting processing to that authority. The implementation records only a Schedule I employment basis and provides no Schedule II condition for special-category data.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.55,
+              "realization": 0.75,
+              "rationale": "PT-2 requires documented authority for PII processing, which could encompass special-category authority, but it does not specifically require the additional Schedule II condition. The implementation records only a Schedule I employment basis and does not demonstrate a distinct Schedule II basis.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.75,
+          "median_realization": 0.75
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.6,
+              "realization": 0.7,
+              "rationale": "Documenting the authority to process could include a Schedule II condition, but PT-2 doesn't specifically address special-category data. The lawful basis field is well enforced, though the implementation records only a Schedule I basis and doesn't mention special categories.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.5,
+              "realization": 0.75,
+              "rationale": "Documenting authority can cover special-category conditions, but PT-2 does not specifically require identifying a Schedule II condition for special-category data. Lawful basis capture is enforced in code, though only a Schedule I basis is recorded and no special-category handling is described.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.6,
+              "realization": 0.6,
+              "rationale": "PT-2's generic authority documentation can cover a Schedule II condition but does not specifically require one for special-category data. The implementation records a mandatory lawful_basis field, which is real enforcement, but it only records a basis and does not show processing being restricted to what is authorized.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.6,
+          "median_realization": 0.7
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 1.0,
+              "realization": 0.6,
+              "rationale": "The control demands documentation and restriction of legal authority to process PII, directly aligning with the need to establish a Schedule II condition for special-category data. While the implementation rigorously enforces a general lawful basis, it lacks specific mechanisms or checks specifically designed for special-category data processing conditions.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.8,
+              "realization": 0.2,
+              "rationale": "The control requires documenting the processing authority, which applies to establishing Schedule II conditions. The implementation establishes a Schedule I basis but fails to mention or implement mechanisms for handling Schedule II special-category data.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.7,
+              "realization": 0.3,
+              "rationale": "The control requires documenting the authority for processing PII, which applies to special categories, though it doesn't explicitly mention them. The implementation enforces a general lawful basis but lacks any specific mechanism or field to handle special-category conditions.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.8,
+          "median_realization": 0.3
+        }
+      }
+    },
+    {
+      "pair": "s10-u1|ac-2",
+      "context": {
+        "clause_id": "PDPA-s10",
+        "clause_title": "Obligation to maintain integrity and confidentiality",
+        "clause_text": "Every controller shall ensure integrity and confidentiality of personal data that is being processed, by using appropriate technical and organizational measures including encryption, pseudonymisation, anonymisation or access controls or such other measures as may be prescribed so as to prevent the - (a) unauthorized or unlawful processing of personal data; or (b) loss, destruction or damage of personal data.",
+        "obligation": "ensure integrity and confidentiality via appropriate technical and organizational measures preventing unauthorized processing and loss/destruction/damage. security posture protecting personal data",
+        "modality": "shall",
+        "actor": "controller",
+        "attributes": [
+          "prevents unauthorized or unlawful processing (confidentiality outcome)",
+          "prevents loss, destruction, or damage (integrity/availability outcome)",
+          "appropriate technical measures in place",
+          "appropriate organizational measures in place"
+        ],
+        "control_id": "ac-2",
+        "control_title": "Account Management",
+        "catalog_rows": [
+          {
+            "id": "ac-2_smt.a",
+            "text": "Define and document the types of accounts allowed and specifically prohibited for use within the system;"
+          },
+          {
+            "id": "ac-2_smt.b",
+            "text": "Assign account managers;"
+          },
+          {
+            "id": "ac-2_smt.c",
+            "text": "Require prerequisites and criteria for group and role membership;"
+          },
+          {
+            "id": "ac-2_smt.d.1",
+            "text": "Specify: Authorized users of the system;"
+          },
+          {
+            "id": "ac-2_smt.d.2",
+            "text": "Specify: Group and role membership; and"
+          },
+          {
+            "id": "ac-2_smt.d.3",
+            "text": "Specify: Access authorizations (i.e., privileges) and attributes (as required) for each account;"
+          },
+          {
+            "id": "ac-2_smt.e",
+            "text": "Require approvals by personnel or roles for requests to create accounts;"
+          },
+          {
+            "id": "ac-2_smt.f",
+            "text": "Create, enable, modify, disable, and remove accounts in accordance with policy, procedures, prerequisites, and criteria;"
+          },
+          {
+            "id": "ac-2_smt.g",
+            "text": "Monitor the use of accounts;"
+          },
+          {
+            "id": "ac-2_smt.h.1",
+            "text": "Notify account managers and personnel or roles within: time period when accounts are no longer required;"
+          },
+          {
+            "id": "ac-2_smt.h.2",
+            "text": "Notify account managers and personnel or roles within: time period when users are terminated or transferred; and"
+          },
+          {
+            "id": "ac-2_smt.h.3",
+            "text": "Notify account managers and personnel or roles within: time period when system usage or need-to-know changes for an individual;"
+          },
+          {
+            "id": "ac-2_smt.i.1",
+            "text": "Authorize access to the system based on: A valid access authorization;"
+          },
+          {
+            "id": "ac-2_smt.i.2",
+            "text": "Authorize access to the system based on: Intended system usage; and"
+          },
+          {
+            "id": "ac-2_smt.i.3",
+            "text": "Authorize access to the system based on: attributes (as required);"
+          },
+          {
+            "id": "ac-2_smt.j",
+            "text": "Review accounts for compliance with account management requirements frequency;"
+          },
+          {
+            "id": "ac-2_smt.k",
+            "text": "Establish and implement a process for changing shared or group account authenticators (if deployed) when individuals are removed from the group; and"
+          },
+          {
+            "id": "ac-2_smt.l",
+            "text": "Align account management processes with personnel termination and transfer processes."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "ac-2_smt.a",
+            "text": "Four account types are defined and enforced: fleet_manager, driver, system_administrator, tenant_owner (app/models.py, Role enum; app/rbac.py, require_roles()).",
+            "remarks": null
+          },
+          {
+            "statement": "ac-2_smt.f",
+            "text": "Accounts are created via POST /auth/register (self-registration restricted to tenant_owner/fleet_manager roles against an existing company_id, enforced at the Pydantic layer via SelfRegisterableRole in app/schemas.py) or provisioned out-of-band via scripts/seed.py for system_administrator and driver roles.",
+            "remarks": null
+          },
+          {
+            "statement": "ac-2_smt.g",
+            "text": "Account use is monitored via the audit log: every create/update/delete on drivers and vehicles, and every read of trips/reports/telemetry-derived dashboard data, is attributed to the acting user (app/audit.py, write_audit_log(); see AU-2 below).",
+            "remarks": null
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.6585,
+          "realization": 0.1286,
+          "product_reporting_only": 0.0847
+        },
+        "measures": {
+          "relatedness": 0.5183,
+          "coverage": 0.6576,
+          "strength": 1.0,
+          "directionality": 0.8
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 4,
+          "attributes": {
+            "s10-u1-a1": {
+              "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+              "best": 0.3647,
+              "row": "ac-2_smt.i.1",
+              "score": 0.5736
+            },
+            "s10-u1-a2": {
+              "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+              "best": 0.362,
+              "row": "ac-2_smt.k",
+              "score": 0.5602
+            },
+            "s10-u1-a3": {
+              "name": "appropriate technical measures in place",
+              "best": 0.3493,
+              "row": "ac-2_smt.j",
+              "score": 0.4967
+            },
+            "s10-u1-a4": {
+              "name": "appropriate organizational measures in place",
+              "best": 0.5224,
+              "row": "ac-2_smt.l",
+              "score": 1.0
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5183,
+          "best_row": "ac-2_smt.a",
+          "per_row": {
+            "ac-2_smt.a": 0.5183,
+            "ac-2_smt.b": 0.1851,
+            "ac-2_smt.c": 0.3815,
+            "ac-2_smt.d.1": 0.2788,
+            "ac-2_smt.d.2": 0.2015,
+            "ac-2_smt.d.3": 0.3312,
+            "ac-2_smt.e": 0.3272,
+            "ac-2_smt.f": 0.4372,
+            "ac-2_smt.g": 0.3909,
+            "ac-2_smt.h.1": 0.2998,
+            "ac-2_smt.h.2": 0.3324,
+            "ac-2_smt.h.3": 0.3708,
+            "ac-2_smt.i.1": 0.4515,
+            "ac-2_smt.i.2": 0.4393,
+            "ac-2_smt.i.3": 0.4125,
+            "ac-2_smt.j": 0.3314,
+            "ac-2_smt.k": 0.4801,
+            "ac-2_smt.l": 0.3196
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "technical",
+          "control_orientation": "technical",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "system",
+          "level_mismatch": true
+        },
+        "realization": {
+          "value": 0.1286,
+          "rows": {
+            "ac-2_smt.a": {
+              "status": "implemented",
+              "source": "ac-2_smt.a",
+              "score": 0.72,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.4,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "fleet_manager",
+                    "models.py",
+                    "rbac.py",
+                    "require_roles",
+                    "system_administrator",
+                    "tenant_owner"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.72,
+                  "capped": false,
+                  "score": 0.72
+                }
+              ]
+            },
+            "ac-2_smt.b": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.c": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.d.1": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.d.2": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.d.3": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.e": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.f": {
+              "status": "implemented",
+              "source": "ac-2_smt.f",
+              "score": 0.855,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.85,
+                    "concrete_artefacts": 1.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "company_id",
+                    "fleet_manager",
+                    "schemas.py",
+                    "seed.py",
+                    "system_administrator",
+                    "tenant_owner"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.855,
+                  "capped": false,
+                  "score": 0.855
+                }
+              ]
+            },
+            "ac-2_smt.g": {
+              "status": "implemented",
+              "source": "ac-2_smt.g",
+              "score": 0.74,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.8,
+                    "concrete_artefacts": 0.667,
+                    "set_parameters": 0.0,
+                    "operational_component": 1.0,
+                    "commitment": 1.0
+                  },
+                  "artefacts": [
+                    "audit.py",
+                    "write_audit_log"
+                  ],
+                  "negation_hits": [],
+                  "uncapped": 0.74,
+                  "capped": false,
+                  "score": 0.74
+                }
+              ]
+            },
+            "ac-2_smt.h.1": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.h.2": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.h.3": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.i.1": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.i.2": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.i.3": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.j": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.k": {
+              "status": "absent",
+              "score": 0.0
+            },
+            "ac-2_smt.l": {
+              "status": "absent",
+              "score": 0.0
+            }
+          },
+          "counted_rows": 18,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.55,
+              "realization": 0.38,
+              "rationale": "Account management materially supports prevention of unauthorized processing through controlled identities, privileges, monitoring, and lifecycle management, but it does not comprehensively address integrity, availability, loss, destruction, damage, or broader organizational safeguards. Implementation covers account types, portions of provisioning, and monitoring, but omits many specified AC-2 elements such as account managers, approvals, lifecycle notifications, periodic reviews, authorization criteria, shared-account handling, and termination/transfer alignment.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.55,
+              "realization": 0.45,
+              "rationale": "Account management materially supports prevention of unauthorized processing through controlled accounts and privileges, but it does not comprehensively address loss, destruction, damage, or broader organizational safeguards. Implementation defines account types, provisioning restrictions, and monitoring, but omits many specified lifecycle, approval, review, notification, and termination-alignment elements.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.55,
+              "realization": 0.48,
+              "rationale": "Account management materially supports prevention of unauthorized processing through controlled account creation, authorization, monitoring, and lifecycle management, but it does not comprehensively address integrity, availability, loss/destruction, or broader organizational safeguards. Implementation covers account types, provisioning, and audit attribution, but omits many specified lifecycle, approval, review, notification, and termination/transfer processes.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.55,
+          "median_realization": 0.45
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.35,
+              "realization": 0.35,
+              "rationale": "Account management supports the confidentiality outcome by limiting who can process data, but it does not address loss, destruction or damage, or measures such as encryption. The implementation specifically covers account types, creation and monitoring (a, f, g), but omits account managers, approvals, notifications, periodic review, and alignment with termination/transfer (b\u2013e, h\u2013l).",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.35,
+              "realization": 0.35,
+              "rationale": "Account management supports the access-control part of confidentiality but does not address loss, destruction or damage, encryption, or broader organizational measures. The implementation covers account types, provisioning and usage monitoring (a, f, g) but leaves account managers, approvals, notifications, reviews, authenticator changes and termination alignment unaddressed.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.35,
+              "realization": 0.3,
+              "rationale": "Account management supports the access-control element of confidentiality but does not address loss, destruction or damage, or broader organizational measures. Only smt.a, f and g are implemented, and none of the approval, notification, review, authorization-basis or termination-alignment parts are.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.35,
+          "median_realization": 0.35
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.5,
+              "realization": 0.9,
+              "rationale": "Account management (AC-2) establishes logical access controls that prevent unauthorized processing, satisfying the confidentiality aspect of the obligation. It does not address encryption or prevention of data loss/destruction.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.6,
+              "realization": 1.0,
+              "rationale": "AC-2 establishes account management and monitoring, serving as an organizational and technical measure to prevent unauthorized processing. The implementation fully realizes this by enforcing specific account roles, controlled provisioning, and audit logging.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.7,
+              "realization": 1.0,
+              "rationale": "AC-2 establishes strict account management practices, providing the access controls necessary to prevent unauthorized processing as required by the law. The organization has fully implemented robust role-based account creation, enforcement, and monitoring within the application.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.6,
+          "median_realization": 1.0
+        }
+      }
+    },
+    {
+      "pair": "s22-u2|sa-9",
+      "context": {
+        "clause_id": "PDPA-s22",
+        "clause_title": "Additional obligations of the processors",
+        "clause_text": "(1) Where a processor is engaged in processing activities on behalf of the controller, the processor shall - (a) ensure that processing activities are carried out only on the written instructions of the controller; (b) ensure that its personnel are bound by contractual obligations on confidentiality and secrecy by the implementation of appropriate technical and organizational measures; (c) facilitate the controller to carry out compliance audits, including inspections upon the written request of the controller; and (d) upon the written instructions of the controller, erase existing copies of personal data or return all personal data to the controller after the completion of the provision of services. (2) Where a processor fails to comply with paragraph (a) or determines the purposes and means of processing by itself, such processor shall be deemed to be a controller in respect of such processing. (3) Where a processor engages a sub processor, the provisions of this section shall apply to such sub processor. (4) Where a sub processor fails to fulfil its obligations, the processor shall be liable to the controller. (5) 'personnel' means any employee, consultant, agent, affiliate or any person contracted by the processor to process personal data.",
+        "obligation": "bind personnel to confidentiality and secrecy via appropriate technical and organizational measures. personnel confidentiality obligations",
+        "modality": "shall",
+        "actor": "processor",
+        "attributes": [
+          "personnel bound by contractual confidentiality/secrecy obligations",
+          "appropriate technical and organizational measures implemented for personnel binding"
+        ],
+        "control_id": "sa-9",
+        "control_title": "External System Services",
+        "catalog_rows": [
+          {
+            "id": "sa-9_smt.a",
+            "text": "Require that providers of external system services comply with organizational security and privacy requirements and employ the following controls: controls;"
+          },
+          {
+            "id": "sa-9_smt.b",
+            "text": "Define and document organizational oversight and user roles and responsibilities with regard to external system services; and"
+          },
+          {
+            "id": "sa-9_smt.c",
+            "text": "Employ the following processes, methods, and techniques to monitor control compliance by external service providers on an ongoing basis: processes, methods, and techniques."
+          }
+        ],
+        "ssp_text": [
+          {
+            "statement": "sa-9_smt",
+            "text": "NARRATIVE-ONLY. No real mapping/geocoding vendor integration exists.",
+            "remarks": "Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations."
+          },
+          {
+            "statement": "sa-9_smt",
+            "text": "NARRATIVE-ONLY. No real overseas hosting arrangement exists; described for the s.26 clause only.",
+            "remarks": "Both external-processor relationships are fictional scaffolding for the SSP narrative, per CLAUDE.md's instruction not to build real integrations."
+          }
+        ]
+      },
+      "pcef": {
+        "tuple": {
+          "alignment": 0.7308,
+          "realization": 0.0938,
+          "product_reporting_only": 0.0685
+        },
+        "measures": {
+          "relatedness": 0.5058,
+          "coverage": 0.6991,
+          "strength": 1.0,
+          "directionality": 1.0
+        },
+        "effective_weights": {
+          "coverage": 0.4118,
+          "relatedness": 0.2941,
+          "directionality": 0.2941
+        },
+        "coverage_detail": {
+          "mode": "ramp",
+          "total": 2,
+          "attributes": {
+            "s22-u2-a1": {
+              "name": "personnel bound by contractual confidentiality/secrecy obligations",
+              "best": 0.4746,
+              "row": "sa-9_smt.a",
+              "score": 1.0
+            },
+            "s22-u2-a2": {
+              "name": "appropriate technical and organizational measures implemented for personnel binding",
+              "best": 0.3297,
+              "row": "sa-9_smt.b",
+              "score": 0.3983
+            }
+          },
+          "ramp": [
+            0.25,
+            0.45
+          ]
+        },
+        "relatedness": {
+          "value": 0.5058,
+          "best_row": "sa-9_smt.a",
+          "per_row": {
+            "sa-9_smt.a": 0.5058,
+            "sa-9_smt.b": 0.3572,
+            "sa-9_smt.c": 0.3304
+          }
+        },
+        "directionality_detail": {
+          "unit_orientation": "governance",
+          "control_orientation": "governance",
+          "orientation_source": "family",
+          "cell": 1.0,
+          "impl_level": "organization",
+          "expected_level": "organization",
+          "level_mismatch": false
+        },
+        "realization": {
+          "value": 0.0938,
+          "rows": {
+            "sa-9_smt.a": {
+              "status": "inherited",
+              "source": "sa-9_smt",
+              "score": 0.0938,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.475,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1425,
+                  "capped": false,
+                  "score": 0.1425
+                },
+                {
+                  "features": {
+                    "specificity": 0.625,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1875,
+                  "capped": false,
+                  "score": 0.1875
+                }
+              ]
+            },
+            "sa-9_smt.b": {
+              "status": "inherited",
+              "source": "sa-9_smt",
+              "score": 0.0938,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.475,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1425,
+                  "capped": false,
+                  "score": 0.1425
+                },
+                {
+                  "features": {
+                    "specificity": 0.625,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1875,
+                  "capped": false,
+                  "score": 0.1875
+                }
+              ]
+            },
+            "sa-9_smt.c": {
+              "status": "inherited",
+              "source": "sa-9_smt",
+              "score": 0.0938,
+              "by_components": [
+                {
+                  "features": {
+                    "specificity": 0.475,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1425,
+                  "capped": false,
+                  "score": 0.1425
+                },
+                {
+                  "features": {
+                    "specificity": 0.625,
+                    "concrete_artefacts": 0.0,
+                    "set_parameters": 0.0,
+                    "operational_component": 0.0,
+                    "commitment": 0.0
+                  },
+                  "artefacts": [],
+                  "negation_hits": [
+                    "known gap"
+                  ],
+                  "uncapped": 0.1875,
+                  "capped": false,
+                  "score": 0.1875
+                }
+              ]
+            }
+          },
+          "counted_rows": 3,
+          "rules": [
+            "horizontal=max",
+            "vertical=mean_excluding_na"
+          ]
+        }
+      },
+      "llms": {
+        "chatgpt": {
+          "model": "ChatGPT 5.6 Sol (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.46,
+              "realization": 0.0,
+              "rationale": "SA-9 can require providers to meet organizational privacy and security requirements and define responsibilities, but it does not specifically mandate contractual confidentiality and secrecy obligations for processor personnel or the associated personnel-binding measures. The SSP describes only fictional external-provider relationships and no implemented contractual or technical measures.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.45,
+              "realization": 0.0,
+              "rationale": "SA-9 can require providers to comply with organizational privacy and security requirements and define responsibilities, but it does not expressly require contractual confidentiality and secrecy obligations for processor personnel. The SSP describes no real external-provider relationship or implemented personnel-confidentiality mechanism.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.45,
+              "realization": 0.0,
+              "rationale": "SA-9 can require providers to meet organizational privacy and security requirements and supports oversight, but it does not specifically require contractual confidentiality and secrecy obligations for processor personnel. The SSP identifies no real provider relationship or implemented personnel-confidentiality mechanism.",
+              "model": "ChatGPT 5.6 Sol (medium)"
+            }
+          ],
+          "median_alignment": 0.45,
+          "median_realization": 0.0
+        },
+        "claude": {
+          "model": "Claude Opus 5.5 (medium)",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.2,
+              "realization": 0.0,
+              "rationale": "SA-9 could require providers to employ controls, but it does not specifically address binding processor personnel to contractual confidentiality and secrecy obligations. The implementation is narrative only, with no real processor relationship.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 2,
+              "alignment": 0.25,
+              "realization": 0.0,
+              "rationale": "SA-9 could impose provider controls generally but does not specifically require that provider personnel be contractually bound to confidentiality and secrecy. The implementation is narrative-only with no real processor relationship.",
+              "model": "Claude Opus 5.5 (medium)"
+            },
+            {
+              "run": 3,
+              "alignment": 0.25,
+              "realization": 0.0,
+              "rationale": "SA-9 could impose controls on providers, but it does not specifically require that provider personnel be contractually bound to confidentiality. The implementation is narrative-only, with no real vendor arrangements.",
+              "model": "Claude Opus 5.5 (medium)"
+            }
+          ],
+          "median_alignment": 0.25,
+          "median_realization": 0.0
+        },
+        "gemini": {
+          "model": "Gemini 3.1 Pro",
+          "runs": [
+            {
+              "run": 1,
+              "alignment": 0.4,
+              "realization": 0.0,
+              "rationale": "While SA-9 requires external providers to comply with privacy requirements, it lacks explicit mandates for contractual confidentiality and secrecy obligations for the processor's personnel. The implementation is narrative-only.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 2,
+              "alignment": 0.2,
+              "realization": 0.0,
+              "rationale": "SA-9 broadly dictates external provider compliance but lacks specific requirements regarding binding provider personnel to confidentiality agreements. The described external integrations are strictly narrative.",
+              "model": "Gemini 3.1 Pro"
+            },
+            {
+              "run": 3,
+              "alignment": 0.4,
+              "realization": 0.0,
+              "rationale": "SA-9 governs external service providers rather than internally binding the processor's own personnel to confidentiality, creating a weak alignment. There is no actual implementation provided, only fictional narrative.",
+              "model": "Gemini 3.1 Pro"
+            }
+          ],
+          "median_alignment": 0.4,
+          "median_realization": 0.0
+        }
+      }
+    }
+  ],
+  "sha256": "141a67e6e98d"
+}
