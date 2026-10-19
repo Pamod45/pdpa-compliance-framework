@@ -1,0 +1,10 @@
+.git
+.venv
+**/__pycache__
+**/*.pyc
+**/node_modules
+app/frontend
+outputs/*
+!outputs/panel
+outputs/panel/responses.jsonl
+*.zip
