@@ -41,8 +41,8 @@ const TOPICS = [
     </>) },
 ];
 
-export default function Learn() {
-  const [open, setOpen] = useState("read");
+export default function Learn({ start = "read" }) {
+  const [open, setOpen] = useState(start);
   return (
     <div className="learn">
       <header className="page-head"><h1>Learn the basics</h1><p>Short answers to what the results mean and what the documents are.</p></header>
