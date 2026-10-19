@@ -4,6 +4,7 @@ import { AlignmentTrace, Inputs, RealizationTrace } from "./Trace.jsx";
 import { download, key, summarise, toCSV } from "./summary.js";
 import { ClauseControls, Controls, Gaps, Overview } from "./Views.jsx";
 import Report from "./Report.jsx";
+import { startTour, tourSeen } from "./tour.js";
 
 function TupleMap({ pairs, selected, onSelect }) {
   const W = 420, H = 420, pad = 44;
@@ -39,7 +40,7 @@ function TupleMap({ pairs, selected, onSelect }) {
   );
 }
 
-function RunBar({ meta, onResult, start }) {
+function RunBar({ meta, onResult, start, wantSample }) {
   const [file, setFile] = useState(null);
   const [chosen, setChosen] = useState(new Set(meta.clauses.map((c) => c.id)));
   const [busy, setBusy] = useState(false);
@@ -51,16 +52,17 @@ function RunBar({ meta, onResult, start }) {
     return () => clearInterval(id);
   }, [busy]);
   const input = useRef();
+  useEffect(() => { if (wantSample && !busy && start !== "tour") { setFile(null); go(true); } }, [wantSample]);  // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (start === "sample") go();
+    if (start === "sample" || start === "tour") go();
     if (start === "upload") input.current?.click();
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   const toggle = (id) => { const s = new Set(chosen); s.has(id) ? s.delete(id) : s.add(id); setChosen(s); };
-  async function go() {
+  async function go(sample = false) {
     setBusy(true); setErr(""); setSecs(0);
     const fd = new FormData();
     fd.append("clause_ids", [...chosen].join(","));
-    if (file) fd.append("ssp", file); else fd.append("use_sample", "true");
+    if (file && sample !== true) fd.append("ssp", file); else fd.append("use_sample", "true");
     const t0 = Date.now();
     try { const r = await api.run(fd); onResult(r, (Date.now() - t0) / 1000); }
     catch (e) { setErr(e.message); } finally { setBusy(false); }
@@ -123,6 +125,8 @@ export default function Explore({ meta, start }) {
   const [sel, setSel] = useState(null);
   const [tab, setTab] = useState("overview");
   const [report, setReport] = useState(false);
+  const [wantTour, setWantTour] = useState(start === "tour");
+  const [showInvite, setShowInvite] = useState(start !== "tour" && !tourSeen());
   const s = useMemo(() => (res ? summarise(res) : null), [res]);
   const scored = useMemo(() => (res ? res.pairs.filter((p) => p.status === "scored") : []), [res]);
   const pick = scored.find((p) => key(p) === sel) || null;
@@ -130,6 +134,16 @@ export default function Explore({ meta, start }) {
     const esc = (e) => e.key === "Escape" && setSel(null);
     window.addEventListener("keydown", esc); return () => window.removeEventListener("keydown", esc);
   }, []);
+  useEffect(() => {
+    if (!wantTour || !res) return;
+    setWantTour(false); setShowInvite(false);
+    const first = (s.gaps[0] || scored[0]);
+    setTimeout(() => startTour({     // after the result has rendered
+      openPair: () => first && setSel(key(first)),
+      closePair: () => setSel(null),
+      setTab,
+    }), 300);
+  }, [wantTour, res]);  // eslint-disable-line react-hooks/exhaustive-deps
   if (report && res) return <Report res={res} s={s} onClose={() => setReport(false)} />;
   const stamp = res ? res.ssp_name.replace(/\W+/g, "_").toLowerCase() : "";
   return (
@@ -138,7 +152,13 @@ export default function Explore({ meta, start }) {
         <h1>Check a security plan against the PDPA</h1>
         <p>Upload your System Security Plan and choose the clauses. You get a summary of which legal duties your controls cover and how far your plan shows them built, then every detail behind it.</p>
       </header>
-      <RunBar meta={meta} start={start} onResult={(r, t) => { setRes(r); setTook(t); setSel(null); setTab("overview"); }} />
+      {showInvite && (
+        <div className="invite">
+          <span><b>New here?</b> A one-minute tour runs the sample and explains each part of the result.</span>
+          <button className="primary" onClick={() => { setShowInvite(false); setWantTour(true); }}>Take the tour</button>
+          <button className="link" onClick={() => setShowInvite(false)}>Not now</button>
+        </div>)}
+      <RunBar meta={meta} start={start} wantSample={wantTour && !res} onResult={(r, t) => { setRes(r); setTook(t); setSel(null); setTab("overview"); }} />
       {res && (
         <>
           <div className="result-bar">

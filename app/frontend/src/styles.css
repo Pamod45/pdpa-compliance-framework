@@ -310,3 +310,13 @@ a.button { text-decoration: none; display: inline-block; }
 .progress { font-size: 0.86rem; color: var(--muted); margin-top: 0.6rem; max-width: 30ch; }
 .progress .small { display: block; margin-top: 0.3rem; }
 .waking { display: flex; align-items: center; background: var(--align-soft); border: 1px solid #b9d3e0; border-radius: var(--r-sm); padding: 0.7rem 0.9rem; margin-bottom: 1rem; font-size: 0.92rem; }
+
+/* guided tour */
+.invite { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; background: var(--align-soft); border: 1px solid #b9d3e0; border-radius: var(--r-md); padding: 0.7rem 1rem; margin-bottom: 1rem; font-size: 0.93rem; }
+.invite span { flex: 1 1 22rem; }
+.tour-link { margin-top: 0.6rem; border-top: 1px solid #2c4252; padding-top: 0.8rem; color: #b8c4cc; }
+.driver-popover.pcef-tour { font-family: inherit; border-radius: var(--r-md); max-width: 340px; color: var(--ink); }
+.driver-popover.pcef-tour .driver-popover-title { font-size: 1rem; font-weight: 600; }
+.driver-popover.pcef-tour .driver-popover-description { font-size: 0.9rem; line-height: 1.45; color: var(--muted); }
+.driver-popover.pcef-tour .driver-popover-footer button { font-family: inherit; text-shadow: none; border-radius: var(--r-sm); padding: 0.35rem 0.75rem; }
+.driver-popover.pcef-tour .driver-popover-next-btn { background: var(--align); color: #fff; border-color: var(--align); }

@@ -12,7 +12,7 @@ const READINGS = [
   { tone: "t", title: "Trace", body: "Every number opens to the law text, the catalog rows and the plan text it came from." },
 ];
 
-export default function Landing({ meta, onSample, onUpload, onLearn }) {
+export default function Landing({ meta, onSample, onUpload, onLearn, onTour }) {
   const clauses = meta ? meta.clauses.length : null;
   return (
     <div className="landing">
@@ -32,6 +32,7 @@ export default function Landing({ meta, onSample, onUpload, onLearn }) {
             ? `${clauses} PDPA clauses ready · NIST SP 800-53 Rev 5 · scorer ${meta.config_status}`
             : "Loading the text model. The first start can take a minute."}
           {" · "}<button className="link" onClick={() => onLearn("ssp")}>What is an SSP?</button>
+          {" · "}<button className="link" onClick={onTour} disabled={!meta}>Take the one-minute tour</button>
         </p>
       </section>
 
