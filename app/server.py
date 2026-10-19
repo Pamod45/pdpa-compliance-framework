@@ -3,6 +3,15 @@ PCEF local UI server: FastAPI backend + the pre-built React frontend.
 
   python -m app.server            (opens http://127.0.0.1:8000)
 
+Environment variables (all optional; defaults suit a local run):
+  HOST, PORT               bind address and port (default 127.0.0.1:8000)
+  PCEF_EMBEDDER            sbert (default) or tfidf
+  PCEF_MODEL_REVISION      pin the embedding model to an exact revision
+  PCEF_DATA_DIR            where panel responses are written (default outputs/panel)
+  PCEF_PANEL_WRITES        set to 0 to stop accepting panel responses
+  PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
+  PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
+
 Explore: upload an SSP, pick clauses, run the frozen v1.1 pipeline, trace every score.
 Panel:   the fixed panel pack (validation/build_panel_pack.py), blind rating first, answers saved.
 The embedding model is loaded once at start-up and reused for every run.
@@ -31,8 +40,11 @@ from pcef.pipeline.run import DEFAULTS, run
 from .enrich import ROOT, pair_context, profiles
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
+MODEL_REVISION = os.environ.get("PCEF_MODEL_REVISION") or None
 PANEL_PACK = ROOT / "outputs" / "panel" / "panel_items.json"
-PANEL_OUT = ROOT / "outputs" / "panel" / "responses.jsonl"
+PANEL_OUT = Path(os.environ.get("PCEF_DATA_DIR", ROOT / "outputs" / "panel")) / "responses.jsonl"
+PANEL_WRITES = os.environ.get("PCEF_PANEL_WRITES", "1") != "0"
+MAX_UPLOAD_BYTES = int(os.environ.get("PCEF_MAX_UPLOAD_MB", "5")) * 1024 * 1024
 STATIC = Path(__file__).resolve().parent / "static"
 _lock = threading.Lock()
 
@@ -41,7 +53,7 @@ _state: dict = {}
 
 @asynccontextmanager
 async def lifespan(_app):
-    _state["emb"] = make_embedder(EMBEDDER)   # loaded once, reused for every run
+    _state["emb"] = make_embedder(EMBEDDER, revision=MODEL_REVISION)   # loaded once, reused for every run
     yield
 
 
@@ -74,7 +86,10 @@ async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(Fals
             ssp_path, ssp_name = str(ROOT / DEFAULTS["ssp"]), "FleetTrack sample SSP"
         else:
             ssp_path, ssp_name = str(Path(td) / "upload.json"), ssp.filename
-            Path(ssp_path).write_bytes(await ssp.read())
+            raw = await ssp.read()
+            if len(raw) > MAX_UPLOAD_BYTES:
+                raise HTTPException(413, f"The file is larger than {MAX_UPLOAD_BYTES // (1024 * 1024)} MB.")
+            Path(ssp_path).write_bytes(raw)
             try:
                 SspDocument.from_file(ssp_path)
             except Exception as ex:  # noqa: BLE001 - show the parser's own message
@@ -117,6 +132,8 @@ class PanelResponse(BaseModel):
 
 @app.post("/api/panel/response")
 def panel_response(r: PanelResponse):
+    if not PANEL_WRITES:
+        raise HTTPException(403, "Panel responses are closed on this deployment.")
     if not (0 <= r.blind_alignment <= 1 and 0 <= r.blind_realization <= 1):
         raise HTTPException(400, "Ratings must be between 0 and 1.")
     PANEL_OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -146,8 +163,11 @@ if STATIC.exists():
 
 def main():
     import uvicorn
-    threading.Timer(2.5, lambda: webbrowser.open("http://127.0.0.1:8000")).start()
-    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="warning")
+    host = os.environ.get("HOST", "127.0.0.1")
+    port = int(os.environ.get("PORT", "8000"))
+    if os.environ.get("PCEF_OPEN_BROWSER", "1") != "0":
+        threading.Timer(2.5, lambda: webbrowser.open(f"http://127.0.0.1:{port}")).start()
+    uvicorn.run(app, host=host, port=port, log_level="warning")
 
 
 if __name__ == "__main__":
