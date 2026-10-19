@@ -18,7 +18,8 @@ export default function App() {
   const [view, setView] = useState("home");
   const [start, setStart] = useState(null);      // how Explore was opened: "sample" | "upload" | null
   const [topic, setTopic] = useState("read");
-  const go = (v, how = null) => { setStart(how); setView(v); window.scrollTo(0, 0); };
+  const [visit, setVisit] = useState(0);         // a fresh Explore each time it is opened
+  const go = (v, how = null) => { setStart(how); setView(v); setVisit((n) => n + 1); window.scrollTo(0, 0); };
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
   const [tries, setTries] = useState(0);
@@ -44,8 +45,9 @@ export default function App() {
         </div>
         <nav aria-label="Sections">
           {VIEWS.map((v) => (
-            <button key={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
+            <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
+          <button className="nav-item tour-link" onClick={() => go("explore", "tour")} disabled={!meta}>Take the tour</button>
         </nav>
         {meta && (
           <dl className="prov">
@@ -62,8 +64,8 @@ export default function App() {
           ? <div className="waking" role="status"><span className="spinner" aria-hidden="true" />Waking up the server and loading the text model. This takes about a minute after a quiet period.</div>
           : view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>)}
         {view === "home" && <Landing meta={meta} onSample={() => go("explore", "sample")} onUpload={() => go("explore", "upload")}
-                                     onLearn={(t) => { setTopic(t); go("learn"); }} />}
-        {meta && view === "explore" && <Explore meta={meta} start={start} />}
+                                     onLearn={(t) => { setTopic(t); go("learn"); }} onTour={() => go("explore", "tour")} />}
+        {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
