@@ -1,8 +1,8 @@
 {
   "provenance": {
-    "run_at_utc": "2026-10-11T05:25:04+00:00",
+    "run_at_utc": "2026-10-19T14:37:40+00:00",
     "argv": [
-      "C:\\Users\\pubup\\Desktop\\Project Dissertation\\pdpa-compliance-framework\\src\\pcef\\pipeline\\run.py",
+      "C:\\Users\\pubup\\Downloads\\current-github-commited-pdpa-compliance-framework-main\\pdpa-compliance-framework\\src\\pcef\\pipeline\\run.py",
       "--all",
       "--embedder",
       "sbert",
@@ -15,10 +15,10 @@
     "platform": "Windows-11-10.0.26200-SP0",
     "packages": {
       "pcef": "0.1.0",
-      "pydantic": "2.13.5",
+      "pydantic": "2.14.1",
       "sentence-transformers": "6.1.0",
       "torch": "2.14.1",
-      "transformers": "5.18.0"
+      "transformers": "5.20.1"
     },
     "embedder": {
       "kind": "sbert",
@@ -32,8 +32,8 @@
       "ssp": "f3ce388df06ec94eb4ba0ec57b66227a67c5dbc236627656d5c5af11dff3ab2f"
     },
     "config_sha256": {
-      "pcef_params": "debb78cfde930432b0eba1615ff6460ed810042592cb8c3ac1fb7f61e3e389af",
-      "directionality_table": "f8fc636288ca2a485fd65bbc21c2f697c5e5023d145041800ac434a78bac561b"
+      "pcef_params": "f058aa26ce7dac91976430cc36e9fcbce1e2d70acb48827a0f958323252dd752",
+      "directionality_table": "d92f281c87f1e17759a3ae53defccdf3bc3e4d03ec606cda646de5cbce234dd9"
     },
     "system_roles": {
       "roles": [

@@ -1,6 +1,6 @@
 # PCEF run report
 
-- Run at (UTC): 2026-10-11T05:26:07+00:00
+- Run at (UTC): 2026-10-19T14:39:33+00:00
 - Embedder: sentence-transformers/all-mpnet-base-v2 @ e8c3b32edf5434bc2275fc9bab85f82640a19130
 - Clauses: PDPA-s5, PDPA-s6, PDPA-s7, PDPA-s8, PDPA-s9, PDPA-s10, PDPA-s12, PDPA-s22, PDPA-s23, PDPA-s24, PDPA-s26 | SSP: Enterprise Logging and Auditing System
 - System PDPA role(s): not declared (not declared)
