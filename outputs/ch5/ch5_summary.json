@@ -1,0 +1,423 @@
+{
+  "config_fingerprint": "f058aa26ce7d",
+  "ssps": {
+    "fleettrack": {
+      "runs": 3,
+      "seconds_per_run": [
+        78.7,
+        63.4,
+        65.4
+      ],
+      "all_identical": true,
+      "max_abs_numeric_diff": 0.0,
+      "pairs_total": 37,
+      "pairs_scored": 37,
+      "excluded_by": {},
+      "role_source": {
+        "roles": [
+          "controller",
+          "processor"
+        ],
+        "source": "SSP prop 'pdpa-role'"
+      },
+      "tuples": [
+        {
+          "pair": "s5-u1|pt-2",
+          "alignment": 0.4422,
+          "realization": 0.45,
+          "product_reporting_only": 0.199
+        },
+        {
+          "pair": "s5-u1|pt-3",
+          "alignment": 0.4251,
+          "realization": 0.4,
+          "product_reporting_only": 0.1701
+        },
+        {
+          "pair": "s5-u2|pt-2",
+          "alignment": 0.4648,
+          "realization": 0.45,
+          "product_reporting_only": 0.2092
+        },
+        {
+          "pair": "s5-u2|pt-3",
+          "alignment": 0.4667,
+          "realization": 0.4,
+          "product_reporting_only": 0.1867
+        },
+        {
+          "pair": "s5-u3|pt-2",
+          "alignment": 0.4279,
+          "realization": 0.45,
+          "product_reporting_only": 0.1926
+        },
+        {
+          "pair": "s5-u3|pt-3",
+          "alignment": 0.426,
+          "realization": 0.4,
+          "product_reporting_only": 0.1704
+        },
+        {
+          "pair": "s5-u3|pt-4",
+          "alignment": 0.4619,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s5-u3|pt-5",
+          "alignment": 0.4169,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s6-u1|pt-2",
+          "alignment": 0.5575,
+          "realization": 0.45,
+          "product_reporting_only": 0.2509
+        },
+        {
+          "pair": "s6-u1|pt-3",
+          "alignment": 0.8365,
+          "realization": 0.4,
+          "product_reporting_only": 0.3346
+        },
+        {
+          "pair": "s7-u1|pm-18",
+          "alignment": 0.3568,
+          "realization": 0.1,
+          "product_reporting_only": 0.0357
+        },
+        {
+          "pair": "s7-u1|pm-25",
+          "alignment": 0.5613,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s8-u1|si-12",
+          "alignment": 0.5614,
+          "realization": 0.9,
+          "product_reporting_only": 0.5053
+        },
+        {
+          "pair": "s8-u1|si-18",
+          "alignment": 0.7444,
+          "realization": 0.45,
+          "product_reporting_only": 0.335
+        },
+        {
+          "pair": "s8-u2|si-12",
+          "alignment": 0.4657,
+          "realization": 0.9,
+          "product_reporting_only": 0.4191
+        },
+        {
+          "pair": "s8-u2|si-18",
+          "alignment": 0.6959,
+          "realization": 0.45,
+          "product_reporting_only": 0.3131
+        },
+        {
+          "pair": "s9-u1|si-12",
+          "alignment": 0.6812,
+          "realization": 0.9,
+          "product_reporting_only": 0.6131
+        },
+        {
+          "pair": "s9-u1|si-12.1",
+          "alignment": 0.6258,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s9-u1|si-18",
+          "alignment": 0.6581,
+          "realization": 0.45,
+          "product_reporting_only": 0.2962
+        },
+        {
+          "pair": "s10-u1|ac-2",
+          "alignment": 0.6585,
+          "realization": 0.1286,
+          "product_reporting_only": 0.0847
+        },
+        {
+          "pair": "s10-u1|ac-3",
+          "alignment": 0.7677,
+          "realization": 0.9,
+          "product_reporting_only": 0.6909
+        },
+        {
+          "pair": "s10-u1|sc-13",
+          "alignment": 0.592,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s10-u1|sc-28",
+          "alignment": 0.6613,
+          "realization": 0.2,
+          "product_reporting_only": 0.1323
+        },
+        {
+          "pair": "s10-u1|sc-8",
+          "alignment": 0.6219,
+          "realization": 0.2,
+          "product_reporting_only": 0.1244
+        },
+        {
+          "pair": "s12-u1|pm-18",
+          "alignment": 0.6544,
+          "realization": 0.1,
+          "product_reporting_only": 0.0654
+        },
+        {
+          "pair": "s12-u1|pm-19",
+          "alignment": 0.612,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s22-u1|sa-9",
+          "alignment": 0.6376,
+          "realization": 0.0938,
+          "product_reporting_only": 0.0598
+        },
+        {
+          "pair": "s22-u2|sa-9",
+          "alignment": 0.7308,
+          "realization": 0.0938,
+          "product_reporting_only": 0.0685
+        },
+        {
+          "pair": "s22-u3|sa-9",
+          "alignment": 0.8445,
+          "realization": 0.0938,
+          "product_reporting_only": 0.0792
+        },
+        {
+          "pair": "s22-u4|sa-9",
+          "alignment": 0.5139,
+          "realization": 0.0938,
+          "product_reporting_only": 0.0482
+        },
+        {
+          "pair": "s23-u1|ir-6",
+          "alignment": 0.6295,
+          "realization": 0.1,
+          "product_reporting_only": 0.0629
+        },
+        {
+          "pair": "s23-u1|ir-8",
+          "alignment": 0.5031,
+          "realization": 0.1,
+          "product_reporting_only": 0.0503
+        },
+        {
+          "pair": "s23-u1|ir-8.1",
+          "alignment": 0.695,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s24-u1|ra-8",
+          "alignment": 0.6577,
+          "realization": 0.1,
+          "product_reporting_only": 0.0658
+        },
+        {
+          "pair": "s24-u2|ra-8",
+          "alignment": 0.3991,
+          "realization": 0.1,
+          "product_reporting_only": 0.0399
+        },
+        {
+          "pair": "s24-u3|ra-8",
+          "alignment": 0.3927,
+          "realization": 0.1,
+          "product_reporting_only": 0.0393
+        },
+        {
+          "pair": "s24-u4|ra-8",
+          "alignment": 0.3929,
+          "realization": 0.1,
+          "product_reporting_only": 0.0393
+        }
+      ]
+    },
+    "nist_example": {
+      "runs": 2,
+      "seconds_per_run": [
+        47.3,
+        51.5
+      ],
+      "all_identical": true,
+      "max_abs_numeric_diff": 0.0,
+      "pairs_total": 26,
+      "pairs_scored": 26,
+      "excluded_by": {},
+      "role_source": {
+        "roles": null,
+        "source": "not declared"
+      },
+      "tuples": [
+        {
+          "pair": "s5-u1|pt-2",
+          "alignment": 0.4422,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s5-u2|pt-2",
+          "alignment": 0.4648,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s5-u3|pt-4",
+          "alignment": 0.4619,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s5-u3|pt-5",
+          "alignment": 0.4169,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s6-u1|pt-3",
+          "alignment": 0.8365,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s7-u1|pm-25",
+          "alignment": 0.5613,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s8-u1|si-18",
+          "alignment": 0.7444,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s8-u2|si-18",
+          "alignment": 0.6959,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s9-u1|si-12",
+          "alignment": 0.6812,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s9-u1|si-12.1",
+          "alignment": 0.6258,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s10-u1|ac-3",
+          "alignment": 0.7677,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s10-u1|sc-13",
+          "alignment": 0.592,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s10-u1|sc-28",
+          "alignment": 0.6613,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s10-u1|sc-8",
+          "alignment": 0.6219,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s12-u1|pm-18",
+          "alignment": 0.6544,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s12-u1|pm-19",
+          "alignment": 0.612,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s22-u1|sa-9",
+          "alignment": 0.6376,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s22-u2|sa-9",
+          "alignment": 0.7308,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s22-u3|sa-9",
+          "alignment": 0.8445,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s22-u4|sa-9",
+          "alignment": 0.5139,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s23-u1|ir-6",
+          "alignment": 0.6295,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s23-u1|ir-8.1",
+          "alignment": 0.695,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s24-u1|ra-8",
+          "alignment": 0.6577,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s24-u2|ra-8",
+          "alignment": 0.3991,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s24-u3|ra-8",
+          "alignment": 0.3927,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        },
+        {
+          "pair": "s24-u4|ra-8",
+          "alignment": 0.3929,
+          "realization": 0.0,
+          "product_reporting_only": 0.0
+        }
+      ]
+    }
+  }
+}

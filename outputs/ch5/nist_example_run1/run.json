@@ -1,0 +1,2747 @@
+{
+  "provenance": {
+    "run_at_utc": "2026-10-19T14:39:33+00:00",
+    "argv": [
+      "C:\\Users\\pubup\\Downloads\\current-github-commited-pdpa-compliance-framework-main\\pdpa-compliance-framework\\src\\pcef\\pipeline\\run.py",
+      "--all",
+      "--embedder",
+      "sbert",
+      "--ssp",
+      "data/raw/ssps/public/nist_example/enterprise_logging_auditing_ssp.json",
+      "--out",
+      "outputs\\ch5\\nist_example_run1"
+    ],
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "pcef": "0.1.0",
+      "pydantic": "2.14.1",
+      "sentence-transformers": "6.1.0",
+      "torch": "2.14.1",
+      "transformers": "5.20.1"
+    },
+    "embedder": {
+      "kind": "sbert",
+      "model_id": "sentence-transformers/all-mpnet-base-v2",
+      "revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+    },
+    "standin_warning": false,
+    "inputs_sha256": {
+      "profiles": "c5daf5a4688d0e44092ad80f3672bf6575bac121eed5ba3cc08653803b87fb3c",
+      "catalog": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062",
+      "ssp": "e617255bd8f282e05024732017b2286753b341393f4cc41b2f38ede1359215e3"
+    },
+    "config_sha256": {
+      "pcef_params": "f058aa26ce7dac91976430cc36e9fcbce1e2d70acb48827a0f958323252dd752",
+      "directionality_table": "d92f281c87f1e17759a3ae53defccdf3bc3e4d03ec606cda646de5cbce234dd9"
+    },
+    "system_roles": {
+      "roles": null,
+      "source": "not declared"
+    },
+    "thresholds_used": {
+      "relatedness_floor": 0.2,
+      "coverage_threshold": 0.35
+    },
+    "relatedness_floor_enabled": true,
+    "coverage_mode": "ramp",
+    "coverage_ramp": [
+      0.25,
+      0.45
+    ],
+    "unit_text_mode": "keywords",
+    "rules": [
+      "relatedness row roll-up = max",
+      "maturity horizontal = max",
+      "maturity vertical = mean (na excluded, absent = 0)"
+    ],
+    "config_status": "FROZEN v1.1 2026-10-05"
+  },
+  "scope": {
+    "clauses": [
+      "PDPA-s5",
+      "PDPA-s6",
+      "PDPA-s7",
+      "PDPA-s8",
+      "PDPA-s9",
+      "PDPA-s10",
+      "PDPA-s12",
+      "PDPA-s22",
+      "PDPA-s23",
+      "PDPA-s24",
+      "PDPA-s26"
+    ],
+    "ssp_system": "Enterprise Logging and Auditing System"
+  },
+  "stage3": {
+    "pairs": 26,
+    "unanchored_units": [
+      "s5-u4",
+      "s6-u2",
+      "s9-u2",
+      "s24-t1",
+      "s24-t2",
+      "s24-t3",
+      "s26-u1",
+      "s26-u2",
+      "s26-u3",
+      "s26-u4"
+    ],
+    "not_scored_units": [
+      [
+        "s22-u5",
+        "Represented but NOT scored: a conditional legal status-change trigger, not a data-handling or documentation obligation. None of SSS/CACR/CRS/CIMS/OIAS is designed to detect this. Flagged as open in clause_selection.md; whether the parameter set gains a treatment for reclassification triggers is an open decision."
+      ]
+    ],
+    "dropped_hints": []
+  },
+  "stage2_report": {
+    "ambiguous_na": [],
+    "unknown_control_ids": []
+  },
+  "realization": {
+    "ac-3": {
+      "value": 0.0,
+      "rows": {
+        "ac-3_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "ir-6": {
+      "value": 0.0,
+      "rows": {
+        "ir-6_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "ir-6_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 2,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "ir-8.1": {
+      "value": 0.0,
+      "rows": {
+        "ir-8.1_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "ir-8.1_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "ir-8.1_smt.c": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 3,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pm-18": {
+      "value": 0.0,
+      "rows": {
+        "pm-18_smt.a.1": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.a.2": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.a.3": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.a.4": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.a.5": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.a.6": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-18_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 7,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pm-19": {
+      "value": 0.0,
+      "rows": {
+        "pm-19_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pm-25": {
+      "value": 0.0,
+      "rows": {
+        "pm-25_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-25_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-25_smt.c": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pm-25_smt.d": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 4,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pt-2": {
+      "value": 0.0,
+      "rows": {
+        "pt-2_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-2_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 2,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pt-3": {
+      "value": 0.0,
+      "rows": {
+        "pt-3_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-3_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-3_smt.c": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-3_smt.d": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 4,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pt-4": {
+      "value": 0.0,
+      "rows": {
+        "pt-4_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "pt-5": {
+      "value": 0.0,
+      "rows": {
+        "pt-5_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-5_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-5_smt.c": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-5_smt.d": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "pt-5_smt.e": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 5,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "ra-8": {
+      "value": 0.0,
+      "rows": {
+        "ra-8_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "ra-8_smt.b.1": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "ra-8_smt.b.2": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 3,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "sa-9": {
+      "value": 0.0,
+      "rows": {
+        "sa-9_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "sa-9_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "sa-9_smt.c": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 3,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "sc-13": {
+      "value": 0.0,
+      "rows": {
+        "sc-13_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "sc-13_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 2,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "sc-28": {
+      "value": 0.0,
+      "rows": {
+        "sc-28_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "sc-8": {
+      "value": 0.0,
+      "rows": {
+        "sc-8_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "si-12": {
+      "value": 0.0,
+      "rows": {
+        "si-12_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "si-12.1": {
+      "value": 0.0,
+      "rows": {
+        "si-12.1_smt": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 1,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    },
+    "si-18": {
+      "value": 0.0,
+      "rows": {
+        "si-18_smt.a": {
+          "status": "absent",
+          "score": 0.0
+        },
+        "si-18_smt.b": {
+          "status": "absent",
+          "score": 0.0
+        }
+      },
+      "counted_rows": 2,
+      "relevance": false,
+      "rules": [
+        "horizontal=max",
+        "vertical=mean_excluding_na"
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "clause_id": "PDPA-s5",
+      "unit_id": "s5-u1",
+      "control_id": "pt-2",
+      "control_title": "Authority to Process Personally Identifiable Information",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5036,
+        "best_row": "pt-2_smt.a",
+        "per_row": {
+          "pt-2_smt.a": 0.5036,
+          "pt-2_smt.b": 0.4413
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5036,
+        "coverage": 0.0,
+        "strength": null,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s5-u1-a1": {
+            "name": "at least one Schedule I condition satisfied",
+            "best": 0.1353,
+            "row": "pt-2_smt.b",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "reason": "modality 'conditional' has no strength demand"
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.4422,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s5",
+      "unit_id": "s5-u2",
+      "control_id": "pt-2",
+      "control_title": "Authority to Process Personally Identifiable Information",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: data_category=special_categories (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5804,
+        "best_row": "pt-2_smt.a",
+        "per_row": {
+          "pt-2_smt.a": 0.5804,
+          "pt-2_smt.b": 0.5098
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5804,
+        "coverage": 0.0,
+        "strength": null,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s5-u2-a1": {
+            "name": "at least one Schedule II condition satisfied",
+            "best": 0.1987,
+            "row": "pt-2_smt.a",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "reason": "modality 'conditional' has no strength demand"
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.4648,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s5",
+      "unit_id": "s5-u3",
+      "control_id": "pt-4",
+      "control_title": "Consent",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: chosen_basis=consent (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5706,
+        "best_row": "pt-4_smt",
+        "per_row": {
+          "pt-4_smt": 0.5706
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5706,
+        "coverage": 0.0,
+        "strength": null,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s5-u3-a1": {
+            "name": "all Schedule III conditions satisfied",
+            "best": 0.0922,
+            "row": "pt-4_smt",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "reason": "modality 'conditional' has no strength demand"
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.4619,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s5",
+      "unit_id": "s5-u3",
+      "control_id": "pt-5",
+      "control_title": "Privacy Notice",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: chosen_basis=consent (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.4176,
+        "best_row": "pt-5_smt.d",
+        "per_row": {
+          "pt-5_smt.a": 0.4034,
+          "pt-5_smt.b": 0.4171,
+          "pt-5_smt.c": 0.4147,
+          "pt-5_smt.d": 0.4176,
+          "pt-5_smt.e": 0.385
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.4176,
+        "coverage": 0.0,
+        "strength": null,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s5-u3-a1": {
+            "name": "all Schedule III conditions satisfied",
+            "best": 0.2283,
+            "row": "pt-5_smt.d",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "reason": "modality 'conditional' has no strength demand"
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.4169,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s6",
+      "unit_id": "s6-u1",
+      "control_id": "pt-3",
+      "control_title": "Personally Identifiable Information Processing Purposes",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.7727,
+        "best_row": "pt-3_smt.c",
+        "per_row": {
+          "pt-3_smt.a": 0.7284,
+          "pt-3_smt.b": 0.7104,
+          "pt-3_smt.c": 0.7727,
+          "pt-3_smt.d": 0.6848
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.7727,
+        "coverage": 0.7653,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 4,
+        "attributes": {
+          "s6-u1-a1": {
+            "name": "purpose specified",
+            "best": 0.4751,
+            "row": "pt-3_smt.b",
+            "score": 1.0
+          },
+          "s6-u1-a2": {
+            "name": "purpose explicit",
+            "best": 0.4332,
+            "row": "pt-3_smt.b",
+            "score": 0.9158
+          },
+          "s6-u1-a3": {
+            "name": "purpose legitimate",
+            "best": 0.4081,
+            "row": "pt-3_smt.b",
+            "score": 0.7907
+          },
+          "s6-u1-a4": {
+            "name": "no further processing incompatible with stated purpose",
+            "best": 0.3209,
+            "row": "pt-3_smt.c",
+            "score": 0.3546
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 4
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.8365,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s7",
+      "unit_id": "s7-u1",
+      "control_id": "pm-25",
+      "control_title": "Minimization of Personally Identifiable Information Used in Testing, Training, and Research",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5351,
+        "best_row": "pm-25_smt.b",
+        "per_row": {
+          "pm-25_smt.a": 0.5292,
+          "pm-25_smt.b": 0.5351,
+          "pm-25_smt.c": 0.5307,
+          "pm-25_smt.d": 0.4352
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5351,
+        "coverage": 0.4808,
+        "strength": 1.0,
+        "directionality": 0.7
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 3,
+        "attributes": {
+          "s7-u1-a1": {
+            "name": "data adequate for the purpose",
+            "best": 0.3223,
+            "row": "pm-25_smt.c",
+            "score": 0.3614
+          },
+          "s7-u1-a2": {
+            "name": "data relevant to the purpose",
+            "best": 0.4064,
+            "row": "pm-25_smt.a",
+            "score": 0.7819
+          },
+          "s7-u1-a3": {
+            "name": "data proportionate to the purpose",
+            "best": 0.3098,
+            "row": "pm-25_smt.a",
+            "score": 0.2991
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 4
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 0.7,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.5613,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s8",
+      "unit_id": "s8-u1",
+      "control_id": "si-18",
+      "control_title": "Personally Identifiable Information Quality Operations",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.632,
+        "best_row": "si-18_smt.a",
+        "per_row": {
+          "si-18_smt.a": 0.632,
+          "si-18_smt.b": 0.6188
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.632,
+        "coverage": 0.6422,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 2,
+        "attributes": {
+          "s8-u1-a1": {
+            "name": "data accurate",
+            "best": 0.3798,
+            "row": "si-18_smt.a",
+            "score": 0.6491
+          },
+          "s8-u1-a2": {
+            "name": "data kept up to date",
+            "best": 0.3771,
+            "row": "si-18_smt.a",
+            "score": 0.6354
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 2
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "control_override",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.7444,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s8",
+      "unit_id": "s8-u2",
+      "control_id": "si-18",
+      "control_title": "Personally Identifiable Information Quality Operations",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.666,
+        "best_row": "si-18_smt.b",
+        "per_row": {
+          "si-18_smt.a": 0.5008,
+          "si-18_smt.b": 0.666
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.666,
+        "coverage": 0.5,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 2,
+        "attributes": {
+          "s8-u2-a1": {
+            "name": "mechanism to erase or rectify inaccurate/outdated data exists",
+            "best": 0.634,
+            "row": "si-18_smt.b",
+            "score": 1.0
+          },
+          "s8-u2-a2": {
+            "name": "remediation carried out without undue delay",
+            "best": 0.2465,
+            "row": "si-18_smt.b",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 2
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "control_override",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6959,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s9",
+      "unit_id": "s9-u1",
+      "control_id": "si-12",
+      "control_title": "Information Management and Retention",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5279,
+        "best_row": "si-12_smt",
+        "per_row": {
+          "si-12_smt": 0.5279
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5279,
+        "coverage": 0.5631,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 2,
+        "attributes": {
+          "s9-u1-a1": {
+            "name": "retention limited to period necessary for the purpose",
+            "best": 0.4112,
+            "row": "si-12_smt",
+            "score": 0.806
+          },
+          "s9-u1-a2": {
+            "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+            "best": 0.314,
+            "row": "si-12_smt",
+            "score": 0.3201
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "control_override",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6812,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s9",
+      "unit_id": "s9-u1",
+      "control_id": "si-12.1",
+      "control_title": "Limit Personally Identifiable Information Elements",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5831,
+        "best_row": "si-12.1_smt",
+        "per_row": {
+          "si-12.1_smt": 0.5831
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5831,
+        "coverage": 0.389,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 2,
+        "attributes": {
+          "s9-u1-a1": {
+            "name": "retention limited to period necessary for the purpose",
+            "best": 0.3059,
+            "row": "si-12.1_smt",
+            "score": 0.2794
+          },
+          "s9-u1-a2": {
+            "name": "mechanism to de-identify or erase data once purpose no longer requires identification",
+            "best": 0.3497,
+            "row": "si-12.1_smt",
+            "score": 0.4985
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "data_governance",
+        "control_orientation": "data_governance",
+        "orientation_source": "base_control_override",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6258,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s10",
+      "unit_id": "s10-u1",
+      "control_id": "ac-3",
+      "control_title": "Access Enforcement",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.539,
+        "best_row": "ac-3_smt",
+        "per_row": {
+          "ac-3_smt": 0.539
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.539,
+        "coverage": 0.7652,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 4,
+        "attributes": {
+          "s10-u1-a1": {
+            "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+            "best": 0.4738,
+            "row": "ac-3_smt",
+            "score": 1.0
+          },
+          "s10-u1-a2": {
+            "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+            "best": 0.4017,
+            "row": "ac-3_smt",
+            "score": 0.7586
+          },
+          "s10-u1-a3": {
+            "name": "appropriate technical measures in place",
+            "best": 0.3912,
+            "row": "ac-3_smt",
+            "score": 0.7059
+          },
+          "s10-u1-a4": {
+            "name": "appropriate organizational measures in place",
+            "best": 0.3692,
+            "row": "ac-3_smt",
+            "score": 0.5962
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "technical",
+        "control_orientation": "technical",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "system",
+        "expected_level": "system",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.7677,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s10",
+      "unit_id": "s10-u1",
+      "control_id": "sc-13",
+      "control_title": "Cryptographic Protection",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.567,
+        "best_row": "sc-13_smt.b",
+        "per_row": {
+          "sc-13_smt.a": 0.5411,
+          "sc-13_smt.b": 0.567
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.567,
+        "coverage": 0.3185,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 4,
+        "attributes": {
+          "s10-u1-a1": {
+            "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+            "best": 0.3608,
+            "row": "sc-13_smt.a",
+            "score": 0.5541
+          },
+          "s10-u1-a2": {
+            "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+            "best": 0.3414,
+            "row": "sc-13_smt.a",
+            "score": 0.4572
+          },
+          "s10-u1-a3": {
+            "name": "appropriate technical measures in place",
+            "best": 0.3025,
+            "row": "sc-13_smt.b",
+            "score": 0.2626
+          },
+          "s10-u1-a4": {
+            "name": "appropriate organizational measures in place",
+            "best": 0.2095,
+            "row": "sc-13_smt.b",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 2
+      },
+      "directionality_detail": {
+        "unit_orientation": "technical",
+        "control_orientation": "technical",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "system",
+        "expected_level": "system",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.592,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s10",
+      "unit_id": "s10-u1",
+      "control_id": "sc-28",
+      "control_title": "Protection of Information at Rest",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.6052,
+        "best_row": "sc-28_smt",
+        "per_row": {
+          "sc-28_smt": 0.6052
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.6052,
+        "coverage": 0.4595,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 4,
+        "attributes": {
+          "s10-u1-a1": {
+            "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+            "best": 0.4274,
+            "row": "sc-28_smt",
+            "score": 0.887
+          },
+          "s10-u1-a2": {
+            "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+            "best": 0.4402,
+            "row": "sc-28_smt",
+            "score": 0.951
+          },
+          "s10-u1-a3": {
+            "name": "appropriate technical measures in place",
+            "best": 0.2372,
+            "row": "sc-28_smt",
+            "score": 0.0
+          },
+          "s10-u1-a4": {
+            "name": "appropriate organizational measures in place",
+            "best": 0.1918,
+            "row": "sc-28_smt",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "technical",
+        "control_orientation": "technical",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "system",
+        "expected_level": "system",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6613,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s10",
+      "unit_id": "s10-u1",
+      "control_id": "sc-8",
+      "control_title": "Transmission Confidentiality and Integrity",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5732,
+        "best_row": "sc-8_smt",
+        "per_row": {
+          "sc-8_smt": 0.5732
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5732,
+        "coverage": 0.3865,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 4,
+        "attributes": {
+          "s10-u1-a1": {
+            "name": "prevents unauthorized or unlawful processing (confidentiality outcome)",
+            "best": 0.4065,
+            "row": "sc-8_smt",
+            "score": 0.7826
+          },
+          "s10-u1-a2": {
+            "name": "prevents loss, destruction, or damage (integrity/availability outcome)",
+            "best": 0.4027,
+            "row": "sc-8_smt",
+            "score": 0.7634
+          },
+          "s10-u1-a3": {
+            "name": "appropriate technical measures in place",
+            "best": 0.196,
+            "row": "sc-8_smt",
+            "score": 0.0
+          },
+          "s10-u1-a4": {
+            "name": "appropriate organizational measures in place",
+            "best": 0.1942,
+            "row": "sc-8_smt",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "technical",
+        "control_orientation": "technical",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "system",
+        "expected_level": "system",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6219,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s12",
+      "unit_id": "s12-u1",
+      "control_id": "pm-18",
+      "control_title": "Privacy Program Plan",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5629,
+        "best_row": "pm-18_smt.a.6",
+        "per_row": {
+          "pm-18_smt.a.1": 0.5287,
+          "pm-18_smt.a.2": 0.5505,
+          "pm-18_smt.a.3": 0.5461,
+          "pm-18_smt.a.4": 0.5582,
+          "pm-18_smt.a.5": 0.5278,
+          "pm-18_smt.a.6": 0.5629,
+          "pm-18_smt.b": 0.4647
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5629,
+        "coverage": 0.473,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 8,
+        "attributes": {
+          "s12-u1-a1": {
+            "name": "catalogued records demonstrating implementation of ss.5-11 obligations",
+            "best": 0.3391,
+            "row": "pm-18_smt.a.6",
+            "score": 0.4454
+          },
+          "s12-u1-a2": {
+            "name": "designed on basis of structure/scale/volume/sensitivity of processing",
+            "best": 0.112,
+            "row": "pm-18_smt.a.6",
+            "score": 0.0
+          },
+          "s12-u1-a3": {
+            "name": "provides safeguards based on s.24 DPIAs",
+            "best": 0.3803,
+            "row": "pm-18_smt.a.6",
+            "score": 0.6513
+          },
+          "s12-u1-a4": {
+            "name": "integrated into the controller's governance structure",
+            "best": 0.3333,
+            "row": "pm-18_smt.a.6",
+            "score": 0.4163
+          },
+          "s12-u1-a5": {
+            "name": "establishes internal oversight mechanisms",
+            "best": 0.4296,
+            "row": "pm-18_smt.a.6",
+            "score": 0.8978
+          },
+          "s12-u1-a6": {
+            "name": "mechanism to receive complaints, conduct inquiries, identify breaches",
+            "best": 0.2745,
+            "row": "pm-18_smt.a.6",
+            "score": 0.1225
+          },
+          "s12-u1-a7": {
+            "name": "updated based on periodic monitoring and assessments",
+            "best": 0.3301,
+            "row": "pm-18_smt.b",
+            "score": 0.4005
+          },
+          "s12-u1-a8": {
+            "name": "facilitates exercise of data subject rights under ss.13,14,15,16,18",
+            "best": 0.42,
+            "row": "pm-18_smt.a.6",
+            "score": 0.8501
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 7
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6544,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s12",
+      "unit_id": "s12-u1",
+      "control_id": "pm-19",
+      "control_title": "Privacy Program Leadership Role",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5214,
+        "best_row": "pm-19_smt",
+        "per_row": {
+          "pm-19_smt": 0.5214
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5214,
+        "coverage": 0.3996,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 8,
+        "attributes": {
+          "s12-u1-a1": {
+            "name": "catalogued records demonstrating implementation of ss.5-11 obligations",
+            "best": 0.2416,
+            "row": "pm-19_smt",
+            "score": 0.0
+          },
+          "s12-u1-a2": {
+            "name": "designed on basis of structure/scale/volume/sensitivity of processing",
+            "best": 0.0643,
+            "row": "pm-19_smt",
+            "score": 0.0
+          },
+          "s12-u1-a3": {
+            "name": "provides safeguards based on s.24 DPIAs",
+            "best": 0.2929,
+            "row": "pm-19_smt",
+            "score": 0.2147
+          },
+          "s12-u1-a4": {
+            "name": "integrated into the controller's governance structure",
+            "best": 0.4799,
+            "row": "pm-19_smt",
+            "score": 1.0
+          },
+          "s12-u1-a5": {
+            "name": "establishes internal oversight mechanisms",
+            "best": 0.4347,
+            "row": "pm-19_smt",
+            "score": 0.9237
+          },
+          "s12-u1-a6": {
+            "name": "mechanism to receive complaints, conduct inquiries, identify breaches",
+            "best": 0.3045,
+            "row": "pm-19_smt",
+            "score": 0.2725
+          },
+          "s12-u1-a7": {
+            "name": "updated based on periodic monitoring and assessments",
+            "best": 0.1258,
+            "row": "pm-19_smt",
+            "score": 0.0
+          },
+          "s12-u1-a8": {
+            "name": "facilitates exercise of data subject rights under ss.13,14,15,16,18",
+            "best": 0.4072,
+            "row": "pm-19_smt",
+            "score": 0.7861
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 1
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.612,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s22",
+      "unit_id": "s22-u1",
+      "control_id": "sa-9",
+      "control_title": "External System Services",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.4095,
+        "best_row": "sa-9_smt.c",
+        "per_row": {
+          "sa-9_smt.a": 0.352,
+          "sa-9_smt.b": 0.3273,
+          "sa-9_smt.c": 0.4095
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.4095,
+        "coverage": 0.5418,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s22-u1-a1": {
+            "name": "processing carried out only on documented written controller instructions",
+            "best": 0.3584,
+            "row": "sa-9_smt.c",
+            "score": 0.5418
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6376,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s22",
+      "unit_id": "s22-u2",
+      "control_id": "sa-9",
+      "control_title": "External System Services",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5058,
+        "best_row": "sa-9_smt.a",
+        "per_row": {
+          "sa-9_smt.a": 0.5058,
+          "sa-9_smt.b": 0.3572,
+          "sa-9_smt.c": 0.3304
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5058,
+        "coverage": 0.6991,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 2,
+        "attributes": {
+          "s22-u2-a1": {
+            "name": "personnel bound by contractual confidentiality/secrecy obligations",
+            "best": 0.4746,
+            "row": "sa-9_smt.a",
+            "score": 1.0
+          },
+          "s22-u2-a2": {
+            "name": "appropriate technical and organizational measures implemented for personnel binding",
+            "best": 0.3297,
+            "row": "sa-9_smt.b",
+            "score": 0.3983
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.7308,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s22",
+      "unit_id": "s22-u3",
+      "control_id": "sa-9",
+      "control_title": "External System Services",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.4712,
+        "best_row": "sa-9_smt.c",
+        "per_row": {
+          "sa-9_smt.a": 0.3857,
+          "sa-9_smt.b": 0.3858,
+          "sa-9_smt.c": 0.4712
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.4712,
+        "coverage": 1.0,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s22-u3-a1": {
+            "name": "mechanism to facilitate controller compliance audits and inspections",
+            "best": 0.5622,
+            "row": "sa-9_smt.c",
+            "score": 1.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.8445,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s22",
+      "unit_id": "s22-u4",
+      "control_id": "sa-9",
+      "control_title": "External System Services",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.3287,
+        "best_row": "sa-9_smt.c",
+        "per_row": {
+          "sa-9_smt.a": 0.3183,
+          "sa-9_smt.b": 0.3131,
+          "sa-9_smt.c": 0.3287
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.3287,
+        "coverage": 0.2989,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s22-u4-a1": {
+            "name": "mechanism to erase or return personal data on controller instruction at end of service",
+            "best": 0.3098,
+            "row": "sa-9_smt.c",
+            "score": 0.2989
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.5139,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s23",
+      "unit_id": "s23-u1",
+      "control_id": "ir-6",
+      "control_title": "Incident Reporting",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "prospective: duty fires on event (personal data breach has occurred); assessed as readiness"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.5099,
+        "best_row": "ir-6_smt.b",
+        "per_row": {
+          "ir-6_smt.a": 0.4131,
+          "ir-6_smt.b": 0.5099
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.5099,
+        "coverage": 0.4502,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 3,
+        "attributes": {
+          "s23-u1-a1": {
+            "name": "mechanism to notify the Authority of a personal data breach exists",
+            "best": 0.4998,
+            "row": "ir-6_smt.b",
+            "score": 1.0
+          },
+          "s23-u1-a2": {
+            "name": "notification made within the required period",
+            "best": 0.2739,
+            "row": "ir-6_smt.a",
+            "score": 0.1196
+          },
+          "s23-u1-a3": {
+            "name": "notification made in the required form/manner with required information",
+            "best": 0.2962,
+            "row": "ir-6_smt.a",
+            "score": 0.2309
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 2
+      },
+      "directionality_detail": {
+        "unit_orientation": "procedural",
+        "control_orientation": "procedural",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6295,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s23",
+      "unit_id": "s23-u1",
+      "control_id": "ir-8.1",
+      "control_title": "Breaches",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "prospective: duty fires on event (personal data breach has occurred); assessed as readiness"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.6597,
+        "best_row": "ir-8.1_smt.a",
+        "per_row": {
+          "ir-8.1_smt.a": 0.6597,
+          "ir-8.1_smt.b": 0.6007,
+          "ir-8.1_smt.c": 0.5854
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.6597,
+        "coverage": 0.5023,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 3,
+        "attributes": {
+          "s23-u1-a1": {
+            "name": "mechanism to notify the Authority of a personal data breach exists",
+            "best": 0.6807,
+            "row": "ir-8.1_smt.a",
+            "score": 1.0
+          },
+          "s23-u1-a2": {
+            "name": "notification made within the required period",
+            "best": 0.2618,
+            "row": "ir-8.1_smt.a",
+            "score": 0.0589
+          },
+          "s23-u1-a3": {
+            "name": "notification made in the required form/manner with required information",
+            "best": 0.3396,
+            "row": "ir-8.1_smt.a",
+            "score": 0.4481
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "procedural",
+        "control_orientation": "procedural",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.695,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s24",
+      "unit_id": "s24-u1",
+      "control_id": "ra-8",
+      "control_title": "Privacy Impact Assessments",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: any_trigger_met=['s24-t1', 's24-t2', 's24-t3'] (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.6762,
+        "best_row": "ra-8_smt.b.1",
+        "per_row": {
+          "ra-8_smt.a": 0.6608,
+          "ra-8_smt.b.1": 0.6762,
+          "ra-8_smt.b.2": 0.6346
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.6762,
+        "coverage": 0.3999,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 3,
+        "attributes": {
+          "s24-u1-a1": {
+            "name": "DPIA carried out prior to processing",
+            "best": 0.2932,
+            "row": "ra-8_smt.b.1",
+            "score": 0.2162
+          },
+          "s24-u1-a2": {
+            "name": "DPIA ascertains impact on Part I obligations and Part II rights",
+            "best": 0.3393,
+            "row": "ra-8_smt.b.2",
+            "score": 0.4467
+          },
+          "s24-u1-a3": {
+            "name": "DPIA documents measures and safeguards to mitigate risk of harm",
+            "best": 0.3574,
+            "row": "ra-8_smt.a",
+            "score": 0.5368
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.6577,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s24",
+      "unit_id": "s24-u2",
+      "control_id": "ra-8",
+      "control_title": "Privacy Impact Assessments",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: any_trigger_met=['s24-t1', 's24-t2', 's24-t3'] (SSP does not state)",
+            "unresolved_condition: conditional_on=a DPO has been designated under s.20 (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.357,
+        "best_row": "ra-8_smt.b.1",
+        "per_row": {
+          "ra-8_smt.a": 0.3466,
+          "ra-8_smt.b.1": 0.357,
+          "ra-8_smt.b.2": 0.3145
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.357,
+        "coverage": 0.0,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s24-u2-a1": {
+            "name": "DPO involved in the DPIA where one is designated",
+            "best": 0.1625,
+            "row": "ra-8_smt.b.2",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.3991,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s24",
+      "unit_id": "s24-u3",
+      "control_id": "ra-8",
+      "control_title": "Privacy Impact Assessments",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: any_trigger_met=['s24-t1', 's24-t2', 's24-t3'] (SSP does not state)",
+            "prospective: duty fires on event (material change in methodology, technology, or process); assessed as readiness"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.3352,
+        "best_row": "ra-8_smt.b.1",
+        "per_row": {
+          "ra-8_smt.a": 0.3242,
+          "ra-8_smt.b.1": 0.3352,
+          "ra-8_smt.b.2": 0.2602
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.3352,
+        "coverage": 0.0,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s24-u3-a1": {
+            "name": "mechanism to trigger a fresh DPIA on change of methodology/technology/process",
+            "best": 0.2238,
+            "row": "ra-8_smt.b.1",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.3927,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    },
+    {
+      "clause_id": "PDPA-s24",
+      "unit_id": "s24-u4",
+      "control_id": "ra-8",
+      "control_title": "Privacy Impact Assessments",
+      "pair_source": "explicit_hint",
+      "gates": {
+        "applicability": {
+          "passed": true,
+          "reason": "applicable",
+          "flags": [
+            "actor_unverified: no PDPA role declared for the system; actor check skipped",
+            "unresolved_condition: any_trigger_met=['s24-t1', 's24-t2', 's24-t3'] (SSP does not state)"
+          ]
+        },
+        "relatedness_floor": {
+          "passed": true,
+          "reason": "above floor",
+          "flags": []
+        }
+      },
+      "relatedness": {
+        "value": 0.3357,
+        "best_row": "ra-8_smt.b.1",
+        "per_row": {
+          "ra-8_smt.a": 0.32,
+          "ra-8_smt.b.1": 0.3357,
+          "ra-8_smt.b.2": 0.2604
+        }
+      },
+      "status": "scored",
+      "measures": {
+        "relatedness": 0.3357,
+        "coverage": 0.0,
+        "strength": 1.0,
+        "directionality": 1.0
+      },
+      "effective_weights": {
+        "coverage": 0.4118,
+        "relatedness": 0.2941,
+        "directionality": 0.2941
+      },
+      "coverage_detail": {
+        "mode": "ramp",
+        "total": 1,
+        "attributes": {
+          "s24-u4-a1": {
+            "name": "DPIA submitted to the Authority",
+            "best": 0.2473,
+            "row": "ra-8_smt.b.1",
+            "score": 0.0
+          }
+        },
+        "ramp": [
+          0.25,
+          0.45
+        ]
+      },
+      "strength_detail": {
+        "required": 1.0,
+        "control_strength": 1.0,
+        "hedged_rows": 0,
+        "rows": 3
+      },
+      "directionality_detail": {
+        "unit_orientation": "governance",
+        "control_orientation": "governance",
+        "orientation_source": "family",
+        "cell": 1.0,
+        "impl_level": "organization",
+        "expected_level": "organization",
+        "level_mismatch": false
+      },
+      "tuple": {
+        "alignment": 0.3929,
+        "realization": 0.0,
+        "product_reporting_only": 0.0
+      }
+    }
+  ]
+}
