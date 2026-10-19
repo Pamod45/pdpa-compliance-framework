@@ -39,12 +39,16 @@ function TupleMap({ pairs, selected, onSelect }) {
   );
 }
 
-function RunBar({ meta, onResult }) {
+function RunBar({ meta, onResult, start }) {
   const [file, setFile] = useState(null);
   const [chosen, setChosen] = useState(new Set(meta.clauses.map((c) => c.id)));
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const input = useRef();
+  useEffect(() => {
+    if (start === "sample") go();
+    if (start === "upload") input.current?.click();
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   const toggle = (id) => { const s = new Set(chosen); s.has(id) ? s.delete(id) : s.add(id); setChosen(s); };
   async function go() {
     setBusy(true); setErr("");
@@ -99,7 +103,7 @@ function Drawer({ pick, res, meta, onClose }) {
   );
 }
 
-export default function Explore({ meta }) {
+export default function Explore({ meta, start }) {
   const [res, setRes] = useState(null);
   const [sel, setSel] = useState(null);
   const [tab, setTab] = useState("overview");
@@ -119,7 +123,7 @@ export default function Explore({ meta }) {
         <h1>Check a security plan against the PDPA</h1>
         <p>Upload your System Security Plan and choose the clauses. You get a summary of which legal duties your controls cover and how far your plan shows them built, then every detail behind it.</p>
       </header>
-      <RunBar meta={meta} onResult={(r) => { setRes(r); setSel(null); setTab("overview"); }} />
+      <RunBar meta={meta} start={start} onResult={(r) => { setRes(r); setSel(null); setTab("overview"); }} />
       {res && (
         <>
           <div className="result-bar">

@@ -4,8 +4,10 @@ import Explore from "./Explore.jsx";
 import Panel from "./Panel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import Learn from "./Learn.jsx";
+import Landing from "./Landing.jsx";
 
 const VIEWS = [
+  { id: "home", label: "Home" },
   { id: "explore", label: "Explore an SSP" },
   { id: "how", label: "How scoring works" },
   { id: "learn", label: "Learn the basics" },
@@ -13,7 +15,10 @@ const VIEWS = [
 ];
 
 export default function App() {
-  const [view, setView] = useState("explore");
+  const [view, setView] = useState("home");
+  const [start, setStart] = useState(null);      // how Explore was opened: "sample" | "upload" | null
+  const [topic, setTopic] = useState("read");
+  const go = (v, how = null) => { setStart(how); setView(v); window.scrollTo(0, 0); };
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
   useEffect(() => { api.meta().then(setMeta).catch((e) => setErr(e.message)); }, []);
@@ -21,15 +26,15 @@ export default function App() {
     <div className="shell">
       <aside className="side no-print">
         <div className="brand">
-          <div className="brand-mark" aria-hidden="true"><span /><span /></div>
+          <img className="brand-mark" src="/pcef-mark.svg" alt="" width="40" height="40" />
           <div>
             <div className="brand-name">PCEF</div>
-            <div className="brand-sub">PDPA clauses traced to NIST controls and SSP evidence</div>
+            <div className="brand-sub">PDPA Compliance Evaluation Framework</div>
           </div>
         </div>
         <nav aria-label="Sections">
           {VIEWS.map((v) => (
-            <button key={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => setView(v.id)}>{v.label}</button>
+            <button key={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
         </nav>
         {meta && (
@@ -43,11 +48,13 @@ export default function App() {
       </aside>
       <main className="main">
         {err && <div className="alert">The server did not answer: {err}. Start it with <code>python -m app.server</code>.</div>}
-        {!meta && !err && <p className="muted">Loading the text model. The first start can take a minute.</p>}
-        {meta && view === "explore" && <Explore meta={meta} />}
+        {!meta && !err && view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>}
+        {view === "home" && <Landing meta={meta} onSample={() => go("explore", "sample")} onUpload={() => go("explore", "upload")}
+                                     onLearn={(t) => { setTopic(t); go("learn"); }} />}
+        {meta && view === "explore" && <Explore meta={meta} start={start} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks />}
-        {view === "learn" && <Learn />}
+        {view === "learn" && <Learn key={topic} start={topic} />}
       </main>
     </div>
   );
