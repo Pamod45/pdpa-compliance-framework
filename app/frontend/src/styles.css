@@ -281,3 +281,24 @@ textarea { font: inherit; width: 100%; max-width: 720px; min-height: 64px; paddi
   .steps { grid-template-columns: 1fr; } .step-arrow { transform: rotate(90deg); justify-self: center; }
   .readings { grid-template-columns: 1fr; } .hero h1 { font-size: 1.7rem; }
 }
+
+/* SSP primer */
+.primer-grid { display: flex; flex-direction: column; gap: 1.1rem; margin: 0.9rem 0 1.2rem; }
+.code.annotated { padding: 0.8rem 0.6rem; margin: 0; white-space: pre; }
+.ln-wrap { min-width: max-content; }
+.ln { display: flex; align-items: center; min-height: 1.4rem; }
+.ln-m { width: 1.8rem; flex: none; }
+.ln-t { padding: 0 0.3rem; }
+.ln.hl .ln-t { color: #ffffff; background: rgba(111, 177, 209, 0.18); border-radius: 3px; }
+.marker { display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #6fb1d1; color: #1c2b36; font-size: 0.72rem; font-weight: 700; flex: none; }
+.primer-notes { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.9rem 1.2rem; }
+.primer-notes li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.primer-notes li .marker { background: var(--ink); color: #fff; margin-top: 0.1rem; }
+.primer-notes h3 { font-size: 0.95rem; margin-bottom: 0.15rem; }
+.primer-notes p { font-size: 0.88rem; color: var(--muted); }
+.primer-h { margin-top: 0.4rem; }
+.checks { padding-left: 1.2rem; margin: 0.4rem 0 1rem; }
+.checks li { margin-bottom: 0.3rem; }
+.primer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.6rem; }
+a.button { text-decoration: none; display: inline-block; }
+.learn-body:has(.primer) { max-width: none; }

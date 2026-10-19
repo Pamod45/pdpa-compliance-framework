@@ -109,6 +109,11 @@ async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(Fals
     return JSONResponse(json.loads(json.dumps(res, default=str)))
 
 
+@app.get("/api/sample-ssp")
+def sample_ssp():
+    return FileResponse(ROOT / DEFAULTS["ssp"], media_type="application/json", filename="fleettrack_ssp.json")
+
+
 @app.get("/api/panel/items")
 def panel_items():
     if not PANEL_PACK.exists():
