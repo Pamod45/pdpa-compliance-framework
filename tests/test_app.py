@@ -8,6 +8,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # repo root, so `app` imports
 
 os.environ["PCEF_EMBEDDER"] = "tfidf"
+os.environ["PCEF_WARM_SAMPLE"] = "0"
 fastapi = pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient  # noqa: E402
 
@@ -52,3 +53,13 @@ def test_sample_ssp_download():
         r = c.get("/api/sample-ssp")
         assert r.status_code == 200 and "system-security-plan" in r.json()
         assert "fleettrack_ssp.json" in r.headers["content-disposition"]
+
+
+def test_sample_runs_are_cached():
+    import app.server as srv
+    with TestClient(app) as c:
+        first = c.post("/api/run", data={"clause_ids": "PDPA-s23,PDPA-s10", "use_sample": "true"})
+        second = c.post("/api/run", data={"clause_ids": "PDPA-s10,PDPA-s23", "use_sample": "true"})
+        assert first.status_code == second.status_code == 200
+        assert first.content == second.content
+        assert ("PDPA-s10", "PDPA-s23") in srv._sample_cache

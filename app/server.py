@@ -11,10 +11,13 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_PANEL_WRITES        set to 0 to stop accepting panel responses
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
+  PCEF_WARM_SAMPLE         set to 0 to skip scoring the sample in the background on start-up
 
 Explore: upload an SSP, pick clauses, run the frozen v1.1 pipeline, trace every score.
 Panel:   the fixed panel pack (validation/build_panel_pack.py), blind rating first, answers saved.
-The embedding model is loaded once at start-up and reused for every run.
+The embedding model is loaded once at start-up and reused for every run. Sample runs are
+cached by clause set, and the all-clause sample is scored in the background on start-up,
+so the sample opens without waiting for the model.
 """
 
 from __future__ import annotations
@@ -29,8 +32,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.concurrency import run_in_threadpool
 from pydantic import BaseModel
 
 from pcef.parsers import SspDocument
@@ -45,15 +49,54 @@ PANEL_PACK = ROOT / "outputs" / "panel" / "panel_items.json"
 PANEL_OUT = Path(os.environ.get("PCEF_DATA_DIR", ROOT / "outputs" / "panel")) / "responses.jsonl"
 PANEL_WRITES = os.environ.get("PCEF_PANEL_WRITES", "1") != "0"
 MAX_UPLOAD_BYTES = int(os.environ.get("PCEF_MAX_UPLOAD_MB", "5")) * 1024 * 1024
+WARM_SAMPLE = os.environ.get("PCEF_WARM_SAMPLE", "1") != "0"
+SAMPLE_CACHE_SIZE = 8
 STATIC = Path(__file__).resolve().parent / "static"
-_lock = threading.Lock()
+_lock = threading.Lock()          # one pipeline run at a time
+_sample_lock = threading.Lock()   # a sample request waits for the warm-up instead of repeating it
 
 _state: dict = {}
+_sample_cache: dict[tuple[str, ...], bytes] = {}   # sorted clause ids -> serialised sample result
+
+
+def _score(ids: list[str], ssp_path: str, ssp_name: str) -> bytes:
+    with tempfile.TemporaryDirectory() as td, _lock:
+        res = run(ids, EMBEDDER, str(Path(td) / "out"), *(str(ROOT / DEFAULTS[k]) for k in ("profiles", "catalog")),
+                  ssp_path, str(ROOT / DEFAULTS["config"]), emb=_state["emb"])
+    for p in res["pairs"]:
+        p["context"] = pair_context(p["unit_id"], p["control_id"], ssp_path)
+    # every obligation unit of the chosen clauses, so the overview can show units with no pair too
+    res["units"] = [{"unit_id": u.unit_id, "clause_id": c.clause_id, "clause_title": getattr(c, "title", "") or "",
+                     "obligation": f"{u.action}. {u.object}", "scored": u.scored,
+                     "unit_type": u.unit_type, "modality": u.modality}
+                    for c in profiles().clauses if c.clause_id in ids for u in c.obligation_units]
+    res["ssp_name"] = ssp_name
+    return json.dumps(res, default=str).encode("utf-8")
+
+
+def _sample(ids: list[str]) -> bytes:
+    key = tuple(sorted(ids))
+    with _sample_lock:
+        if key not in _sample_cache:
+            body = _score(list(key), str(ROOT / DEFAULTS["ssp"]), "FleetTrack sample SSP")
+            if len(_sample_cache) >= SAMPLE_CACHE_SIZE:
+                _sample_cache.pop(next(iter(_sample_cache)))
+            _sample_cache[key] = body
+        return _sample_cache[key]
+
+
+def _warm():
+    try:
+        _sample([c.clause_id for c in profiles().clauses])
+    except Exception as ex:  # noqa: BLE001 - a failed warm-up only means the first sample run is slower
+        print(f"PCEF: background sample run failed: {type(ex).__name__}: {ex}")
 
 
 @asynccontextmanager
 async def lifespan(_app):
     _state["emb"] = make_embedder(EMBEDDER, revision=MODEL_REVISION)   # loaded once, reused for every run
+    if WARM_SAMPLE:
+        threading.Thread(target=_warm, daemon=True).start()
     yield
 
 
@@ -71,6 +114,7 @@ def meta():
                           "relatedness_floor": cfg["relatedness_floor"][emb.name],
                           "alignment_weights": {k: v for k, v in cfg["alignment_weights"].items() if not k.startswith("_")}},
             "panel_available": PANEL_PACK.exists(),
+            "sample_ready": tuple(sorted(c.clause_id for c in profiles().clauses)) in _sample_cache,
             "clauses": [{"id": c.clause_id, "title": getattr(c, "title", "") or "", "units": len(c.obligation_units),
                          "domains": list(c.security_domains)} for c in profiles().clauses]}
 
@@ -81,32 +125,21 @@ async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(Fals
     ids = [c for c in clause_ids.split(",") if c]
     if not ids:
         raise HTTPException(400, "Pick at least one clause to run.")
+    if use_sample or ssp is None:
+        return Response(await run_in_threadpool(_sample, ids), media_type="application/json")
+    raw = await ssp.read()
+    if len(raw) > MAX_UPLOAD_BYTES:
+        raise HTTPException(413, f"The file is larger than {MAX_UPLOAD_BYTES // (1024 * 1024)} MB.")
     with tempfile.TemporaryDirectory() as td:
-        if use_sample or ssp is None:
-            ssp_path, ssp_name = str(ROOT / DEFAULTS["ssp"]), "FleetTrack sample SSP"
-        else:
-            ssp_path, ssp_name = str(Path(td) / "upload.json"), ssp.filename
-            raw = await ssp.read()
-            if len(raw) > MAX_UPLOAD_BYTES:
-                raise HTTPException(413, f"The file is larger than {MAX_UPLOAD_BYTES // (1024 * 1024)} MB.")
-            Path(ssp_path).write_bytes(raw)
-            try:
-                SspDocument.from_file(ssp_path)
-            except Exception as ex:  # noqa: BLE001 - show the parser's own message
-                raise HTTPException(400, f"This file is not an OSCAL SSP the parser accepts ({type(ex).__name__}: {ex}). "
-                                         "Upload a JSON file with a top-level 'system-security-plan'.")
-        with _lock:
-            res = run(ids, EMBEDDER, str(Path(td) / "out"), *(str(ROOT / DEFAULTS[k]) for k in ("profiles", "catalog")),
-                      ssp_path, str(ROOT / DEFAULTS["config"]), emb=_state["emb"])
-        for p in res["pairs"]:
-            p["context"] = pair_context(p["unit_id"], p["control_id"], ssp_path)
-    # every obligation unit of the chosen clauses, so the overview can show units with no pair too
-    res["units"] = [{"unit_id": u.unit_id, "clause_id": c.clause_id, "clause_title": getattr(c, "title", "") or "",
-                     "obligation": f"{u.action}. {u.object}", "scored": u.scored,
-                     "unit_type": u.unit_type, "modality": u.modality}
-                    for c in profiles().clauses if c.clause_id in ids for u in c.obligation_units]
-    res["ssp_name"] = ssp_name
-    return JSONResponse(json.loads(json.dumps(res, default=str)))
+        ssp_path = str(Path(td) / "upload.json")
+        Path(ssp_path).write_bytes(raw)
+        try:
+            SspDocument.from_file(ssp_path)
+        except Exception as ex:  # noqa: BLE001 - show the parser's own message
+            raise HTTPException(400, f"This file is not an OSCAL SSP the parser accepts ({type(ex).__name__}: {ex}). "
+                                     "Upload a JSON file with a top-level 'system-security-plan'.")
+        body = await run_in_threadpool(_score, ids, ssp_path, ssp.filename)
+        return Response(body, media_type="application/json")
 
 
 @app.get("/api/sample-ssp")
