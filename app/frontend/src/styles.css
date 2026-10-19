@@ -302,3 +302,11 @@ textarea { font: inherit; width: 100%; max-width: 720px; min-height: 64px; paddi
 .primer-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.6rem; }
 a.button { text-decoration: none; display: inline-block; }
 .learn-body:has(.primer) { max-width: none; }
+
+/* run feedback */
+.spinner { display: inline-block; width: 0.9rem; height: 0.9rem; border: 2px solid #c4d3dc; border-top-color: var(--align); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: -0.15rem; margin-right: 0.5rem; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
+.progress { font-size: 0.86rem; color: var(--muted); margin-top: 0.6rem; max-width: 30ch; }
+.progress .small { display: block; margin-top: 0.3rem; }
+.waking { display: flex; align-items: center; background: var(--align-soft); border: 1px solid #b9d3e0; border-radius: var(--r-sm); padding: 0.7rem 0.9rem; margin-bottom: 1rem; font-size: 0.92rem; }

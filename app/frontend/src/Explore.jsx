@@ -43,7 +43,13 @@ function RunBar({ meta, onResult, start }) {
   const [file, setFile] = useState(null);
   const [chosen, setChosen] = useState(new Set(meta.clauses.map((c) => c.id)));
   const [busy, setBusy] = useState(false);
+  const [secs, setSecs] = useState(0);
   const [err, setErr] = useState("");
+  useEffect(() => {
+    if (!busy) return undefined;
+    const t0 = Date.now(), id = setInterval(() => setSecs(Math.floor((Date.now() - t0) / 1000)), 500);
+    return () => clearInterval(id);
+  }, [busy]);
   const input = useRef();
   useEffect(() => {
     if (start === "sample") go();
@@ -51,11 +57,13 @@ function RunBar({ meta, onResult, start }) {
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   const toggle = (id) => { const s = new Set(chosen); s.has(id) ? s.delete(id) : s.add(id); setChosen(s); };
   async function go() {
-    setBusy(true); setErr("");
+    setBusy(true); setErr(""); setSecs(0);
     const fd = new FormData();
     fd.append("clause_ids", [...chosen].join(","));
     if (file) fd.append("ssp", file); else fd.append("use_sample", "true");
-    try { onResult(await api.run(fd)); } catch (e) { setErr(e.message); } finally { setBusy(false); }
+    const t0 = Date.now();
+    try { const r = await api.run(fd); onResult(r, (Date.now() - t0) / 1000); }
+    catch (e) { setErr(e.message); } finally { setBusy(false); }
   }
   return (
     <section className="runbar">
@@ -78,6 +86,12 @@ function RunBar({ meta, onResult, start }) {
       </div>
       <div className="go">
         <button className="primary" disabled={busy || chosen.size === 0} onClick={go}>{busy ? "Scoring..." : `Score ${chosen.size} clause${chosen.size === 1 ? "" : "s"}`}</button>
+        {busy && (
+          <p className="progress" role="status">
+            <span className="spinner" aria-hidden="true" />
+            Scoring {chosen.size} clause{chosen.size === 1 ? "" : "s"} on {file ? file.name : "the FleetTrack sample"} · {secs} s
+            {secs >= 15 && <span className="small"> A new plan takes about a minute: every duty is compared with every candidate control.</span>}
+          </p>)}
         {err && <p className="alert">{err}</p>}
       </div>
     </section>
@@ -105,6 +119,7 @@ function Drawer({ pick, res, meta, onClose }) {
 
 export default function Explore({ meta, start }) {
   const [res, setRes] = useState(null);
+  const [took, setTook] = useState(0);
   const [sel, setSel] = useState(null);
   const [tab, setTab] = useState("overview");
   const [report, setReport] = useState(false);
@@ -123,11 +138,11 @@ export default function Explore({ meta, start }) {
         <h1>Check a security plan against the PDPA</h1>
         <p>Upload your System Security Plan and choose the clauses. You get a summary of which legal duties your controls cover and how far your plan shows them built, then every detail behind it.</p>
       </header>
-      <RunBar meta={meta} start={start} onResult={(r) => { setRes(r); setSel(null); setTab("overview"); }} />
+      <RunBar meta={meta} start={start} onResult={(r, t) => { setRes(r); setTook(t); setSel(null); setTab("overview"); }} />
       {res && (
         <>
           <div className="result-bar">
-            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored. Scorer {res.provenance.config_status}.</p>
+            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored in {took < 1 ? "under a second" : `${Math.round(took)} s`}. Scorer {res.provenance.config_status}.</p>
             <div className="exports">
               <button className="primary" onClick={() => setReport(true)}>Open report</button>
               <button className="ghost" onClick={() => download(`pcef_${stamp}.csv`, toCSV(res), "text/csv")}>Download CSV</button>

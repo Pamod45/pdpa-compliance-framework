@@ -21,7 +21,17 @@ export default function App() {
   const go = (v, how = null) => { setStart(how); setView(v); window.scrollTo(0, 0); };
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
-  useEffect(() => { api.meta().then(setMeta).catch((e) => setErr(e.message)); }, []);
+  const [tries, setTries] = useState(0);
+  useEffect(() => {          // keep asking while the server wakes up, for about three minutes
+    let stop = false, n = 0;
+    const ask = () => api.meta().then((m) => !stop && setMeta(m)).catch((e) => {
+      if (stop) return;
+      n += 1; setTries(n);
+      if (e.retry && n < 36) setTimeout(ask, 5000); else setErr(e.message);
+    });
+    ask();
+    return () => { stop = true; };
+  }, []);
   return (
     <div className="shell">
       <aside className="side no-print">
@@ -47,8 +57,10 @@ export default function App() {
         )}
       </aside>
       <main className="main">
-        {err && <div className="alert">The server did not answer: {err}. Start it with <code>python -m app.server</code>.</div>}
-        {!meta && !err && view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>}
+        {err && <div className="alert">{err}</div>}
+        {!meta && !err && (tries > 0
+          ? <div className="waking" role="status"><span className="spinner" aria-hidden="true" />Waking up the server and loading the text model. This takes about a minute after a quiet period.</div>
+          : view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>)}
         {view === "home" && <Landing meta={meta} onSample={() => go("explore", "sample")} onUpload={() => go("explore", "upload")}
                                      onLearn={(t) => { setTopic(t); go("learn"); }} />}
         {meta && view === "explore" && <Explore meta={meta} start={start} />}
