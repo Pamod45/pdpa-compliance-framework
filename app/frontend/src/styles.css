@@ -320,3 +320,25 @@ a.button { text-decoration: none; display: inline-block; }
 .driver-popover.pcef-tour .driver-popover-description { font-size: 0.9rem; line-height: 1.45; color: var(--muted); }
 .driver-popover.pcef-tour .driver-popover-footer button { font-family: inherit; text-shadow: none; border-radius: var(--r-sm); padding: 0.35rem 0.75rem; }
 .driver-popover.pcef-tour .driver-popover-next-btn { background: var(--align); color: #fff; border-color: var(--align); }
+
+/* plain-language terms */
+.term { position: relative; border-bottom: 1px dotted currentColor; cursor: help; }
+.term:hover::after, .term:focus::after {
+  content: attr(data-tip); position: absolute; left: 0; top: calc(100% + 6px); z-index: 50; width: max-content; max-width: 19rem;
+  background: var(--ink); color: #fff; font-size: 0.82rem; font-weight: 400; line-height: 1.4; text-transform: none; letter-spacing: 0;
+  padding: 0.5rem 0.65rem; border-radius: var(--r-sm); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18); white-space: normal;
+}
+.term:focus { outline: 2px solid var(--align); outline-offset: 2px; }
+
+/* presenter mode: larger type, technical detail folded away */
+.present-toggle { display: flex; align-items: center; gap: 0.55rem; color: #b8c4cc; }
+.switch { width: 1.9rem; height: 1.05rem; border-radius: 1rem; background: #3d5566; position: relative; flex: none; transition: background 0.15s; }
+.switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: calc(1.05rem - 4px); height: calc(1.05rem - 4px); border-radius: 50%; background: #fff; transition: transform 0.15s; }
+.present-toggle[aria-pressed="true"] { color: #fff; }
+.present-toggle[aria-pressed="true"] .switch { background: #6fb1d1; }
+.present-toggle[aria-pressed="true"] .switch::after { transform: translateX(0.85rem); }
+html.present { font-size: 118%; }
+html.present .prov, html.present .explain, html.present .exports .ghost, html.present .trace .note { display: none; }
+html.present .term::after { font-size: 0.95rem; max-width: 24rem; }
+html.present .tuple span { font-size: 1.15em; }
+@media (prefers-reduced-motion: reduce) { .switch, .switch::after { transition: none; } }

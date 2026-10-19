@@ -20,6 +20,14 @@ export default function App() {
   const [topic, setTopic] = useState("read");
   const [visit, setVisit] = useState(0);         // a fresh Explore each time it is opened
   const go = (v, how = null) => { setStart(how); setView(v); setVisit((n) => n + 1); window.scrollTo(0, 0); };
+  const [present, setPresent] = useState(() => {
+    try { return new URLSearchParams(window.location.search).has("present") || window.localStorage.getItem("pcef.present") === "1"; }
+    catch { return false; }
+  });
+  useEffect(() => {
+    document.documentElement.classList.toggle("present", present);
+    try { window.localStorage.setItem("pcef.present", present ? "1" : "0"); } catch { /* storage unavailable */ }
+  }, [present]);
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
   const [tries, setTries] = useState(0);
@@ -48,6 +56,8 @@ export default function App() {
             <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
           <button className="nav-item tour-link" onClick={() => go("explore", "tour")} disabled={!meta}>Take the tour</button>
+          <button className="nav-item present-toggle" aria-pressed={present} onClick={() => setPresent(!present)}>
+            <span className="switch" aria-hidden="true" />Presenter mode</button>
         </nav>
         {meta && (
           <dl className="prov">

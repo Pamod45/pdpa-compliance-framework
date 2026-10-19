@@ -5,6 +5,7 @@ import { download, key, summarise, toCSV } from "./summary.js";
 import { ClauseControls, Controls, Gaps, Overview } from "./Views.jsx";
 import Report from "./Report.jsx";
 import { startTour, tourSeen } from "./tour.js";
+import Term from "./Term.jsx";
 
 function TupleMap({ pairs, selected, onSelect }) {
   const W = 420, H = 420, pad = 44;
@@ -109,7 +110,7 @@ function Drawer({ pick, res, meta, onClose }) {
       <aside className="drawer" role="dialog" aria-label="Pair trace" onClick={(e) => e.stopPropagation()}>
         <button className="close" onClick={onClose} aria-label="Close">Close</button>
         <h2>{pick.unit_id} &times; {pick.control_id.toUpperCase()}</h2>
-        <p className="tuple"><span className="a">Alignment {f3(pick.tuple.alignment)}</span><span className="r">Realization {f3(pick.tuple.realization)}</span></p>
+        <p className="tuple"><span className="a"><Term k="alignment">Alignment</Term> {f3(pick.tuple.alignment)}</span><span className="r"><Term k="realization">Realization</Term> {f3(pick.tuple.realization)}</span></p>
         {pick.gates.applicability.flags.length > 0 && <p className="note">Assumptions the applicability check made: {pick.gates.applicability.flags.join("; ")}.</p>}
         <Inputs ctx={pick.context} />
         <AlignmentTrace p={pick} constants={meta.constants} />

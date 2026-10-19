@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { f2, f3 } from "./api.js";
+import Term from "./Term.jsx";
 
 const MEASURE_LABEL = { coverage: "Coverage", relatedness: "Relatedness", directionality: "Directionality", strength: "Strength match" };
 
@@ -48,11 +49,11 @@ export function AlignmentTrace({ p, constants }) {
   const d = p.directionality_detail || {};
   return (
     <section className="trace align">
-      <header><h3>Alignment {f3(p.tuple.alignment)}</h3><p>Does the control, as NIST wrote it, cover this obligation? This never reads the SSP.</p></header>
+      <header><h3><Term k="alignment">Alignment</Term> {f3(p.tuple.alignment)}</h3><p>Does the control, as NIST wrote it, cover this obligation? This never reads the SSP.</p></header>
       <table className="sum">
         <thead><tr><th>Measure</th><th>Score</th><th>Weight</th><th>Adds</th></tr></thead>
         <tbody>
-          {terms.map((t) => <tr key={t.k}><td>{MEASURE_LABEL[t.k]}</td><td>{f3(t.m)}</td><td>&times; {f3(t.w)}</td><td>{f3(t.c)}</td></tr>)}
+          {terms.map((t) => <tr key={t.k}><td><Term k={t.k}>{MEASURE_LABEL[t.k]}</Term></td><td>{f3(t.m)}</td><td>&times; {f3(t.w)}</td><td>{f3(t.c)}</td></tr>)}
           <tr className="total"><td colSpan={3}>Alignment</td><td>{f3(terms.reduce((s, t) => s + t.c, 0))}</td></tr>
         </tbody>
       </table>
@@ -63,11 +64,11 @@ export function AlignmentTrace({ p, constants }) {
         <p>Each measure is a number from 0 to 1. Alignment is their weighted sum. The weights come from the frozen config (coverage {constants.alignment_weights.coverage}, relatedness {constants.alignment_weights.relatedness}, directionality {constants.alignment_weights.directionality}) and are rescaled to add up to 1 when a measure does not apply.</p>
       </Explain>
 
-      <h4>Relatedness {f3(p.measures.relatedness)}</h4>
+      <h4><Term k="relatedness">Relatedness</Term> {f3(p.measures.relatedness)}</h4>
       <p className="small">Cosine similarity between the obligation (with its keywords) and the closest catalog row, <b>{p.relatedness.best_row}</b>.</p>
       <Explain><p>Both texts are turned into vectors by the text model; cosine similarity measures how close their meaning is. The pair passes the relevance floor if this is at least {constants.relatedness_floor}. Measured limit: the model reacts to shared compliance wording, so unrelated controls can score 0.3 to 0.5.</p></Explain>
 
-      <h4>Coverage {f3(p.measures.coverage)}</h4>
+      <h4><Term k="coverage">Coverage</Term> {f3(p.measures.coverage)}</h4>
       {cov.attributes && (
         <table className="cov">
           <thead><tr><th>Element the obligation requires</th><th>Best match</th><th>Similarity</th><th>Counts as</th></tr></thead>
@@ -80,7 +81,7 @@ export function AlignmentTrace({ p, constants }) {
       )}
       <Explain><p>Each element is matched to its most similar catalog row. Similarity at or below {constants.coverage_ramp[0]} counts 0, at or above {constants.coverage_ramp[1]} counts 1, and in between it rises in a straight line. Coverage is the average. Measured limit: elements that only point to another part of the law (for example "a Schedule I condition") score 0 against everything.</p></Explain>
 
-      <h4>Directionality {f3(p.measures.directionality)}</h4>
+      <h4><Term k="directionality">Directionality</Term> {f3(p.measures.directionality)}</h4>
       <p className="small">Obligation type <b>{d.unit_orientation}</b>, control type <b>{d.control_orientation}</b>{d.level_mismatch ? `, and the control works at ${d.impl_level} level where ${d.expected_level} is expected (x 0.8)` : ""}.</p>
       <Explain><p>A published table says how well each type of obligation fits each type of control (technical, procedural, governance, data governance). Same type gives 1.0.</p></Explain>
     </section>
@@ -95,7 +96,7 @@ export function RealizationTrace({ r, constants }) {
   const fw = constants.feature_weights;
   return (
     <section className="trace real">
-      <header><h3>Realization {f3(r.value)}</h3><p>How fully does the SSP describe implementing this control? This never reads the law.</p></header>
+      <header><h3><Term k="realization">Realization</Term> {f3(r.value)}</h3><p>How fully does the SSP describe implementing this control? This never reads the law.</p></header>
       <ol className="rrows">
         {rows.map(([id, v]) => {
           const best = v.by_components?.reduce((a, b) => (b.score > (a?.score ?? -1) ? b : a), null);
@@ -105,7 +106,7 @@ export function RealizationTrace({ r, constants }) {
               {best && (
                 <div className="feat">
                   {Object.entries(fw).map(([k, wt]) => (
-                    <span key={k} className="fterm">{k.replace("_", " ")} {f2(best.features[k])} &times; {wt}</span>))}
+                    <span key={k} className="fterm"><Term k={k}>{k.replace("_", " ")}</Term> {f2(best.features[k])} &times; {wt}</span>))}
                   <span className="fterm eq">= {f3(best.uncapped ?? best.score)}</span>
                   {best.capped && <span className="fterm flag">says "{best.negation_hits.join('", "')}": capped at {constants.declared_gap_cap}</span>}
                   {v.status === "inherited" && <span className="fterm">written at parent level: &times; {constants.inheritance_discount}</span>}
