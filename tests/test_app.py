@@ -45,3 +45,10 @@ def test_upload_size_limit_and_closed_panel(monkeypatch):
                                                 "blind_realization": 0.5, "confidence": "low",
                                                 "defensible_alignment": "pcef", "defensible_realization": "pcef"})
         assert r.status_code == 403
+
+
+def test_sample_ssp_download():
+    with TestClient(app) as c:
+        r = c.get("/api/sample-ssp")
+        assert r.status_code == 200 and "system-security-plan" in r.json()
+        assert "fleettrack_ssp.json" in r.headers["content-disposition"]

@@ -54,7 +54,7 @@ export default function App() {
         {meta && view === "explore" && <Explore meta={meta} start={start} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks />}
-        {view === "learn" && <Learn key={topic} start={topic} />}
+        {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
     </div>
   );
