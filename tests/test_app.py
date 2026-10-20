@@ -63,3 +63,12 @@ def test_sample_runs_are_cached():
         assert first.status_code == second.status_code == 200
         assert first.content == second.content
         assert ("PDPA-s10", "PDPA-s23") in srv._sample_cache
+
+
+def test_walkthrough_follows_two_sample_pairs():
+    with TestClient(app) as c:
+        w = c.get("/api/walkthrough").json()
+        assert [k["pair"]["unit_id"] + "|" + k["pair"]["control_id"] for k in w["cases"]] == ["s10-u1|ac-3", "s10-u1|sc-28"]
+        assert w["ssp"]["roles"] == ["controller", "processor"]
+        assert all(k["role_check_other"]["passed"] is False for k in w["cases"])   # controller duties drop for a processor-only plan
+        assert all(k["ssp_entry"]["control-id"] == k["pair"]["control_id"] for k in w["cases"])

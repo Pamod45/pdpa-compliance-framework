@@ -56,8 +56,8 @@ export function startTour({ openPair, closePair, setTab }) {
       { element: ".drawer .trace.real", popover: { title: "9. Why this Realization",
         description: "How specific the plan text is, which artefacts it names, and any declared gap that caps the score.",
         onNextClick: () => after(closePair, () => !drawerOpen(), () => d.moveNext()) } },
-      { element: '[data-nav="learn"]', popover: { title: "10. Learn more",
-        description: "Short explanations of the PDPA, NIST controls, SSPs and how to read the scores. You can replay this tour from the sidebar.",
+      { element: '[data-nav="how"]', popover: { title: "10. See how it is calculated",
+        description: "How scoring works follows a real duty and two controls through all seven stages, with every calculation shown. Learn the basics explains the PDPA, NIST and SSPs. You can replay this tour from the sidebar.",
         onPrevClick: () => after(openPair, drawerOpen, () => d.movePrevious()) } },
     ],
   });

@@ -77,7 +77,7 @@ export default function App() {
                                      onLearn={(t) => { setTopic(t); go("learn"); }} onTour={() => go("explore", "tour")} />}
         {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} />}
         {meta && view === "panel" && <Panel meta={meta} />}
-        {view === "how" && <HowItWorks />}
+        {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
     </div>

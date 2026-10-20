@@ -39,9 +39,10 @@ from pydantic import BaseModel
 
 from pcef.parsers import SspDocument
 from pcef.pipeline.embedder import make_embedder
+from pcef.pipeline.gates import ROLE_PROP, applicability_gate, parse_roles
 from pcef.pipeline.run import DEFAULTS, run
 
-from .enrich import ROOT, pair_context, profiles
+from .enrich import ROOT, pair_context, profiles, unit_lookup
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
 MODEL_REVISION = os.environ.get("PCEF_MODEL_REVISION") or None
@@ -140,6 +141,42 @@ async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(Fals
                                      "Upload a JSON file with a top-level 'system-security-plan'.")
         body = await run_in_threadpool(_score, ids, ssp_path, ssp.filename)
         return Response(body, media_type="application/json")
+
+
+# The walkthrough follows one duty (s.10, integrity and confidentiality) with two of the controls
+# its clause profile names directly: AC-3 is described as built, SC-28 is declared a known gap.
+WALK = [("s10-u1", "ac-3"), ("s10-u1", "sc-28")]
+
+
+@app.get("/api/walkthrough")
+async def walkthrough():
+    ids = sorted({unit_lookup()[u][0].clause_id for u, _ in WALK})
+    res = json.loads(await run_in_threadpool(_sample, ids))
+    raw = json.loads((ROOT / DEFAULTS["ssp"]).read_text(encoding="utf-8"))["system-security-plan"]
+    chars = raw["system-characteristics"]
+    role_raw = next((pr["value"] for pr in chars.get("props", []) if pr["name"] == ROLE_PROP), None)
+    reqs = {ir["control-id"]: ir for ir in raw["control-implementation"]["implemented-requirements"]}
+    cases = []
+    for unit_id, control_id in WALK:
+        clause, unit = unit_lookup()[unit_id]
+        pair = next(p for p in res["pairs"] if p["unit_id"] == unit_id and p["control_id"] == control_id)
+        other = applicability_gate(unit, frozenset({"processor"}), "example")   # the same duty for a processor-only plan
+        cases.append({
+            "clause": {"id": clause.clause_id, "title": clause.title, "text": clause.verbatim_text,
+                       "simplified": clause.simplified_text},
+            "unit": unit.model_dump(include={"unit_id", "unit_type", "actor", "modality", "action", "object",
+                                             "attributes", "keywords", "control_hints", "applicability_conditions"}),
+            "candidates": [{"control_id": p["control_id"], "title": p["control_title"], "source": p["pair_source"],
+                            "status": p["status"], "tuple": p.get("tuple")}
+                           for p in res["pairs"] if p["unit_id"] == unit_id],
+            "pair": pair,
+            "realization": res["realization"][control_id],
+            "ssp_entry": reqs.get(control_id),
+            "role_check_other": {"roles": ["processor"], "passed": other.passed, "reason": other.reason},
+        })
+    return {"ssp": {"name": chars.get("system-name"), "role": role_raw, "roles": sorted(parse_roles(role_raw) or []),
+                    "controls": len(reqs), "components": len(raw.get("system-implementation", {}).get("components", []))},
+            "clauses_loaded": len(profiles().clauses), "provenance": res["provenance"], "cases": cases}
 
 
 @app.get("/api/sample-ssp")
