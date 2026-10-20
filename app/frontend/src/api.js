@@ -12,6 +12,7 @@ async function req(url, opts) {
 export const api = {
   meta: () => req("/api/meta"),
   run: (form) => req("/api/run", { method: "POST", body: form }),
+  walkthrough: () => req("/api/walkthrough"),
   panelItems: () => req("/api/panel/items"),
   panelProgress: (expert) => req(`/api/panel/progress?expert=${encodeURIComponent(expert)}`),
   panelSave: (rec) => req("/api/panel/response", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(rec) }),
