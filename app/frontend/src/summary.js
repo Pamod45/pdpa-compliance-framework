@@ -32,6 +32,10 @@ export function summarise(res) {
   });
   const duties = units.filter((u) => u.status !== "nonduty");
   const counts = Object.fromEntries(ORDER.map((s) => [s, duties.filter((u) => u.status === s).length]));
+  // Two separate averages over duties that have a scored control, each taken at its best-fitting control.
+  const judged = duties.filter((u) => u.best);
+  const mean = (f) => (judged.length ? judged.reduce((a, u) => a + f(u.best.tuple), 0) / judged.length : null);
+  const averages = { n: judged.length, alignment: mean((t) => t.alignment), realization: mean((t) => t.realization ?? 0) };
   const clauses = [];
   for (const u of units) {
     let c = clauses.find((x) => x.clause_id === u.clause_id);
@@ -54,7 +58,7 @@ export function summarise(res) {
     return { control_id: cid, title: ps[0]?.control_title || ps[0]?.context?.control_title || "", value: r.value, statuses: st,
              rows: r.rows, clauses: [...new Set(ps.map((p) => p.context.clause_id))], pairs: ps, ctx: ps[0]?.context };
   }).sort((a, b) => (a.value ?? 0) - (b.value ?? 0));
-  return { units, duties, counts, clauses, gaps, controls };
+  return { units, duties, counts, averages, clauses, gaps, controls };
 }
 
 export function toCSV(res) {

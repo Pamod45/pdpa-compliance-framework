@@ -1,6 +1,7 @@
 import React from "react";
 import { f2, f3 } from "./api.js";
 import { GUIDE, ORDER, STATUS, key } from "./summary.js";
+import Term from "./Term.jsx";
 
 export function StatusBar({ counts, total }) {
   return (
@@ -36,6 +37,14 @@ export function Overview({ s, onOpen, onTab }) {
       <section className="ov-head">
         <div>
           <h2>{total} duties checked across {s.clauses.length} clause{s.clauses.length === 1 ? "" : "s"}</h2>
+          <div className="headline">
+            <div className="hl-count"><b>{s.counts.built}</b><span>of {total} duties covered and built</span></div>
+            {s.averages.n > 0 && <>
+              <div className="hl-avg a"><span><Term k="alignment">Average Alignment</Term></span><b>{f2(s.averages.alignment)}</b></div>
+              <div className="hl-avg r"><span><Term k="realization">Average Realization</Term></span><b>{f2(s.averages.realization)}</b></div>
+            </>}
+          </div>
+          {s.averages.n > 0 && <p className="small">Averages over the {s.averages.n} duties that have a scored control, each at its best-fitting control. They are two separate averages of the scores below, not a compliance rating.</p>}
           <p className="small">Each duty is judged by its best-fitting control (highest Alignment). Sorting uses {GUIDE} as a reading guide on both scores; it is not a pass mark, and PCEF never merges the two scores into one.</p>
         </div>
         <StatusBar counts={s.counts} total={total} />

@@ -342,3 +342,13 @@ html.present .prov, html.present .explain, html.present .exports .ghost, html.pr
 html.present .term::after { font-size: 0.95rem; max-width: 24rem; }
 html.present .tuple span { font-size: 1.15em; }
 @media (prefers-reduced-motion: reduce) { .switch, .switch::after { transition: none; } }
+
+/* overview headline */
+.headline { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.9rem 0 0.5rem; }
+.headline > div { border-radius: var(--r-md); padding: 0.7rem 1rem; display: flex; flex-direction: column; gap: 0.15rem; min-width: 11rem; }
+.headline b { font-size: 1.9rem; line-height: 1.1; font-weight: 600; }
+.headline span { font-size: 0.86rem; color: var(--muted); }
+.hl-count { background: #eef3e6; border: 1px solid #cddbb8; flex-direction: row !important; align-items: baseline; gap: 0.5rem !important; }
+.hl-count b { color: var(--real); }
+.hl-avg.a { background: var(--align-soft); } .hl-avg.a b { color: var(--align); }
+.hl-avg.r { background: var(--real-soft); } .hl-avg.r b { color: var(--real); }
