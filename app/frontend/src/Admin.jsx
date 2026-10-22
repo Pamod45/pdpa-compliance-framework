@@ -4,7 +4,7 @@ import { api } from "./api.js";
 const when = (iso) => (iso ? new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "never");
 const kb = (b) => (b < 1024 ? `${b} B` : b < 1048576 ? `${(b / 1024).toFixed(1)} KB` : `${(b / 1048576).toFixed(1)} MB`);
 
-export default function Admin({ onPanel }) {
+export default function Admin() {
   const [data, setData] = useState(null);
   const [err, setErr] = useState("");
   const load = () => api.adminUsers().then(setData).catch((e) => setErr(e.message));
@@ -24,7 +24,6 @@ export default function Admin({ onPanel }) {
             <div className="cstat"><span>Saved runs</span><b>{data.totals.runs}</b></div>
             <div className="cstat"><span>Stored (compressed)</span><b>{kb(data.totals.stored_bytes)}</b></div>
           </div>
-          <div className="row-actions"><button className="ghost" onClick={onPanel}>Open the expert panel</button></div>
           <table className="ctable">
             <thead><tr><th>Email</th><th>Created</th><th>Saved runs</th><th>Last run</th><th>Stored</th><th /></tr></thead>
             <tbody>{data.users.map((u) => (

@@ -14,7 +14,7 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_LLM_DAILY_LIMIT     drafting calls allowed per day for the whole site (default 20)
   PCEF_DRAFT_USER_DAILY    own-document drafts per signed-in user per day (default 3)
   PCEF_DRAFT_OWN_TEXT      users (default) or admins: who may draft their own document
-  PCEF_ADMIN_EMAILS        comma-separated admin emails; when set, the expert panel is for admins only
+  PCEF_ADMIN_EMAILS        comma-separated admin emails; the expert panel and Admin page are for admins only
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
   PCEF_WARM_SAMPLE         set to 0 to skip scoring the sample in the background on start-up
@@ -30,6 +30,7 @@ so the sample opens without waiting for the model.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import tempfile
@@ -120,16 +121,23 @@ app.include_router(draft.router)
 
 @app.get("/api/meta")
 def meta():
-    cfg = json.loads((ROOT / DEFAULTS["config"] / "pcef_params.json").read_text(encoding="utf-8"))
+    cfg_path = ROOT / DEFAULTS["config"] / "pcef_params.json"
+    cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+    table = json.loads((ROOT / DEFAULTS["config"] / "directionality_table.json").read_text(encoding="utf-8"))
     emb = _state["emb"]
     mp = cfg["maturity"]
+    plain = lambda d: {k: v for k, v in d.items() if not k.startswith("_")}
     return {"config_status": cfg["_status"].split(" - ")[0], "embedder": emb.model_id, "revision": emb.revision,
+            "config_sha256": hashlib.sha256(cfg_path.read_bytes()).hexdigest()[:12],
             "constants": {"feature_weights": mp["feature_weights"], "inheritance_discount": mp["inheritance_discount"],
                           "declared_gap_cap": mp["declared_gap_cap"], "coverage_ramp": cfg["coverage_ramp"][emb.name],
                           "relatedness_floor": cfg["relatedness_floor"][emb.name],
-                          "alignment_weights": {k: v for k, v in cfg["alignment_weights"].items() if not k.startswith("_")}},
+                          "alignment_weights": plain(cfg["alignment_weights"]),
+                          "specificity_full_words": mp["specificity_full_words"], "artefacts_full_count": mp["artefacts_full_count"],
+                          "negation_cues": mp["negation_cues"], "modality_strength": plain(cfg["modality_strength"]),
+                          "compatibility": table["compatibility"],
+                          "level_mismatch_factor": table["level_match"]["level_mismatch_factor"]},
             "panel_available": PANEL_PACK.exists(),
-            "panel_restricted": admin.panel_restricted(),
             "retention_days": history.retention_days(),
             "sample_ready": tuple(sorted(c.clause_id for c in profiles().clauses)) in _sample_cache,
             "clauses": [{"id": c.clause_id, "title": getattr(c, "title", "") or "", "units": len(c.obligation_units),

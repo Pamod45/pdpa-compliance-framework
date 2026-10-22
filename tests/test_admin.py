@@ -1,4 +1,4 @@
-"""Admin role: panel and admin pages for listed admins only; panel stays open when no admins are set."""
+"""Admin role: the expert panel and admin pages are for listed admins only."""
 import os
 import sys
 from pathlib import Path
@@ -32,15 +32,15 @@ def sign_up(c, email):
     assert c.post("/api/auth/signup", json={"email": email, "password": PW}).status_code == 200
 
 
-def test_panel_open_when_no_admins(client, monkeypatch):
+def test_panel_closed_when_no_admins(client, monkeypatch):
     monkeypatch.delenv("PCEF_ADMIN_EMAILS", raising=False)
-    assert client.get("/api/meta").json()["panel_restricted"] is False
-    assert client.get("/api/panel/progress?expert=E1").status_code == 200
+    assert client.get("/api/panel/progress?expert=E1").status_code == 403
+    sign_up(client, "guest@example.com")
+    assert client.get("/api/panel/progress?expert=E1").status_code == 403
 
 
 def test_panel_and_admin_pages_for_admins_only(client, monkeypatch):
     monkeypatch.setenv("PCEF_ADMIN_EMAILS", "Owner@Example.com")
-    assert client.get("/api/meta").json()["panel_restricted"] is True
     assert client.get("/api/panel/progress?expert=E1").status_code == 403          # signed out
     sign_up(client, "guest@example.com")
     assert client.get("/api/auth/me").json() == {"email": "guest@example.com", "admin": False}

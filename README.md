@@ -82,7 +82,7 @@ from a pipeline run on the same inputs. A public instance runs at https://www.pc
 | How scoring works | Follows one duty (s.10) with two controls (AC-3 and SC-28) through all seven stages, using values from a live run |
 | Learn the basics | Short explanations of the PDPA, NIST SP 800-53, SSPs and OSCAL, with an annotated SSP and the sample to download |
 | My runs | For signed-in users: saved runs to reopen, rename, delete, compare two at a time, or print |
-| Expert panel | The fixed panel pack used in the evaluation (admins only when admins are configured) |
+| Expert panel | The fixed panel pack used in the evaluation (admins only) |
 | Admin | Accounts, saved runs and storage (admins only) |
 | Privacy | What is stored, why and for how long |
 | Draft an SSP (beta) | An LLM drafts an OSCAL SSP from a prose document; the draft is checked against the catalog and the SSP parser |
@@ -116,7 +116,7 @@ All are optional environment variables; the defaults suit a local run.
 | `PCEF_DATA_DIR` | not set | Folder for panel responses and the account database; when not set, responses go to `outputs/panel` and the database to `instance/` |
 | `PCEF_DB` | `<PCEF_DATA_DIR>/pcef.sqlite3`, else `instance/pcef.sqlite3` | Account database file |
 | `PCEF_RETENTION_DAYS` | `365` | Days a saved run is kept; `0` keeps runs until the user deletes them |
-| `PCEF_ADMIN_EMAILS` | none | Comma-separated admin emails; when set, the expert panel is for admins only |
+| `PCEF_ADMIN_EMAILS` | none | Comma-separated admin emails; the expert panel and Admin page are for admins only (set it to your own address to run a panel session locally) |
 | `PCEF_PANEL_WRITES` | `1` | `0` stops accepting panel responses |
 | `GEMINI_API_KEY` | none | Enables *Draft an SSP*; without it the page says drafting is not set up |
 | `PCEF_LLM_MODEL` | `gemini-flash-latest` | Gemini model for drafting; the exact version used is recorded with each draft |
