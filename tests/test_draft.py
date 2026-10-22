@@ -35,6 +35,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", "test-key")
     monkeypatch.setattr(auth, "_fails", {})
     monkeypatch.setattr(draft, "_calls", {})
+    monkeypatch.setattr(draft, "_user_calls", {})
     calls = []
     monkeypatch.setattr(draft, "_call_llm", lambda text: calls.append(text) or (json.dumps(ANSWER), "gemini-test-001"))
     with TestClient(app) as c:
@@ -61,20 +62,36 @@ def test_draft_scores_with_the_frozen_scorer(client):
     assert any(p["control_id"] == "ac-3" and p["status"] == "scored" for p in res["pairs"])
 
 
-def test_own_text_is_for_admins_only(client, monkeypatch):
-    assert client.post("/api/draft", json={"text": "Our system encrypts everything."}).status_code == 403
+def test_own_text_needs_sign_in_consent_and_stays_in_the_daily_limit(client, monkeypatch):
+    monkeypatch.setenv("PCEF_DRAFT_USER_DAILY", "2")
+    assert client.post("/api/draft", json={"text": "Our system uses role checks.", "consent": True}).status_code == 401
+    client.post("/api/auth/signup", json={"email": "org@example.com", "password": PW})
+    assert client.post("/api/draft", json={"text": "Our system uses role checks."}).status_code == 400   # no consent
+    assert client.get("/api/draft/status").json()["drafts_left_today"] == 2
+    r = client.post("/api/draft", json={"text": "Our system uses role checks.", "consent": True})
+    assert r.status_code == 200 and r.json()["provenance"]["source"] == "Your document"
+    assert client.post("/api/draft", json={"text": "Second document.", "consent": True}).status_code == 200
+    assert client.post("/api/draft", json={"text": "Third document.", "consent": True}).status_code == 429
+    assert client.get("/api/draft/status").json()["drafts_left_today"] == 0
+
+
+def test_own_text_can_be_limited_to_admins(client, monkeypatch):
+    monkeypatch.setenv("PCEF_DRAFT_OWN_TEXT", "admins")
     monkeypatch.setenv("PCEF_ADMIN_EMAILS", "owner@example.com")
+    client.post("/api/auth/signup", json={"email": "org@example.com", "password": PW})
+    assert client.get("/api/draft/status").json()["can_draft_own_text"] is False
+    assert client.post("/api/draft", json={"text": "Our system.", "consent": True}).status_code == 403
+    client.post("/api/auth/logout")
     client.post("/api/auth/signup", json={"email": "owner@example.com", "password": PW})
-    r = client.post("/api/draft", json={"text": "Our system uses role checks."})
-    assert r.status_code == 200 and r.json()["provenance"]["source"] == "Pasted document"
+    assert client.post("/api/draft", json={"text": "Our system.", "consent": True}).status_code == 200
 
 
 def test_limits_and_missing_key(client, monkeypatch):
     monkeypatch.setenv("PCEF_LLM_DAILY_LIMIT", "1")
     monkeypatch.setenv("PCEF_ADMIN_EMAILS", "owner@example.com")
     client.post("/api/auth/signup", json={"email": "owner@example.com", "password": PW})
-    assert client.post("/api/draft", json={"text": "first"}).status_code == 200
-    assert client.post("/api/draft", json={"text": "second"}).status_code == 429
+    assert client.post("/api/draft", json={"text": "first", "consent": True}).status_code == 200
+    assert client.post("/api/draft", json={"text": "second", "consent": True}).status_code == 429
     monkeypatch.delenv("GEMINI_API_KEY")
     assert client.post("/api/draft", json={"sample_id": "fleettrack"}).status_code == 503
     assert client.get("/api/draft/status").json()["configured"] is False

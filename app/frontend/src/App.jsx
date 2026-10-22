@@ -101,7 +101,7 @@ export default function App() {
         {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
         {view === "account" && <Account user={user} onUser={(u) => { setUser(u); refreshMe(); if (u) go("home"); }} onPrivacy={() => go("privacy")} />}
         {view === "admin" && isAdmin && <Admin onPanel={() => go("panel")} />}
-        {view === "draft" && <Draft key={String(user)} meta={meta} onOpenResult={(r) => go("explore", null, r)} />}
+        {view === "draft" && <Draft key={String(user)} meta={meta} onOpenResult={(r) => go("explore", null, r)} onSignIn={() => go("account")} />}
         {view === "privacy" && <Privacy meta={meta} user={user} onAccount={() => go("account")} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
