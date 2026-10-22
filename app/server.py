@@ -9,6 +9,9 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_MODEL_REVISION      pin the embedding model to an exact revision
   PCEF_DATA_DIR            folder for panel responses and the account database (default outputs/panel)
   PCEF_PANEL_WRITES        set to 0 to stop accepting panel responses
+  GEMINI_API_KEY           enables drafting an SSP from a prose document (see app/draft.py)
+  PCEF_LLM_MODEL           Gemini model used for drafting (default gemini-flash-latest)
+  PCEF_LLM_DAILY_LIMIT     drafting calls allowed per day for the whole site (default 20)
   PCEF_ADMIN_EMAILS        comma-separated admin emails; when set, the expert panel is for admins only
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
@@ -45,7 +48,7 @@ from pcef.pipeline.embedder import make_embedder
 from pcef.pipeline.gates import ROLE_PROP, applicability_gate, parse_roles
 from pcef.pipeline.run import DEFAULTS, run
 
-from . import admin, auth, history
+from . import admin, auth, draft, history
 from .enrich import ROOT, pair_context, profiles, unit_lookup
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
@@ -110,6 +113,7 @@ app = FastAPI(title="PCEF", lifespan=lifespan)
 app.include_router(auth.router)
 app.include_router(history.router)
 app.include_router(admin.router)
+app.include_router(draft.router)
 
 
 @app.get("/api/meta")

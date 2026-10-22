@@ -85,6 +85,7 @@ from a pipeline run on the same inputs. A public instance runs at https://www.pc
 | Expert panel | The fixed panel pack used in the evaluation (admins only when admins are configured) |
 | Admin | Accounts, saved runs and storage (admins only) |
 | Privacy | What is stored, why and for how long |
+| Draft an SSP (beta) | An LLM drafts an OSCAL SSP from a prose document; the draft is checked against the catalog and the SSP parser |
 
 The sidebar also offers a guided tour of a sample run and a presenter mode with larger text for
 demonstrations (`?present` in the URL turns it on). The overview headline shows how many duties are
@@ -117,10 +118,21 @@ All are optional environment variables; the defaults suit a local run.
 | `PCEF_RETENTION_DAYS` | `365` | Days a saved run is kept; `0` keeps runs until the user deletes them |
 | `PCEF_ADMIN_EMAILS` | none | Comma-separated admin emails; when set, the expert panel is for admins only |
 | `PCEF_PANEL_WRITES` | `1` | `0` stops accepting panel responses |
+| `GEMINI_API_KEY` | none | Enables *Draft an SSP*; without it the page says drafting is not set up |
+| `PCEF_LLM_MODEL` | `gemini-flash-latest` | Gemini model for drafting; the exact version used is recorded with each draft |
+| `PCEF_LLM_DAILY_LIMIT` | `20` | Drafting calls allowed per day for the whole site |
 
 When `PCEF_DATA_DIR` is not set, the account database is created in `instance/`, which is ignored
 by git. Create an admin account before adding its email to `PCEF_ADMIN_EMAILS`, because whoever
 registers an address first owns it.
+
+### Drafting an SSP with an LLM
+*Draft an SSP* sends a prose description of a system to the Gemini API and turns the answer into an
+OSCAL SSP. The model may use only a fixed list of controls; anything else is dropped with a warning,
+and the result must pass PCEF's SSP parser. The LLM never produces scores. On the public instance it
+runs on Gemini's free tier, where Google may use and review what is sent, so the public can draft
+only the built-in sample document and only admins can draft their own text. Sample drafts are stored
+after the first call, so repeat visits do not use the quota.
 
 ### Deployment
 The `Dockerfile` builds a CPU-only image with the embedding model downloaded at the pinned

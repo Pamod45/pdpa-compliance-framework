@@ -10,10 +10,12 @@ import History from "./History.jsx";
 import Compare from "./Compare.jsx";
 import Privacy from "./Privacy.jsx";
 import Admin from "./Admin.jsx";
+import Draft from "./Draft.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
   { id: "explore", label: "Explore an SSP" },
+  { id: "draft", label: "Draft an SSP" },
   { id: "how", label: "How scoring works" },
   { id: "learn", label: "Learn the basics" },
   { id: "panel", label: "Expert panel" },
@@ -63,7 +65,7 @@ export default function App() {
           </div>
         </div>
         <nav aria-label="Sections">
-          {[...VIEWS.slice(0, 2), ...(user ? [{ id: "history", label: "My runs" }] : []), ...VIEWS.slice(2)]
+          {[...VIEWS.slice(0, 3), ...(user ? [{ id: "history", label: "My runs" }] : []), ...VIEWS.slice(3)]
             .filter((v) => v.id !== "panel" || (meta && meta.panel_available && (!meta.panel_restricted || isAdmin)))
             .concat(isAdmin ? [{ id: "admin", label: "Admin" }] : []).map((v) => (
             <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
@@ -99,6 +101,7 @@ export default function App() {
         {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
         {view === "account" && <Account user={user} onUser={(u) => { setUser(u); refreshMe(); if (u) go("home"); }} onPrivacy={() => go("privacy")} />}
         {view === "admin" && isAdmin && <Admin onPanel={() => go("panel")} />}
+        {view === "draft" && <Draft key={String(user)} />}
         {view === "privacy" && <Privacy meta={meta} user={user} onAccount={() => go("account")} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
