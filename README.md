@@ -72,10 +72,64 @@ checks; its scores are not results.
 pip install -r requirements-app.txt
 python -m app.server            # opens http://127.0.0.1:8000
 ```
-Run the pipeline on the sample FleetTrack SSP or an uploaded OSCAL SSP, browse the results
-by clause, control and gap, and trace any score back to its inputs. The prebuilt frontend in
-`app/static/` is served directly, so Node is not needed. To rebuild it from
-`app/frontend/`, run `npm install` and `npm run build` in that folder.
+The app runs the same frozen v1.1 scorer as the command line. Its scores are never different
+from a pipeline run on the same inputs. A public instance runs at https://www.pcef.help.
+
+| Page | What it does |
+|---|---|
+| Home | What PCEF does, with buttons to score the sample or upload a plan |
+| Explore an SSP | Score the FleetTrack sample or an uploaded OSCAL SSP; overview, clause-to-controls, gaps, controls and map views; open any pair to trace its scores; printable report, CSV and JSON |
+| How scoring works | Follows one duty (s.10) with two controls (AC-3 and SC-28) through all seven stages, using values from a live run |
+| Learn the basics | Short explanations of the PDPA, NIST SP 800-53, SSPs and OSCAL, with an annotated SSP and the sample to download |
+| My runs | For signed-in users: saved runs to reopen, rename, delete, compare two at a time, or print |
+| Expert panel | The fixed panel pack used in the evaluation (admins only when admins are configured) |
+| Admin | Accounts, saved runs and storage (admins only) |
+| Privacy | What is stored, why and for how long |
+
+The sidebar also offers a guided tour of a sample run and a presenter mode with larger text for
+demonstrations (`?present` in the URL turns it on). The overview headline shows how many duties are
+covered and built, and the average Alignment and Realization over duties with a scored control.
+These are two separate averages, never combined into one score, and are not a compliance rating.
+
+The prebuilt frontend in `app/static/` is served directly, so Node is not needed. To rebuild it
+from `app/frontend/`, run `npm install` and `npm run build` in that folder.
+
+### Accounts and saved runs
+Signing in is optional. Accounts use email and password; passwords are stored only as argon2id
+hashes, and sessions keep only a SHA-256 of the browser's token. Runs scored while signed in are
+saved by the server, so a saved result is always one the scorer produced. Saved runs quote the
+plan's implementation text, so confidential plans are better scored without signing in. Users can
+download everything stored about them as JSON, or delete their account with all its runs.
+
+### Settings
+All are optional environment variables; the defaults suit a local run.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `HOST`, `PORT` | `127.0.0.1`, `8000` | Address and port to listen on |
+| `PCEF_EMBEDDER` | `sbert` | `sbert` for real results, `tfidf` for the offline stand-in |
+| `PCEF_MODEL_REVISION` | none | Pin the embedding model to an exact revision |
+| `PCEF_OPEN_BROWSER` | `1` | `0` stops the browser opening on start-up |
+| `PCEF_WARM_SAMPLE` | `1` | `0` skips scoring the sample in the background on start-up |
+| `PCEF_MAX_UPLOAD_MB` | `5` | Largest SSP upload accepted |
+| `PCEF_DATA_DIR` | not set | Folder for panel responses and the account database; when not set, responses go to `outputs/panel` and the database to `instance/` |
+| `PCEF_DB` | `<PCEF_DATA_DIR>/pcef.sqlite3`, else `instance/pcef.sqlite3` | Account database file |
+| `PCEF_RETENTION_DAYS` | `365` | Days a saved run is kept; `0` keeps runs until the user deletes them |
+| `PCEF_ADMIN_EMAILS` | none | Comma-separated admin emails; when set, the expert panel is for admins only |
+| `PCEF_PANEL_WRITES` | `1` | `0` stops accepting panel responses |
+
+When `PCEF_DATA_DIR` is not set, the account database is created in `instance/`, which is ignored
+by git. Create an admin account before adding its email to `PCEF_ADMIN_EMAILS`, because whoever
+registers an address first owns it.
+
+### Deployment
+The `Dockerfile` builds a CPU-only image with the embedding model downloaded at the pinned
+revision, so the container runs offline. The public instance is deployed from this repository:
+
+- at least 2 GB of memory, since the model and PyTorch need well over 1 GB;
+- a persistent volume mounted at `/data`, with `PCEF_DATA_DIR=/data`, so accounts and saved
+  runs survive redeploys;
+- `PCEF_ADMIN_EMAILS` set to the site owner's address.
 
 ## Validation and evidence
 The scripts in `validation/` reproduce the evaluation. Results are kept in `outputs/`.
@@ -129,7 +183,8 @@ src/pcef/            the package
   pipeline/          Stages 3-7: pairing, gates, measures, aggregation, report
 config/              frozen method-of-record parameters (v1.1)
 config_v2/, config_v3/  DSR iteration configurations
-app/                 web app: FastAPI backend, React frontend, prebuilt static bundle
+app/                 web app: FastAPI backend (server, accounts, saved runs, admin),
+                     React frontend and the prebuilt static bundle
 validation/          protocols and evaluation scripts
 data/                inputs: symbolized profiles, NIST catalog, SSPs and degraded variants
 outputs/             run results and evaluation evidence
