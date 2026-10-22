@@ -5,6 +5,7 @@ import Panel from "./Panel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import Learn from "./Learn.jsx";
 import Landing from "./Landing.jsx";
+import Account from "./Account.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
@@ -28,6 +29,8 @@ export default function App() {
     document.documentElement.classList.toggle("present", present);
     try { window.localStorage.setItem("pcef.present", present ? "1" : "0"); } catch { /* storage unavailable */ }
   }, [present]);
+  const [user, setUser] = useState(null);
+  useEffect(() => { api.me().then((r) => setUser(r.email)).catch(() => {}); }, []);
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
   const [tries, setTries] = useState(0);
@@ -56,6 +59,8 @@ export default function App() {
             <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
           <button className="nav-item tour-link" onClick={() => go("explore", "tour")} disabled={!meta}>Take the tour</button>
+          <button data-nav="account" className={"nav-item account-link" + (view === "account" ? " on" : "")} onClick={() => go("account")}>
+            {user ? <><span className="small">Signed in as</span> {user}</> : "Sign in"}</button>
           <button className="nav-item present-toggle" aria-pressed={present} onClick={() => setPresent(!present)}>
             <span className="switch" aria-hidden="true" />Presenter mode</button>
         </nav>
@@ -78,6 +83,7 @@ export default function App() {
         {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
+        {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
     </div>
