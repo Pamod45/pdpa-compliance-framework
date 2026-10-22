@@ -13,6 +13,7 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
   PCEF_WARM_SAMPLE         set to 0 to skip scoring the sample in the background on start-up
   PCEF_DB                  account database file (default <PCEF_DATA_DIR>/pcef.sqlite3, else instance/)
+  PCEF_RETENTION_DAYS      days a saved run is kept (default 365; 0 keeps runs until the user deletes them)
 
 Explore: upload an SSP, pick clauses, run the frozen v1.1 pipeline, trace every score.
 Panel:   the fixed panel pack (validation/build_panel_pack.py), blind rating first, answers saved.
@@ -98,6 +99,7 @@ def _warm():
 @asynccontextmanager
 async def lifespan(_app):
     _state["emb"] = make_embedder(EMBEDDER, revision=MODEL_REVISION)   # loaded once, reused for every run
+    history.purge_expired()
     if WARM_SAMPLE:
         threading.Thread(target=_warm, daemon=True).start()
     yield
@@ -119,6 +121,7 @@ def meta():
                           "relatedness_floor": cfg["relatedness_floor"][emb.name],
                           "alignment_weights": {k: v for k, v in cfg["alignment_weights"].items() if not k.startswith("_")}},
             "panel_available": PANEL_PACK.exists(),
+            "retention_days": history.retention_days(),
             "sample_ready": tuple(sorted(c.clause_id for c in profiles().clauses)) in _sample_cache,
             "clauses": [{"id": c.clause_id, "title": getattr(c, "title", "") or "", "units": len(c.obligation_units),
                          "domains": list(c.security_domains)} for c in profiles().clauses]}

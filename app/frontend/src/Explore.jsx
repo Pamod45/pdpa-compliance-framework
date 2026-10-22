@@ -120,7 +120,7 @@ function Drawer({ pick, res, meta, onClose }) {
   );
 }
 
-export default function Explore({ meta, start, initial, user, onSignIn }) {
+export default function Explore({ meta, start, initial, user, onSignIn, onPrivacy }) {
   const [res, setRes] = useState(initial);
   const [took, setTook] = useState(0);
   const [sel, setSel] = useState(null);
@@ -152,6 +152,7 @@ export default function Explore({ meta, start, initial, user, onSignIn }) {
       <header className="page-head">
         <h1>Check a security plan against the PDPA</h1>
         <p>Upload your System Security Plan and choose the clauses. You get a summary of which legal duties your controls cover and how far your plan shows them built, then every detail behind it.</p>
+        {user && <p className="small save-note">Signed in: runs you score are saved to My runs, including the plan text they quote. <button className="link" onClick={onPrivacy}>Privacy</button></p>}
       </header>
       {showInvite && (
         <div className="invite">

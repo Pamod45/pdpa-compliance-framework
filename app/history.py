@@ -9,18 +9,34 @@ always one the frozen scorer produced. The full result is stored compressed, nex
 from __future__ import annotations
 
 import json
+import os
 import zlib
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel
 
-from .auth import connect, current_user
+from .auth import connect, current_user, db_path
 
 GUIDE = 0.5                                   # reading guide used by the overview, not a pass mark
 NON_DUTY = {"trigger", "exemption", "reclassification"}
 MAX_RUNS = 50                                 # per user
 MAX_NAME = 120
+
+
+def retention_days() -> int:
+    """Saved runs older than this are deleted; 0 keeps them until the user deletes them."""
+    return int(os.environ.get("PCEF_RETENTION_DAYS", "365"))
+
+
+def purge_expired() -> int:
+    days = retention_days()
+    if days <= 0 or not db_path().exists():
+        return 0
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat(timespec="seconds")
+    with connect() as con:
+        _table(con)
+        return con.execute("DELETE FROM runs WHERE created_utc < ?", (cutoff,)).rowcount
 
 router = APIRouter(prefix="/api/runs")
 
@@ -131,6 +147,7 @@ def compare(before: dict, after: dict) -> dict:
 
 def save(user: dict, body: bytes, clause_ids: list[str]) -> bytes:
     """Store a result for this user and return it with a `saved_run` note added."""
+    purge_expired()
     res = json.loads(body)
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     name = f"{res['ssp_name']} - {len(clause_ids)} clause{'s' if len(clause_ids) != 1 else ''}"
@@ -174,6 +191,25 @@ def _load(con, user: dict, run_id: int) -> tuple[dict, dict]:
         raise HTTPException(404, "That saved run was not found.")
     meta = {"id": row["id"], "name": row["name"], "created_utc": row["created_utc"], "ssp_name": row["ssp_name"]}
     return meta, json.loads(zlib.decompress(row["result"]))
+
+
+@router.get("/export")
+def export_runs(request: Request):
+    """Everything stored about the signed-in user, as one JSON download."""
+    user = _owner(request)
+    with connect() as con:
+        _table(con)
+        acct = con.execute("SELECT email, created_utc FROM users WHERE id = ?", (user["id"],)).fetchone()
+        rows = con.execute("SELECT id, name, ssp_name, clause_ids, created_utc, config_status, embedder, summary, result "
+                           "FROM runs WHERE user_id = ? ORDER BY created_utc", (user["id"],)).fetchall()
+    data = {"exported_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "account": {"email": acct["email"], "created_utc": acct["created_utc"]},
+            "note": "Your password is stored only as a one-way hash and is not included.",
+            "runs": [{"id": r["id"], "name": r["name"], "ssp_name": r["ssp_name"], "clause_ids": r["clause_ids"].split(","),
+                      "created_utc": r["created_utc"], "config_status": r["config_status"], "embedder": r["embedder"],
+                      "summary": json.loads(r["summary"]), "result": json.loads(zlib.decompress(r["result"]))} for r in rows]}
+    return Response(json.dumps(data, indent=1).encode(), media_type="application/json",
+                    headers={"Content-Disposition": 'attachment; filename="pcef_my_data.json"'})
 
 
 @router.get("/compare")

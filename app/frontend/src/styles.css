@@ -492,3 +492,17 @@ html.present .tuple span { font-size: 1.15em; }
   .compare .cstats, .compare .cruns { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .hpick, .compare label.small { display: none; }
 }
+
+/* privacy */
+.privacy { max-width: 78ch; }
+.pv-sec { margin-bottom: 1.4rem; }
+.pv-t { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); margin: 0.4rem 0 0.8rem; font-size: 0.9rem; }
+.pv-t th, .pv-t td { text-align: left; vertical-align: top; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--line); }
+.pv-warn { background: var(--flag-soft); border-left: 4px solid var(--flag); padding: 0.6rem 0.8rem; border-radius: var(--r-sm); }
+.privacy-link { font-size: 0.85rem; color: #8fa1ad; }
+.acct-data { margin-top: 1.6rem; border-top: 1px solid var(--line); padding-top: 1rem; max-width: 30rem; display: flex; flex-direction: column; gap: 0.7rem; align-items: flex-start; }
+.row-actions { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+.danger-zone { border-color: var(--flag); }
+.primary.danger { background: var(--flag); } .primary.danger:hover:not(:disabled) { background: #74305a; }
+.auth-form label.check { flex-direction: row; align-items: center; gap: 0.5rem; font-weight: 400; }
+.save-note { margin-top: 0.4rem; }
