@@ -37,7 +37,6 @@ EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 _hasher = PasswordHasher()
 _DUMMY_HASH = _hasher.hash("pcef-timing-equaliser")
-_schema_ready: set[str] = set()
 _fails: dict[str, list[float]] = {}
 _fail_lock = threading.Lock()
 
@@ -59,19 +58,17 @@ def connect():
     con.row_factory = sqlite3.Row
     con.execute("PRAGMA foreign_keys = ON")
     try:
-        if str(path) not in _schema_ready:
-            con.executescript("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY,
-                    email TEXT NOT NULL UNIQUE,
-                    password_hash TEXT NOT NULL,
-                    created_utc TEXT NOT NULL);
-                CREATE TABLE IF NOT EXISTS sessions (
-                    token_sha256 TEXT PRIMARY KEY,
-                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-                    expires_utc TEXT NOT NULL);
-            """)
-            _schema_ready.add(str(path))
+        con.executescript("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY,
+                email TEXT NOT NULL UNIQUE,
+                password_hash TEXT NOT NULL,
+                created_utc TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS sessions (
+                token_sha256 TEXT PRIMARY KEY,
+                user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                expires_utc TEXT NOT NULL);
+        """)
         yield con
         con.commit()
     finally:

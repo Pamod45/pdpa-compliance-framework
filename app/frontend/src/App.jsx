@@ -6,6 +6,7 @@ import HowItWorks from "./HowItWorks.jsx";
 import Learn from "./Learn.jsx";
 import Landing from "./Landing.jsx";
 import Account from "./Account.jsx";
+import History from "./History.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
@@ -20,7 +21,8 @@ export default function App() {
   const [start, setStart] = useState(null);      // how Explore was opened: "sample" | "upload" | null
   const [topic, setTopic] = useState("read");
   const [visit, setVisit] = useState(0);         // a fresh Explore each time it is opened
-  const go = (v, how = null) => { setStart(how); setView(v); setVisit((n) => n + 1); window.scrollTo(0, 0); };
+  const [opened, setOpened] = useState(null);    // a saved run to show in Explore
+  const go = (v, how = null, run = null) => { setStart(how); setOpened(run); setView(v); setVisit((n) => n + 1); window.scrollTo(0, 0); };
   const [present, setPresent] = useState(() => {
     try { return new URLSearchParams(window.location.search).has("present") || window.localStorage.getItem("pcef.present") === "1"; }
     catch { return false; }
@@ -55,7 +57,7 @@ export default function App() {
           </div>
         </div>
         <nav aria-label="Sections">
-          {VIEWS.map((v) => (
+          {[...VIEWS.slice(0, 2), ...(user ? [{ id: "history", label: "My runs" }] : []), ...VIEWS.slice(2)].map((v) => (
             <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
           <button className="nav-item tour-link" onClick={() => go("explore", "tour")} disabled={!meta}>Take the tour</button>
@@ -80,9 +82,10 @@ export default function App() {
           : view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>)}
         {view === "home" && <Landing meta={meta} onSample={() => go("explore", "sample")} onUpload={() => go("explore", "upload")}
                                      onLearn={(t) => { setTopic(t); go("learn"); }} onTour={() => go("explore", "tour")} />}
-        {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} />}
+        {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} initial={opened} user={user} onSignIn={() => go("account")} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
+        {view === "history" && <History user={user} onOpen={(r) => go("explore", null, r)} onSignIn={() => go("account")} />}
         {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>

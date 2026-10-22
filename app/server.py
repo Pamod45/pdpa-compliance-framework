@@ -32,7 +32,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
@@ -43,7 +43,7 @@ from pcef.pipeline.embedder import make_embedder
 from pcef.pipeline.gates import ROLE_PROP, applicability_gate, parse_roles
 from pcef.pipeline.run import DEFAULTS, run
 
-from . import auth
+from . import auth, history
 from .enrich import ROOT, pair_context, profiles, unit_lookup
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
@@ -105,6 +105,7 @@ async def lifespan(_app):
 
 app = FastAPI(title="PCEF", lifespan=lifespan)
 app.include_router(auth.router)
+app.include_router(history.router)
 
 
 @app.get("/api/meta")
@@ -124,13 +125,15 @@ def meta():
 
 
 @app.post("/api/run")
-async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(False),
+async def run_pipeline(request: Request, clause_ids: str = Form(...), use_sample: bool = Form(False),
                        ssp: UploadFile | None = File(None)):
     ids = [c for c in clause_ids.split(",") if c]
     if not ids:
         raise HTTPException(400, "Pick at least one clause to run.")
+    user = auth.current_user(request)        # signed-in runs are saved to the user's history
     if use_sample or ssp is None:
-        return Response(await run_in_threadpool(_sample, ids), media_type="application/json")
+        body = await run_in_threadpool(_sample, ids)
+        return Response(history.save(user, body, ids) if user else body, media_type="application/json")
     raw = await ssp.read()
     if len(raw) > MAX_UPLOAD_BYTES:
         raise HTTPException(413, f"The file is larger than {MAX_UPLOAD_BYTES // (1024 * 1024)} MB.")
@@ -143,7 +146,7 @@ async def run_pipeline(clause_ids: str = Form(...), use_sample: bool = Form(Fals
             raise HTTPException(400, f"This file is not an OSCAL SSP the parser accepts ({type(ex).__name__}: {ex}). "
                                      "Upload a JSON file with a top-level 'system-security-plan'.")
         body = await run_in_threadpool(_score, ids, ssp_path, ssp.filename)
-        return Response(body, media_type="application/json")
+        return Response(history.save(user, body, ids) if user else body, media_type="application/json")
 
 
 # The walkthrough follows one duty (s.10, integrity and confidentiality) with two of the controls
