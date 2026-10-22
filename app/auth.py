@@ -178,6 +178,27 @@ def logout(request: Request, response: Response):
     return {"signed_out": True}
 
 
+class Confirm(BaseModel):
+    password: str
+
+
+@router.post("/delete")
+def delete_account(c: Confirm, request: Request, response: Response):
+    """Delete the signed-in account with its sessions and saved runs. Needs the password again."""
+    user = current_user(request)
+    if not user:
+        raise HTTPException(401, "Sign in first.")
+    with connect() as con:
+        row = con.execute("SELECT password_hash FROM users WHERE id = ?", (user["id"],)).fetchone()
+        try:
+            _hasher.verify(row["password_hash"], c.password)
+        except (VerifyMismatchError, VerificationError):
+            raise HTTPException(401, "That password is not correct, so nothing was deleted.")
+        con.execute("DELETE FROM users WHERE id = ?", (user["id"],))      # sessions and runs go with it
+    response.delete_cookie(COOKIE, path="/")
+    return {"deleted": True}
+
+
 @router.get("/me")
 def me(request: Request):
     u = current_user(request)

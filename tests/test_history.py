@@ -98,3 +98,41 @@ def test_same_plan_twice_has_no_changes(client):
     c = client.get(f"/api/runs/compare?a={a}&b={b}").json()
     assert c["duties"] == [] and c["unchanged"] == len(c["pairs"])
     assert c["summary"]["before"] == c["summary"]["after"]
+
+
+def test_old_runs_are_purged(client, monkeypatch):
+    import sqlite3
+    sign_up(client)
+    rid = client.post("/api/run", data=RUN).json()["saved_run"]["id"]
+    con = sqlite3.connect(os.environ["PCEF_DB"])
+    con.execute("UPDATE runs SET created_utc = '2020-01-01T00:00:00+00:00' WHERE id = ?", (rid,))
+    con.commit(); con.close()
+    monkeypatch.setenv("PCEF_RETENTION_DAYS", "0")
+    assert history.purge_expired() == 0                                   # 0 keeps runs
+    monkeypatch.setenv("PCEF_RETENTION_DAYS", "365")
+    assert history.purge_expired() == 1
+    assert client.get("/api/runs").json()["runs"] == []
+
+
+def test_export_contains_account_and_runs(client):
+    sign_up(client)
+    client.post("/api/run", data=RUN)
+    r = client.get("/api/runs/export")
+    assert "attachment" in r.headers["content-disposition"]
+    data = r.json()
+    assert data["account"]["email"] == "ana@example.com" and len(data["runs"]) == 1
+    assert "$argon2" not in r.text and "password_hash" not in r.text and "token" not in data["account"]
+
+
+def test_delete_account_removes_everything(client):
+    import sqlite3
+    sign_up(client)
+    client.post("/api/run", data=RUN)
+    assert client.post("/api/auth/delete", json={"password": "wrong password!"}).status_code == 401
+    assert client.get("/api/auth/me").json()["email"] == "ana@example.com"     # nothing deleted
+    assert client.post("/api/auth/delete", json={"password": PW}).status_code == 200
+    assert client.get("/api/auth/me").json() == {"email": None}
+    con = sqlite3.connect(os.environ["PCEF_DB"])
+    counts = [con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("users", "sessions", "runs")]
+    con.close()
+    assert counts == [0, 0, 0]

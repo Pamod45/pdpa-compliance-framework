@@ -8,6 +8,7 @@ import Landing from "./Landing.jsx";
 import Account from "./Account.jsx";
 import History from "./History.jsx";
 import Compare from "./Compare.jsx";
+import Privacy from "./Privacy.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
@@ -67,6 +68,7 @@ export default function App() {
             {user ? <><span className="small">Signed in as</span> {user}</> : "Sign in"}</button>
           <button className="nav-item present-toggle" aria-pressed={present} onClick={() => setPresent(!present)}>
             <span className="switch" aria-hidden="true" />Presenter mode</button>
+          <button data-nav="privacy" className={"nav-item privacy-link" + (view === "privacy" ? " on" : "")} onClick={() => go("privacy")}>Privacy</button>
         </nav>
         {meta && (
           <dl className="prov">
@@ -84,13 +86,14 @@ export default function App() {
           : view !== "home" && <p className="muted">Loading the text model. The first start can take a minute.</p>)}
         {view === "home" && <Landing meta={meta} onSample={() => go("explore", "sample")} onUpload={() => go("explore", "upload")}
                                      onLearn={(t) => { setTopic(t); go("learn"); }} onTour={() => go("explore", "tour")} />}
-        {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} initial={opened} user={user} onSignIn={() => go("account")} />}
+        {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} initial={opened} user={user} onSignIn={() => go("account")} onPrivacy={() => go("privacy")} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
         {view === "history" && <History user={user} onOpen={(r, asReport) => go("explore", asReport ? "report" : null, r)} onSignIn={() => go("account")}
                                               onCompare={(ids) => { setComparing(ids); go("compare"); }} />}
         {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
-        {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} />}
+        {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} onPrivacy={() => go("privacy")} />}
+        {view === "privacy" && <Privacy meta={meta} user={user} onAccount={() => go("account")} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>
     </div>
