@@ -9,6 +9,7 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_MODEL_REVISION      pin the embedding model to an exact revision
   PCEF_DATA_DIR            where panel responses are written (default outputs/panel)
   PCEF_PANEL_WRITES        set to 0 to stop accepting panel responses
+  PCEF_ADMIN_EMAILS        comma-separated admin emails; when set, the expert panel is for admins only
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
   PCEF_WARM_SAMPLE         set to 0 to skip scoring the sample in the background on start-up
@@ -44,7 +45,7 @@ from pcef.pipeline.embedder import make_embedder
 from pcef.pipeline.gates import ROLE_PROP, applicability_gate, parse_roles
 from pcef.pipeline.run import DEFAULTS, run
 
-from . import auth, history
+from . import admin, auth, history
 from .enrich import ROOT, pair_context, profiles, unit_lookup
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
@@ -108,6 +109,7 @@ async def lifespan(_app):
 app = FastAPI(title="PCEF", lifespan=lifespan)
 app.include_router(auth.router)
 app.include_router(history.router)
+app.include_router(admin.router)
 
 
 @app.get("/api/meta")
@@ -121,6 +123,7 @@ def meta():
                           "relatedness_floor": cfg["relatedness_floor"][emb.name],
                           "alignment_weights": {k: v for k, v in cfg["alignment_weights"].items() if not k.startswith("_")}},
             "panel_available": PANEL_PACK.exists(),
+            "panel_restricted": admin.panel_restricted(),
             "retention_days": history.retention_days(),
             "sample_ready": tuple(sorted(c.clause_id for c in profiles().clauses)) in _sample_cache,
             "clauses": [{"id": c.clause_id, "title": getattr(c, "title", "") or "", "units": len(c.obligation_units),
@@ -194,7 +197,8 @@ def sample_ssp():
 
 
 @app.get("/api/panel/items")
-def panel_items():
+def panel_items(request: Request):
+    admin.require_panel_access(request)
     if not PANEL_PACK.exists():
         raise HTTPException(404, "No panel pack yet. Run: python validation/build_panel_pack.py")
     return json.loads(PANEL_PACK.read_text(encoding="utf-8"))
@@ -215,7 +219,8 @@ class PanelResponse(BaseModel):
 
 
 @app.post("/api/panel/response")
-def panel_response(r: PanelResponse):
+def panel_response(r: PanelResponse, request: Request):
+    admin.require_panel_access(request)
     if not PANEL_WRITES:
         raise HTTPException(403, "Panel responses are closed on this deployment.")
     if not (0 <= r.blind_alignment <= 1 and 0 <= r.blind_realization <= 1):
@@ -228,7 +233,8 @@ def panel_response(r: PanelResponse):
 
 
 @app.get("/api/panel/progress")
-def panel_progress(expert: str):
+def panel_progress(expert: str, request: Request):
+    admin.require_panel_access(request)
     if not PANEL_OUT.exists():
         return {"done": []}
     done = [json.loads(l)["pair"] for l in PANEL_OUT.read_text(encoding="utf-8").splitlines()

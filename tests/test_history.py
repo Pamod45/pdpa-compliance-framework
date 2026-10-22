@@ -131,7 +131,7 @@ def test_delete_account_removes_everything(client):
     assert client.post("/api/auth/delete", json={"password": "wrong password!"}).status_code == 401
     assert client.get("/api/auth/me").json()["email"] == "ana@example.com"     # nothing deleted
     assert client.post("/api/auth/delete", json={"password": PW}).status_code == 200
-    assert client.get("/api/auth/me").json() == {"email": None}
+    assert client.get("/api/auth/me").json()["email"] is None
     con = sqlite3.connect(os.environ["PCEF_DB"])
     counts = [con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("users", "sessions", "runs")]
     con.close()

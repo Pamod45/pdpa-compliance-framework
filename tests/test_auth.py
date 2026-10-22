@@ -31,9 +31,9 @@ def client(tmp_path, monkeypatch):
 def test_signup_signs_in_and_logout_signs_out(client):
     r = client.post("/api/auth/signup", json={"email": " Ana@Example.com ", "password": PW})
     assert r.status_code == 200 and r.json() == {"email": "ana@example.com"}
-    assert client.get("/api/auth/me").json() == {"email": "ana@example.com"}
+    assert client.get("/api/auth/me").json()["email"] == "ana@example.com"
     client.post("/api/auth/logout")
-    assert client.get("/api/auth/me").json() == {"email": None}
+    assert client.get("/api/auth/me").json()["email"] is None
 
 
 def test_login_and_wrong_password(client):

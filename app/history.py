@@ -35,7 +35,7 @@ def purge_expired() -> int:
         return 0
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat(timespec="seconds")
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         return con.execute("DELETE FROM runs WHERE created_utc < ?", (cutoff,)).rowcount
 
 router = APIRouter(prefix="/api/runs")
@@ -56,7 +56,7 @@ CREATE INDEX IF NOT EXISTS runs_by_user ON runs(user_id, created_utc);
 """
 
 
-def _table(con) -> None:
+def ensure_table(con) -> None:
     con.executescript(SCHEMA)
 
 
@@ -152,7 +152,7 @@ def save(user: dict, body: bytes, clause_ids: list[str]) -> bytes:
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     name = f"{res['ssp_name']} - {len(clause_ids)} clause{'s' if len(clause_ids) != 1 else ''}"
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         (count,) = con.execute("SELECT COUNT(*) FROM runs WHERE user_id = ?", (user["id"],)).fetchone()
         if count >= MAX_RUNS:
             res["saved_run"] = {"id": None, "note": f"Not saved: you already have {MAX_RUNS} saved runs. Delete some to save new ones."}
@@ -177,7 +177,7 @@ def _owner(request: Request) -> dict:
 def list_runs(request: Request):
     user = _owner(request)
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         rows = con.execute("SELECT id, name, ssp_name, clause_ids, created_utc, config_status, embedder, summary "
                            "FROM runs WHERE user_id = ? ORDER BY created_utc DESC, id DESC", (user["id"],)).fetchall()
     return {"limit": MAX_RUNS, "runs": [{**dict(r), "clause_ids": r["clause_ids"].split(","),
@@ -198,7 +198,7 @@ def export_runs(request: Request):
     """Everything stored about the signed-in user, as one JSON download."""
     user = _owner(request)
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         acct = con.execute("SELECT email, created_utc FROM users WHERE id = ?", (user["id"],)).fetchone()
         rows = con.execute("SELECT id, name, ssp_name, clause_ids, created_utc, config_status, embedder, summary, result "
                            "FROM runs WHERE user_id = ? ORDER BY created_utc", (user["id"],)).fetchall()
@@ -219,7 +219,7 @@ def compare_runs(a: int, b: int, request: Request):
     if a == b:
         raise HTTPException(400, "Choose two different runs to compare.")
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         ma, ra = _load(con, user, a)
         mb, rb = _load(con, user, b)
     (m1, r1), (m2, r2) = sorted([(ma, ra), (mb, rb)], key=lambda x: (x[0]["created_utc"], x[0]["id"]))
@@ -230,7 +230,7 @@ def compare_runs(a: int, b: int, request: Request):
 def get_run(run_id: int, request: Request):
     user = _owner(request)
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         row = con.execute("SELECT name, result FROM runs WHERE id = ? AND user_id = ?", (run_id, user["id"])).fetchone()
     if not row:
         raise HTTPException(404, "That saved run was not found.")
@@ -250,7 +250,7 @@ def rename_run(run_id: int, body: Rename, request: Request):
     if not name or len(name) > MAX_NAME:
         raise HTTPException(400, f"Use a name of 1 to {MAX_NAME} characters.")
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         cur = con.execute("UPDATE runs SET name = ? WHERE id = ? AND user_id = ?", (name, run_id, user["id"]))
     if cur.rowcount == 0:
         raise HTTPException(404, "That saved run was not found.")
@@ -261,7 +261,7 @@ def rename_run(run_id: int, body: Rename, request: Request):
 def delete_run(run_id: int, request: Request):
     user = _owner(request)
     with connect() as con:
-        _table(con)
+        ensure_table(con)
         cur = con.execute("DELETE FROM runs WHERE id = ? AND user_id = ?", (run_id, user["id"]))
     if cur.rowcount == 0:
         raise HTTPException(404, "That saved run was not found.")
