@@ -114,11 +114,12 @@ function Result({ out, meta, sampleId, onOpenResult }) {
   );
 }
 
-export default function Draft({ meta, onOpenResult }) {
+export default function Draft({ meta, onOpenResult, onSignIn }) {
   const [status, setStatus] = useState(null);
   const [samples, setSamples] = useState([]);
   const [pick, setPick] = useState(null);
   const [own, setOwn] = useState("");
+  const [consent, setConsent] = useState(false);
   const [out, setOut] = useState(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -136,7 +137,7 @@ export default function Draft({ meta, onOpenResult }) {
     <div className="draft">
       <header className="page-head"><h1>Draft an SSP from a document <span className="chip">beta</span></h1>
         <p>An LLM (Google Gemini) reads a prose description of a system and drafts an OSCAL System Security Plan from it. The draft is checked against the NIST catalog and PCEF's SSP parser. The LLM never scores anything: scoring stays with the frozen scorer.</p></header>
-      <p className="pv-warn small">Demo only. This site uses Gemini's free tier, where Google may use and review what is sent. So the public can draft only the sample document below; drafting your own text is limited to site admins. Do not use this for confidential plans.</p>
+      <p className="pv-warn small">This site uses Gemini's free tier, where Google may use what is sent to improve its products and people may review it. Anyone can draft the sample document below. Signed-in users can draft their own documents, a few a day, after confirming each time. Do not send confidential documents.</p>
       {status && !status.configured && <p className="alert">Drafting is not set up on this server yet.</p>}
 
       <section className="draft-in">
@@ -147,20 +148,29 @@ export default function Draft({ meta, onOpenResult }) {
         <div className="row-actions">
           <button className="primary" disabled={busy || !status?.configured || !sample} onClick={() => run({ sample_id: pick })}>
             {busy ? "Drafting..." : "Draft an SSP from this document"}</button>
-          {status?.can_draft_own_text && <button className="link" disabled={busy} onClick={() => run({ sample_id: pick, regenerate: true })}>Redraft (admin)</button>}
+          {status?.is_admin && <button className="link" disabled={busy} onClick={() => run({ sample_id: pick, regenerate: true })}>Redraft (admin)</button>}
         </div>
       </section>
 
-      {status?.can_draft_own_text && (
-        <section className="draft-in">
-          <h2>Your own document (admin)</h2>
-          <textarea className="draft-text" rows={8} value={own} maxLength={20000} onChange={(e) => setOwn(e.target.value)}
-                    placeholder="Paste a technical description of a system. It is sent to Google's Gemini API." />
-          <div className="row-actions">
-            <button className="primary" disabled={busy || !own.trim() || !status.configured} onClick={() => run({ text: own })}>Draft from this text</button>
-            <span className="small">{own.length.toLocaleString()} / 20,000 characters</span>
-          </div>
-        </section>)}
+      <section className="draft-in">
+        <h2>Your own document</h2>
+        {status && !status.signed_in && (
+          <p>Sign in to draft an SSP from your own technical document. <button className="link strong" onClick={onSignIn}>Sign in or create an account</button></p>)}
+        {status?.signed_in && !status.can_draft_own_text && <p className="small">Drafting your own documents is limited to site admins on this server.</p>}
+        {status?.can_draft_own_text && (
+          <>
+            <textarea className="draft-text" rows={8} value={own} maxLength={20000} onChange={(e) => setOwn(e.target.value)}
+                      placeholder="Paste a technical description of your system: its parts, how access, logging, encryption, retention and incidents are handled, and any known gaps." />
+            <label className="consent"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+              I understand this text is sent to Google's Gemini API on the free tier, where Google may use it to improve its products and people may review it. It contains nothing confidential or personal.</label>
+            <div className="row-actions">
+              <button className="primary" disabled={busy || !own.trim() || !consent || !status.configured}
+                      onClick={async () => { await run({ text: own, consent: true }); setConsent(false); api.draftStatus().then(setStatus).catch(() => {}); }}>Draft from this text</button>
+              <span className="small">{own.length.toLocaleString()} / 20,000 characters
+                {status.drafts_left_today !== null && ` · ${status.drafts_left_today} draft${status.drafts_left_today === 1 ? "" : "s"} left today`}</span>
+            </div>
+          </>)}
+      </section>
 
       {busy && <p className="progress"><span className="spinner" aria-hidden="true" />Asking the model and checking its draft. This can take up to a minute.</p>}
       {err && <p className="alert">{err}</p>}

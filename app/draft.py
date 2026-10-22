@@ -3,12 +3,14 @@ Draft an OSCAL SSP from a prose technical document with an LLM (Gemini API).
 
 The LLM only drafts the input. Its output is checked against the NIST catalog, converted to OSCAL
 by this module and parsed by PCEF's own SSP parser before anyone sees it; scoring stays with the
-frozen scorer. Demo only on the free tier: Google may use and review what is sent, so the public
-can draft only the built-in sample documents, and only admins can draft their own text.
+frozen scorer. On Gemini's free tier Google may use and review what is sent, so anyone can draft the
+built-in sample, but drafting your own text needs an account, a fresh consent each time and stays within
+a per-user daily limit. PCEF_DRAFT_OWN_TEXT=admins limits own-text drafting to admins.
 
 Settings: GEMINI_API_KEY (required), PCEF_LLM_MODEL (default gemini-flash-latest, an alias Google moves to
 its newest Flash model; the exact version used is recorded with every draft),
-PCEF_LLM_DAILY_LIMIT (LLM calls per day for the whole site, default 20).
+PCEF_LLM_DAILY_LIMIT (LLM calls per day for the whole site, default 20), PCEF_DRAFT_USER_DAILY (own-text
+drafts per user per day, default 3), PCEF_DRAFT_OWN_TEXT (users or admins, default users).
 """
 
 from __future__ import annotations
@@ -44,6 +46,7 @@ NS = uuid.UUID("6b1f2c1e-5a0e-4d1e-9c7a-2f4e8d3b9a10")      # fixed namespace: t
 
 router = APIRouter(prefix="/api/draft")
 _calls: dict[str, int] = {}
+_user_calls: dict[tuple[str, int], int] = {}
 _calls_lock = threading.Lock()
 
 SYSTEM = """You convert a technical description of a software system into security control implementation
@@ -62,6 +65,8 @@ Answer with JSON only, in this shape:
 
 def settings() -> dict:
     return {"configured": bool(os.environ.get("GEMINI_API_KEY")),
+            "own_text": os.environ.get("PCEF_DRAFT_OWN_TEXT", "users"),
+            "user_daily": int(os.environ.get("PCEF_DRAFT_USER_DAILY", "3")),
             "model": os.environ.get("PCEF_LLM_MODEL", "gemini-flash-latest"),
             "daily_limit": int(os.environ.get("PCEF_LLM_DAILY_LIMIT", "20"))}
 
@@ -76,6 +81,23 @@ def _count_call() -> None:
         if _calls.get(day, 0) >= settings()["daily_limit"]:
             raise HTTPException(429, "Today's drafting limit for this site has been reached. Try again tomorrow.")
         _calls[day] = _calls.get(day, 0) + 1
+
+
+def _today() -> str:
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+def _user_left(user: dict) -> int:
+    with _calls_lock:
+        return max(settings()["user_daily"] - _user_calls.get((_today(), user["id"]), 0), 0)
+
+
+def _count_user_call(user: dict) -> None:
+    with _calls_lock:
+        key = (_today(), user["id"])
+        if _user_calls.get(key, 0) >= settings()["user_daily"]:
+            raise HTTPException(429, f"You have used today's {settings()['user_daily']} drafts of your own documents. Try again tomorrow.")
+        _user_calls[key] = _user_calls.get(key, 0) + 1
 
 
 def _call_llm(document: str) -> tuple[str, str]:
@@ -188,7 +210,12 @@ def draft_document(text: str, title: str) -> dict:
 @router.get("/status")
 def status(request: Request):
     s = settings()
-    return {"configured": s["configured"], "model": s["model"], "can_draft_own_text": is_admin(current_user(request))}
+    user = current_user(request)
+    admin = is_admin(user)
+    allowed = bool(user) and (admin or s["own_text"] != "admins")
+    return {"configured": s["configured"], "model": s["model"], "signed_in": bool(user), "is_admin": admin,
+            "can_draft_own_text": allowed, "own_text_mode": s["own_text"],
+            "drafts_left_today": None if (admin or not allowed) else _user_left(user)}
 
 
 @router.get("/samples")
@@ -200,21 +227,29 @@ class DraftRequest(BaseModel):
     sample_id: str | None = None
     text: str | None = None
     regenerate: bool = False
+    consent: bool = False
 
 
 @router.post("")
 def draft(body: DraftRequest, request: Request):
     if not settings()["configured"]:
         raise HTTPException(503, "Drafting is not set up on this server (no GEMINI_API_KEY).")
-    admin = is_admin(current_user(request))
+    user = current_user(request)
+    admin = is_admin(user)
     if body.text is not None:
-        if not admin:
-            raise HTTPException(403, "Drafting your own document is limited to admins on this demo, because the free "
-                                     "Gemini tier lets Google use and review what is sent. Try a sample document.")
+        if not user:
+            raise HTTPException(401, "Sign in to draft your own document.")
+        if settings()["own_text"] == "admins" and not admin:
+            raise HTTPException(403, "Drafting your own document is limited to admins on this site. Try the sample document.")
+        if not body.consent:
+            raise HTTPException(400, "Confirm that you understand the document is sent to Google's Gemini API, "
+                                     "where it may be used and reviewed, before drafting.")
         text = body.text.strip()
         if not text or len(text) > MAX_TEXT:
             raise HTTPException(400, f"Paste between 1 and {MAX_TEXT:,} characters.")
-        return {**draft_document(text, "Pasted document"), "cached": False}
+        if not admin:
+            _count_user_call(user)
+        return {**draft_document(text, "Your document"), "cached": False}
     if body.sample_id not in SAMPLES:
         raise HTTPException(404, "That sample document was not found.")
     title, fname = SAMPLES[body.sample_id]

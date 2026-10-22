@@ -22,10 +22,11 @@ export default function Privacy({ meta, user, onAccount }) {
             <tr><td>Your email address</td><td>To sign you in</td><td>Until you delete your account</td></tr>
             <tr><td>Your password, as a one-way argon2 hash</td><td>To check your password; the password itself is never stored</td><td>Until you delete your account</td></tr>
             <tr><td>A sign-in session (a fingerprint of the token in your browser cookie)</td><td>To keep you signed in</td><td>14 days, or until you sign out</td></tr>
+            <tr><td>A document you paste into Draft an SSP</td><td>Sent to Google's Gemini API to draft the plan; Google may use it to improve its products and people may review it (free tier)</td><td>Not stored by PCEF; Google's terms apply to what it receives</td></tr>
             <tr><td>Saved runs: the results, including the parts of your plan's text they quote</td><td>So you can reopen, compare and print them</td><td>{keep[0].toUpperCase() + keep.slice(1)}, or until you delete them</td></tr>
           </tbody>
         </table>
-        <p>The uploaded SSP file itself is not stored, only the scored result. Data is kept on this site's server and is not shared, sold or used for anything else. There are no advertising or tracking cookies; the only cookie is the sign-in session.</p>
+        <p>The uploaded SSP file itself is not stored, only the scored result. Data is kept on this site's server and is not shared, sold or used for anything else. The one exception is a document you choose to send to Gemini in Draft an SSP, after confirming. There are no advertising or tracking cookies; the only cookie is the sign-in session.</p>
         <p className="pv-warn">Saved runs quote your plan's implementation text. If your plan contains confidential details, score it without signing in, or delete the run afterwards.</p>
       </section>
 

@@ -12,6 +12,8 @@ Environment variables (all optional; defaults suit a local run):
   GEMINI_API_KEY           enables drafting an SSP from a prose document (see app/draft.py)
   PCEF_LLM_MODEL           Gemini model used for drafting (default gemini-flash-latest)
   PCEF_LLM_DAILY_LIMIT     drafting calls allowed per day for the whole site (default 20)
+  PCEF_DRAFT_USER_DAILY    own-document drafts per signed-in user per day (default 3)
+  PCEF_DRAFT_OWN_TEXT      users (default) or admins: who may draft their own document
   PCEF_ADMIN_EMAILS        comma-separated admin emails; when set, the expert panel is for admins only
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up

@@ -121,6 +121,8 @@ All are optional environment variables; the defaults suit a local run.
 | `GEMINI_API_KEY` | none | Enables *Draft an SSP*; without it the page says drafting is not set up |
 | `PCEF_LLM_MODEL` | `gemini-flash-latest` | Gemini model for drafting; the exact version used is recorded with each draft |
 | `PCEF_LLM_DAILY_LIMIT` | `20` | Drafting calls allowed per day for the whole site |
+| `PCEF_DRAFT_USER_DAILY` | `3` | Own-document drafts per signed-in user per day (admins are not limited) |
+| `PCEF_DRAFT_OWN_TEXT` | `users` | `admins` limits drafting your own document to admins |
 
 When `PCEF_DATA_DIR` is not set, the account database is created in `instance/`, which is ignored
 by git. Create an admin account before adding its email to `PCEF_ADMIN_EMAILS`, because whoever
@@ -130,9 +132,10 @@ registers an address first owns it.
 *Draft an SSP* sends a prose description of a system to the Gemini API and turns the answer into an
 OSCAL SSP. The model may use only a fixed list of controls; anything else is dropped with a warning,
 and the result must pass PCEF's SSP parser. The LLM never produces scores. On the public instance it
-runs on Gemini's free tier, where Google may use and review what is sent, so the public can draft
-only the built-in sample document and only admins can draft their own text. Sample drafts are stored
-after the first call, so repeat visits do not use the quota.
+runs on Gemini's free tier, where Google may use and review what is sent. Anyone can draft the built-in
+sample document; signed-in users can draft their own text after confirming each time that it is sent to
+Gemini, up to `PCEF_DRAFT_USER_DAILY` drafts a day (`PCEF_DRAFT_OWN_TEXT=admins` limits this to admins).
+Sample drafts are stored after the first call, so repeat visits do not use the quota.
 
 Before scoring, the draft is shown for review: each statement can be corrected, marked as a known gap
 or removed, and the PDPA role can be set. A scored draft carries a label with the model version, the
