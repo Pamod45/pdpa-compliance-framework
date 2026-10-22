@@ -125,7 +125,7 @@ export default function Explore({ meta, start, initial, user, onSignIn }) {
   const [took, setTook] = useState(0);
   const [sel, setSel] = useState(null);
   const [tab, setTab] = useState("overview");
-  const [report, setReport] = useState(false);
+  const [report, setReport] = useState(start === "report" && !!initial);
   const [wantTour, setWantTour] = useState(start === "tour");
   const [showInvite, setShowInvite] = useState(start !== "tour" && !initial && !tourSeen());
   const s = useMemo(() => (res ? summarise(res) : null), [res]);

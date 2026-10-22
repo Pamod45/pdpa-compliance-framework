@@ -13,14 +13,23 @@ export default function Report({ res, s, onClose }) {
         <button className="link" onClick={onClose}>Back to the results</button>
       </div>
       <header className="rp-head">
+        <img className="rp-logo" src="/pcef-logo.svg" alt="PCEF - PDPA Compliance Evaluation Framework" width="233" height="54" />
         <h1>PDPA compliance evidence report</h1>
-        <p>{res.ssp_name}, scored {when}</p>
+        <p>{res.ssp_name}, scored {when}{res.saved_run?.name ? ` · saved as "${res.saved_run.name}"` : ""}</p>
         <p className="rp-disclaimer">Decision support, not a legal opinion. PCEF shows how well a security plan's controls match the duties in Sri Lanka's Personal Data Protection Act No. 9 of 2022, and how far the plan shows them implemented. It does not decide whether an organisation complies with the law.</p>
       </header>
 
       <section className="rp-sec">
         <h2>Summary</h2>
         <p>{s.duties.length} duties across {s.clauses.length} clauses. Each duty is judged by its best-fitting control; {GUIDE} is used as a reading guide on both scores.</p>
+        <div className="rp-headline">
+          <div><b>{s.counts.built}</b> of {s.duties.length} duties covered and built</div>
+          {s.averages.n > 0 && <>
+            <div>Average Alignment <b>{f2(s.averages.alignment)}</b></div>
+            <div>Average Realization <b>{f2(s.averages.realization)}</b></div>
+          </>}
+        </div>
+        {s.averages.n > 0 && <p className="small">Averages over the {s.averages.n} duties that have a scored control, each at its best-fitting control. Two separate averages, not a compliance rating.</p>}
         <StatusBar counts={s.counts} total={s.duties.length} />
         <Legend counts={s.counts} total={s.duties.length} />
       </section>
@@ -84,6 +93,7 @@ export default function Report({ res, s, onClose }) {
           <dt>Inputs</dt><dd>SSP {pv.inputs_sha256.ssp.slice(0, 12)}, clause profiles {pv.inputs_sha256.profiles.slice(0, 12)}, catalog {pv.inputs_sha256.catalog.slice(0, 12)}</dd>
           <dt>System role</dt><dd>{pv.system_roles.roles ? pv.system_roles.roles.join(" and ") : "not declared"} ({pv.system_roles.source})</dd>
           <dt>Same input</dt><dd>Gives the same report every time.</dd>
+          <dt>Report printed</dt><dd>{new Date().toLocaleString()}</dd>
         </dl>
       </section>
     </div>
