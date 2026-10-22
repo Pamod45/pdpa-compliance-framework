@@ -120,14 +120,14 @@ function Drawer({ pick, res, meta, onClose }) {
   );
 }
 
-export default function Explore({ meta, start }) {
-  const [res, setRes] = useState(null);
+export default function Explore({ meta, start, initial, user, onSignIn }) {
+  const [res, setRes] = useState(initial);
   const [took, setTook] = useState(0);
   const [sel, setSel] = useState(null);
   const [tab, setTab] = useState("overview");
   const [report, setReport] = useState(false);
   const [wantTour, setWantTour] = useState(start === "tour");
-  const [showInvite, setShowInvite] = useState(start !== "tour" && !tourSeen());
+  const [showInvite, setShowInvite] = useState(start !== "tour" && !initial && !tourSeen());
   const s = useMemo(() => (res ? summarise(res) : null), [res]);
   const scored = useMemo(() => (res ? res.pairs.filter((p) => p.status === "scored") : []), [res]);
   const pick = scored.find((p) => key(p) === sel) || null;
@@ -163,7 +163,10 @@ export default function Explore({ meta, start }) {
       {res && (
         <>
           <div className="result-bar">
-            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored in {took < 1 ? "under a second" : `${Math.round(took)} s`}. Scorer {res.provenance.config_status}.</p>
+            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored{initial === res ? `. Reopened from My runs: ${res.saved_run?.name || "saved run"}` : ` in ${took < 1 ? "under a second" : `${Math.round(took)} s`}`}. Scorer {res.provenance.config_status}.
+              {res.saved_run?.id && initial !== res && <span className="saved"> Saved to My runs.</span>}
+              {res.saved_run && !res.saved_run.id && <span className="saved warn"> {res.saved_run.note}</span>}
+              {!user && <> <button className="link" onClick={onSignIn}>Sign in</button> to keep a history of your runs.</>}</p>
             <div className="exports">
               <button className="primary" onClick={() => setReport(true)}>Open report</button>
               <button className="ghost" onClick={() => download(`pcef_${stamp}.csv`, toCSV(res), "text/csv")}>Download CSV</button>
