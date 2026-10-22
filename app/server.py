@@ -134,13 +134,31 @@ def meta():
                          "domains": list(c.security_domains)} for c in profiles().clauses]}
 
 
+def _label_draft(body: bytes, raw: str | None) -> bytes:
+    """Attach the LLM-draft label to a result scored from a reviewed draft (a label, not a score input)."""
+    if not raw:
+        return body
+    try:
+        given = json.loads(raw)
+        assert isinstance(given, dict)
+    except (ValueError, AssertionError):
+        raise HTTPException(400, "The draft details sent with this plan are not valid.")
+    label = {k: str(given[k])[:200] for k in ("model", "model_version", "prompt_version", "source", "generated_utc") if k in given}
+    label["edits"] = int(given.get("edits", 0)) if str(given.get("edits", 0)).isdigit() else 0
+    label["reviewed"] = True
+    res = json.loads(body)
+    res["draft"] = label
+    return json.dumps(res).encode()
+
+
 @app.post("/api/run")
 async def run_pipeline(request: Request, clause_ids: str = Form(...), use_sample: bool = Form(False),
-                       ssp: UploadFile | None = File(None)):
+                       ssp: UploadFile | None = File(None), dont_save: bool = Form(False),
+                       draft_provenance: str | None = Form(None)):
     ids = [c for c in clause_ids.split(",") if c]
     if not ids:
         raise HTTPException(400, "Pick at least one clause to run.")
-    user = auth.current_user(request)        # signed-in runs are saved to the user's history
+    user = None if dont_save else auth.current_user(request)      # signed-in runs are saved to the user's history
     if use_sample or ssp is None:
         body = await run_in_threadpool(_sample, ids)
         return Response(history.save(user, body, ids) if user else body, media_type="application/json")
@@ -155,7 +173,7 @@ async def run_pipeline(request: Request, clause_ids: str = Form(...), use_sample
         except Exception as ex:  # noqa: BLE001 - show the parser's own message
             raise HTTPException(400, f"This file is not an OSCAL SSP the parser accepts ({type(ex).__name__}: {ex}). "
                                      "Upload a JSON file with a top-level 'system-security-plan'.")
-        body = await run_in_threadpool(_score, ids, ssp_path, ssp.filename)
+        body = _label_draft(await run_in_threadpool(_score, ids, ssp_path, ssp.filename), draft_provenance)
         return Response(history.save(user, body, ids) if user else body, media_type="application/json")
 
 

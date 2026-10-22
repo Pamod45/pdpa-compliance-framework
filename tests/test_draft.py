@@ -78,3 +78,19 @@ def test_limits_and_missing_key(client, monkeypatch):
     monkeypatch.delenv("GEMINI_API_KEY")
     assert client.post("/api/draft", json={"sample_id": "fleettrack"}).status_code == 503
     assert client.get("/api/draft/status").json()["configured"] is False
+
+
+def test_reviewed_draft_is_labelled_and_can_skip_saving(client):
+    ssp = client.post("/api/draft", json={"sample_id": "fleettrack"}).json()["ssp"]
+    label = json.dumps({"model": "gemini-flash-latest", "model_version": "gemini-test-001", "source": "FleetTrack overview",
+                        "edits": 3, "ignored_key": "x"})
+    res = client.post("/api/run", data={"clause_ids": "PDPA-s10", "draft_provenance": label},
+                      files={"ssp": ("draft.json", json.dumps(ssp).encode(), "application/json")}).json()
+    assert res["draft"] == {"model": "gemini-flash-latest", "model_version": "gemini-test-001",
+                            "source": "FleetTrack overview", "edits": 3, "reviewed": True}
+    bad = client.post("/api/run", data={"clause_ids": "PDPA-s10", "draft_provenance": "not json"},
+                      files={"ssp": ("draft.json", json.dumps(ssp).encode(), "application/json")})
+    assert bad.status_code == 400
+    client.post("/api/auth/signup", json={"email": "ana@example.com", "password": PW})
+    assert "saved_run" not in client.post("/api/run", data={"clause_ids": "PDPA-s10", "use_sample": "true", "dont_save": "true"}).json()
+    assert client.post("/api/run", data={"clause_ids": "PDPA-s10", "use_sample": "true"}).json()["saved_run"]["id"]

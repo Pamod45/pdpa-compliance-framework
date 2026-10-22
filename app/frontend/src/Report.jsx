@@ -2,6 +2,7 @@ import React from "react";
 import { f2, f3 } from "./api.js";
 import { GUIDE, ORDER, STATUS } from "./summary.js";
 import { Legend, StatusBar } from "./Views.jsx";
+import DraftNote from "./DraftNote.jsx";
 
 export default function Report({ res, s, onClose }) {
   const pv = res.provenance;
@@ -16,6 +17,7 @@ export default function Report({ res, s, onClose }) {
         <img className="rp-logo" src="/pcef-logo.svg" alt="PCEF - PDPA Compliance Evaluation Framework" width="233" height="54" />
         <h1>PDPA compliance evidence report</h1>
         <p>{res.ssp_name}, scored {when}{res.saved_run?.name ? ` · saved as "${res.saved_run.name}"` : ""}</p>
+        {res.draft && <DraftNote d={res.draft} />}
         <p className="rp-disclaimer">Decision support, not a legal opinion. PCEF shows how well a security plan's controls match the duties in Sri Lanka's Personal Data Protection Act No. 9 of 2022, and how far the plan shows them implemented. It does not decide whether an organisation complies with the law.</p>
       </header>
 

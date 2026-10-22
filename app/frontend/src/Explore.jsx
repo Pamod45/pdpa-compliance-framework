@@ -4,6 +4,7 @@ import { AlignmentTrace, Inputs, RealizationTrace } from "./Trace.jsx";
 import { download, key, summarise, toCSV } from "./summary.js";
 import { ClauseControls, Controls, Gaps, Overview } from "./Views.jsx";
 import Report from "./Report.jsx";
+import DraftNote from "./DraftNote.jsx";
 import { startTour, tourSeen } from "./tour.js";
 import Term from "./Term.jsx";
 
@@ -163,8 +164,9 @@ export default function Explore({ meta, start, initial, user, onSignIn, onPrivac
       <RunBar meta={meta} start={start} wantSample={wantTour && !res} onResult={(r, t) => { setRes(r); setTook(t); setSel(null); setTab("overview"); }} />
       {res && (
         <>
+          {res.draft && <DraftNote d={res.draft} />}
           <div className="result-bar">
-            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored{initial === res ? `. Reopened from My runs: ${res.saved_run?.name || "saved run"}` : ` in ${took < 1 ? "under a second" : `${Math.round(took)} s`}`}. Scorer {res.provenance.config_status}.
+            <p className="runinfo">{res.ssp_name}: {scored.length} pairs scored{initial === res && res.saved_run && !res.draft ? `. Reopened from My runs: ${res.saved_run.name}` : initial === res ? "" : ` in ${took < 1 ? "under a second" : `${Math.round(took)} s`}`}. Scorer {res.provenance.config_status}.
               {res.saved_run?.id && initial !== res && <span className="saved"> Saved to My runs.</span>}
               {res.saved_run && !res.saved_run.id && <span className="saved warn"> {res.saved_run.note}</span>}
               {!user && <> <button className="link" onClick={onSignIn}>Sign in</button> to keep a history of your runs.</>}</p>

@@ -134,6 +134,11 @@ runs on Gemini's free tier, where Google may use and review what is sent, so the
 only the built-in sample document and only admins can draft their own text. Sample drafts are stored
 after the first call, so repeat visits do not use the quota.
 
+Before scoring, the draft is shown for review: each statement can be corrected, marked as a known gap
+or removed, and the PDPA role can be set. A scored draft carries a label with the model version, the
+source document and the number of changes, shown in the results and the printed report. For the
+sample, the draft's headline is shown next to the hand-written FleetTrack plan's.
+
 ### Deployment
 The `Dockerfile` builds a CPU-only image with the embedding model downloaded at the pinned
 revision, so the container runs offline. The public instance is deployed from this repository:
