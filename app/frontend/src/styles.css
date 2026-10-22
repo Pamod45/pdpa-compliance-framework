@@ -506,3 +506,12 @@ html.present .tuple span { font-size: 1.15em; }
 .primary.danger { background: var(--flag); } .primary.danger:hover:not(:disabled) { background: #74305a; }
 .auth-form label.check { flex-direction: row; align-items: center; gap: 0.5rem; font-weight: 400; }
 .save-note { margin-top: 0.4rem; }
+
+/* draft an SSP */
+.draft { max-width: 1100px; }
+.draft-in { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 1rem 1.2rem; margin-bottom: 1.2rem; }
+.draft-pick { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+.draft-doc { white-space: pre-wrap; font-family: var(--serif); font-size: 0.88rem; line-height: 1.5; max-height: 18rem; overflow: auto; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0.8rem 1rem; margin: 0 0 0.8rem; }
+.draft-text { width: 100%; font: inherit; padding: 0.6rem; border: 1px solid #b5c2ca; border-radius: var(--r-sm); margin-bottom: 0.6rem; }
+.draft-out .note ul { margin: 0.3rem 0 0; padding-left: 1.2rem; }
+.draft-out .ctable td:first-child { white-space: nowrap; }
