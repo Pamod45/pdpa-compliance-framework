@@ -35,6 +35,7 @@ function RunRow({ r, onOpen, onChanged, picked, onPick }) {
       </div>
       <div className="hactions">
         <button className="primary" disabled={busy} onClick={() => act(async () => onOpen(await api.getRun(r.id)))}>Open</button>
+        <button className="ghost" disabled={busy} onClick={() => act(async () => onOpen(await api.getRun(r.id), true))}>Report</button>
         <button className="ghost" disabled={busy} onClick={() => setEditing(true)}>Rename</button>
         <button className="ghost danger" disabled={busy}
                 onClick={() => window.confirm(`Delete "${r.name}"? This cannot be undone.`) && act(async () => { await api.deleteRun(r.id); onChanged(); })}>Delete</button>

@@ -252,7 +252,7 @@ textarea { font: inherit; width: 100%; max-width: 720px; min-height: 64px; paddi
   .shell { display: block; } .main { padding: 0; max-width: none; }
   body { background: #fff; font-size: 11pt; }
   .report { border: 0; padding: 0; max-width: none; }
-  .rp-sec { break-inside: avoid-page; } .rp-t tr { break-inside: avoid; }
+  .rp-sec h2 { break-after: avoid; } .rp-t tr { break-inside: avoid; } .rp-stamp { break-inside: avoid; }
   .sbar, .legend .sw { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
@@ -479,3 +479,16 @@ html.present .tuple span { font-size: 1.15em; }
 .ctable tr.same td { color: var(--muted); }
 .ctable .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); margin-right: 0.3rem; }
 @media (max-width: 900px) { .hrow { grid-template-columns: auto minmax(0, 1fr); } .cruns { grid-template-columns: 1fr; } .cruns .arrow { display: none; } }
+
+/* report and print additions */
+.rp-logo { display: block; height: 44px; width: auto; margin-bottom: 0.8rem; }
+.rp-headline { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; margin: 0.6rem 0 0.3rem; font-size: 0.95rem; }
+.rp-headline b { font-size: 1.25rem; margin: 0 0.2rem; }
+.print-only { display: none; }
+.hactions { flex-wrap: wrap; }
+@media print {
+  .print-only { display: block; }
+  .compare .ctable tr { break-inside: avoid; }
+  .compare .cstats, .compare .cruns { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hpick, .compare label.small { display: none; }
+}

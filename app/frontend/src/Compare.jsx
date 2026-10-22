@@ -38,8 +38,12 @@ export default function Compare({ ids, onBack }) {
   return (
     <div className="compare">
       <header className="page-head"><h1>Compare two runs</h1>
+        <p className="print-only small">Printed {new Date().toLocaleString()} from PCEF. Decision support, not a legal opinion.</p>
         <p>The older run is shown as before, the newer one as after. Realization reads the plan's text, so most changes between versions of a plan show up there; Alignment reads the law and the NIST catalog.</p></header>
-      <button className="link" onClick={onBack}>← Back to My runs</button>
+      <div className="report-tools no-print">
+        <button className="primary" onClick={() => window.print()}>Print or save as PDF</button>
+        <button className="link" onClick={onBack}>← Back to My runs</button>
+      </div>
       <div className="cruns">
         <div><span className="small">Before</span><h3>{c.before.name}</h3><p className="small">{c.before.ssp_name} · {when(c.before.created_utc)}</p></div>
         <div className="arrow" aria-hidden="true">→</div>

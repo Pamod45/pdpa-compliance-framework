@@ -87,7 +87,7 @@ export default function App() {
         {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} initial={opened} user={user} onSignIn={() => go("account")} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
-        {view === "history" && <History user={user} onOpen={(r) => go("explore", null, r)} onSignIn={() => go("account")}
+        {view === "history" && <History user={user} onOpen={(r, asReport) => go("explore", asReport ? "report" : null, r)} onSignIn={() => go("account")}
                                               onCompare={(ids) => { setComparing(ids); go("compare"); }} />}
         {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
         {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} />}
