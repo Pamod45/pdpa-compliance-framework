@@ -7,7 +7,7 @@ Environment variables (all optional; defaults suit a local run):
   HOST, PORT               bind address and port (default 127.0.0.1:8000)
   PCEF_EMBEDDER            sbert (default) or tfidf
   PCEF_MODEL_REVISION      pin the embedding model to an exact revision
-  PCEF_DATA_DIR            where panel responses are written (default outputs/panel)
+  PCEF_DATA_DIR            folder for panel responses and the account database (default outputs/panel)
   PCEF_PANEL_WRITES        set to 0 to stop accepting panel responses
   PCEF_ADMIN_EMAILS        comma-separated admin emails; when set, the expert panel is for admins only
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
