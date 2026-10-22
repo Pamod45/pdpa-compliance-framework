@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { api } from "./api.js";
-import { download } from "./summary.js";
+import { download, summarise } from "./summary.js";
+import { api, f2 } from "./api.js";
 
 const when = (iso) => new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 
@@ -12,26 +12,109 @@ export function draftRows(ssp) {
                                       description: b.description, remarks: b.remarks || "" }))));
 }
 
-function Result({ out }) {
-  const rows = draftRows(out.ssp);
+function rebuild(ssp, rows, role) {
+  const copy = JSON.parse(JSON.stringify(ssp));
+  const s = copy["system-security-plan"];
+  s["system-characteristics"].props = role ? [{ name: "pdpa-role", value: role }] : [];
+  for (const ir of s["control-implementation"]["implemented-requirements"]) {
+    for (const st of ir.statements) {
+      st["by-components"] = rows.filter((r) => !r.removed && r.control === ir["control-id"] && r.statement === st["statement-id"])
+        .map((r) => ({ ...r.raw, description: r.description, ...(r.remarks ? { remarks: r.remarks } : { remarks: undefined }) }));
+    }
+    ir.statements = ir.statements.filter((st) => st["by-components"].length > 0);
+  }
+  s["control-implementation"]["implemented-requirements"] = s["control-implementation"]["implemented-requirements"].filter((ir) => ir.statements.length > 0);
+  return copy;
+}
+
+function Headline({ label, s }) {
+  return (
+    <div className="dh">
+      <span className="small">{label}</span>
+      <b>{s.counts.built}</b> <span className="small">of {s.duties.length} covered and built</span>
+      <span className="hs a">A <b>{f2(s.averages.alignment)}</b></span> <span className="hs r">R <b>{f2(s.averages.realization)}</b></span>
+    </div>
+  );
+}
+
+function Result({ out, meta, sampleId, onOpenResult }) {
   const pv = out.provenance;
-  const name = out.ssp["system-security-plan"]["system-characteristics"]["system-name"];
+  const ssp0 = out.ssp["system-security-plan"];
+  const name = ssp0["system-characteristics"]["system-name"];
+  const start = draftRows(out.ssp).map((r, i) => ({ ...r, id: i, raw: ssp0["control-implementation"]["implemented-requirements"]
+    .find((ir) => ir["control-id"] === r.control).statements.find((st) => st["statement-id"] === r.statement)["by-components"]
+    .find((b) => b.description === r.description), removed: false }));
+  const [rows, setRows] = useState(start);
+  const [role, setRole] = useState((ssp0["system-characteristics"].props || []).find((p) => p.name === "pdpa-role")?.value || "");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const [scored, setScored] = useState(null);
+  const edits = rows.filter((r, i) => r.removed || r.description !== start[i].description || r.remarks !== start[i].remarks).length
+    + (role !== ((ssp0["system-characteristics"].props || []).find((p) => p.name === "pdpa-role")?.value || "") ? 1 : 0);
+  const set = (id, patch) => setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  const edited = () => rebuild(out.ssp, rows, role);
+
+  async function score() {
+    setBusy(true); setErr(""); setScored(null);
+    try {
+      const ids = meta.clauses.map((c) => c.id).join(",");
+      const fd = new FormData();
+      fd.append("clause_ids", ids);
+      fd.append("ssp", new Blob([JSON.stringify(edited())], { type: "application/json" }), `LLM draft (reviewed) - ${name}.json`);
+      fd.append("draft_provenance", JSON.stringify({ ...pv, edits }));
+      const res = await api.run(fd);
+      let base = null;
+      if (sampleId === "fleettrack") {
+        const bf = new FormData();
+        bf.append("clause_ids", ids); bf.append("use_sample", "true"); bf.append("dont_save", "true");
+        base = await api.run(bf);
+      }
+      setScored({ res, base });
+    } catch (e) { setErr(e.message); } finally { setBusy(false); }
+  }
+
   return (
     <section className="draft-out">
-      <div className="row-head"><h2>Draft SSP: {name}</h2>
-        <button className="ghost" onClick={() => download(`draft_ssp_${name.replace(/\W+/g, "_").toLowerCase()}.json`, JSON.stringify(out.ssp, null, 2), "application/json")}>Download OSCAL JSON</button></div>
-      <p className="small">Drafted by {pv.model_version || pv.model} on {when(pv.generated_utc)} from "{pv.source}"{out.cached ? " (stored draft, no new model call)" : ""}. The draft passed PCEF's SSP parser. It is a starting point to review, not a finished plan.</p>
+      <div className="row-head"><h2>Review the draft: {name}</h2>
+        <button className="ghost" onClick={() => download(`draft_ssp_${name.replace(/\W+/g, "_").toLowerCase()}.json`, JSON.stringify(edited(), null, 2), "application/json")}>Download OSCAL JSON</button></div>
+      <p className="small">Drafted by {pv.model_version || pv.model} on {when(pv.generated_utc)} from "{pv.source}"{out.cached ? " (stored draft, no new model call)" : ""}. The draft passed PCEF's SSP parser. Check each statement against the document: correct the text, mark gaps, or remove statements the document does not support. Then score it.</p>
       {out.warnings.length > 0 && (
         <div className="note"><b>Checks on the draft</b><ul>{out.warnings.map((w) => <li key={w}>{w}</li>)}</ul></div>)}
-      <table className="ctable"><thead><tr><th>Control part</th><th>Component</th><th>Drafted implementation text</th></tr></thead>
-        <tbody>{rows.map((r, i) => (
-          <tr key={i}><td><b>{r.statement}</b></td><td className="small">{r.component?.title}{r.component?.status?.state !== "operational" ? " (not operational)" : ""}</td>
-            <td>{r.description}{r.remarks && <span className="chip warn"> {r.remarks}</span>}</td></tr>))}</tbody></table>
+      <label className="draft-role">PDPA role of the organisation{" "}
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value="">Not stated</option><option value="controller">Controller</option>
+          <option value="processor">Processor</option><option value="controller,processor">Controller and processor</option>
+        </select></label>
+      <table className="ctable draft-edit"><thead><tr><th>Control part</th><th>Implementation text (editable)</th><th>Gap</th><th /></tr></thead>
+        <tbody>{rows.map((r) => (
+          <tr key={r.id} className={r.removed ? "removed" : ""}>
+            <td><b>{r.statement}</b><div className="small">{r.component?.title}</div></td>
+            <td><textarea rows={3} value={r.description} disabled={r.removed} onChange={(e) => set(r.id, { description: e.target.value })} aria-label={`Text for ${r.statement}`} /></td>
+            <td><label className="small"><input type="checkbox" checked={/known gap/i.test(r.remarks)} disabled={r.removed}
+                  onChange={(e) => set(r.id, { remarks: e.target.checked ? "KNOWN GAP" : "" })} /> known gap</label></td>
+            <td><button className="link" onClick={() => set(r.id, { removed: !r.removed })}>{r.removed ? "Restore" : "Remove"}</button></td>
+          </tr>))}</tbody></table>
+      <div className="row-actions">
+        <button className="primary" disabled={busy || rows.every((r) => r.removed)} onClick={score}>{busy ? "Scoring..." : "Score this draft"}</button>
+        <span className="small">{edits === 0 ? "No changes yet." : `${edits} change${edits === 1 ? "" : "s"} made.`} The result is labelled as LLM-drafted and reviewed by you.</span>
+      </div>
+      {err && <p className="alert">{err}</p>}
+      {scored && (() => {
+        const sd = summarise(scored.res), sb = scored.base && summarise(scored.base);
+        return (
+          <div className="draft-scored">
+            <h3>Scored with the frozen scorer</h3>
+            <Headline label="LLM draft, reviewed" s={sd} />
+            {sb && <Headline label="Hand-written FleetTrack plan" s={sb} />}
+            {sb && <p className="small">Both use the same scorer and clauses. Differences come from what the draft says, so they show how much an LLM draft from a short prose overview captures compared with the full hand-written plan.</p>}
+            <button className="primary" onClick={() => onOpenResult(scored.res)}>Open the full results</button>
+          </div>);
+      })()}
     </section>
   );
 }
 
-export default function Draft() {
+export default function Draft({ meta, onOpenResult }) {
   const [status, setStatus] = useState(null);
   const [samples, setSamples] = useState([]);
   const [pick, setPick] = useState(null);
@@ -43,8 +126,9 @@ export default function Draft() {
     api.draftStatus().then(setStatus).catch((e) => setErr(e.message));
     api.draftSamples().then((s) => { setSamples(s); setPick(s[0]?.id || null); }).catch(() => {});
   }, []);
+  const [lastSample, setLastSample] = useState(null);
   async function run(body) {
-    setBusy(true); setErr(""); setOut(null);
+    setBusy(true); setErr(""); setOut(null); setLastSample(body.text ? null : body.sample_id);
     try { setOut(await api.draft(body)); } catch (e) { setErr(e.message); } finally { setBusy(false); }
   }
   const sample = samples.find((s) => s.id === pick);
@@ -80,7 +164,7 @@ export default function Draft() {
 
       {busy && <p className="progress"><span className="spinner" aria-hidden="true" />Asking the model and checking its draft. This can take up to a minute.</p>}
       {err && <p className="alert">{err}</p>}
-      {out && <Result out={out} />}
+      {out && meta && <Result key={out.provenance.generated_utc} out={out} meta={meta} sampleId={lastSample} onOpenResult={onOpenResult} />}
     </div>
   );
 }
