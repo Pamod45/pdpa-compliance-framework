@@ -12,6 +12,7 @@ Environment variables (all optional; defaults suit a local run):
   PCEF_MAX_UPLOAD_MB       largest SSP upload accepted (default 5)
   PCEF_OPEN_BROWSER        set to 0 to stop opening a browser on start-up
   PCEF_WARM_SAMPLE         set to 0 to skip scoring the sample in the background on start-up
+  PCEF_DB                  account database file (default <PCEF_DATA_DIR>/pcef.sqlite3, else instance/)
 
 Explore: upload an SSP, pick clauses, run the frozen v1.1 pipeline, trace every score.
 Panel:   the fixed panel pack (validation/build_panel_pack.py), blind rating first, answers saved.
@@ -42,6 +43,7 @@ from pcef.pipeline.embedder import make_embedder
 from pcef.pipeline.gates import ROLE_PROP, applicability_gate, parse_roles
 from pcef.pipeline.run import DEFAULTS, run
 
+from . import auth
 from .enrich import ROOT, pair_context, profiles, unit_lookup
 
 EMBEDDER = os.environ.get("PCEF_EMBEDDER", "sbert")
@@ -102,6 +104,7 @@ async def lifespan(_app):
 
 
 app = FastAPI(title="PCEF", lifespan=lifespan)
+app.include_router(auth.router)
 
 
 @app.get("/api/meta")

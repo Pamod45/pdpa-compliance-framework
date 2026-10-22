@@ -433,3 +433,15 @@ html.present .tuple span { font-size: 1.15em; }
   .wt-cards, .wt-gates, .wt-measures, .wt-combine { grid-template-columns: 1fr; }
   .wt-flow, .wt-pairs { grid-template-columns: 1fr; } .wt-arrow { transform: rotate(90deg); justify-self: center; }
 }
+
+/* accounts */
+.account-link { display: flex; flex-direction: column; align-items: flex-start; overflow-wrap: anywhere; }
+.account-link .small { color: #8fa1ad; font-size: 0.72rem; }
+.auth-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 1.2rem 1.4rem; max-width: 26rem; display: flex; flex-direction: column; gap: 0.9rem; }
+.auth-form label { display: flex; flex-direction: column; gap: 0.3rem; font-weight: 500; font-size: 0.92rem; }
+.auth-form input { font: inherit; padding: 0.55rem 0.65rem; border: 1px solid #b5c2ca; border-radius: var(--r-sm); background: #fff; color: var(--ink); }
+.auth-form input:focus { outline: 2px solid var(--align); outline-offset: 1px; border-color: var(--align); }
+.auth-form .small { font-weight: 400; }
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+.auth-tabs button { background: var(--paper); border: 0; padding: 0.5rem; color: var(--muted); }
+.auth-tabs button.on { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--align); }
