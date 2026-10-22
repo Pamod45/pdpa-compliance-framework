@@ -7,6 +7,7 @@ import Learn from "./Learn.jsx";
 import Landing from "./Landing.jsx";
 import Account from "./Account.jsx";
 import History from "./History.jsx";
+import Compare from "./Compare.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
@@ -22,6 +23,7 @@ export default function App() {
   const [topic, setTopic] = useState("read");
   const [visit, setVisit] = useState(0);         // a fresh Explore each time it is opened
   const [opened, setOpened] = useState(null);    // a saved run to show in Explore
+  const [comparing, setComparing] = useState(null);
   const go = (v, how = null, run = null) => { setStart(how); setOpened(run); setView(v); setVisit((n) => n + 1); window.scrollTo(0, 0); };
   const [present, setPresent] = useState(() => {
     try { return new URLSearchParams(window.location.search).has("present") || window.localStorage.getItem("pcef.present") === "1"; }
@@ -85,7 +87,9 @@ export default function App() {
         {meta && view === "explore" && <Explore key={visit} meta={meta} start={start} initial={opened} user={user} onSignIn={() => go("account")} />}
         {meta && view === "panel" && <Panel meta={meta} />}
         {view === "how" && <HowItWorks meta={meta} onSample={() => go("explore", "sample")} />}
-        {view === "history" && <History user={user} onOpen={(r) => go("explore", null, r)} onSignIn={() => go("account")} />}
+        {view === "history" && <History user={user} onOpen={(r) => go("explore", null, r)} onSignIn={() => go("account")}
+                                              onCompare={(ids) => { setComparing(ids); go("compare"); }} />}
+        {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
         {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>

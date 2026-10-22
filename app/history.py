@@ -72,6 +72,63 @@ def summarise(res: dict) -> dict:
             "pairs_scored": sum(p["status"] == "scored" for p in res["pairs"])}
 
 
+def duty_status(res: dict) -> dict[str, dict]:
+    """Each duty's reading-guide group and best-fitting control, as the overview sorts them."""
+    by_unit: dict[str, list[dict]] = {}
+    for p in res["pairs"]:
+        by_unit.setdefault(p["unit_id"], []).append(p)
+    out = {}
+    for u in res["units"]:
+        if u["unit_type"] in NON_DUTY:
+            continue
+        ps = by_unit.get(u["unit_id"], [])
+        scored = sorted((p for p in ps if p["status"] == "scored"), key=lambda p: p["tuple"]["alignment"], reverse=True)
+        if not u["scored"]:
+            status = "notscored"
+        elif not ps:
+            status = "none"
+        elif not scored:
+            status = "excluded"
+        else:
+            t = scored[0]["tuple"]
+            status = "weak" if t["alignment"] < GUIDE else "built" if (t["realization"] or 0) >= GUIDE else "paper"
+        out[u["unit_id"]] = {"status": status, "clause_id": u["clause_id"], "obligation": u["obligation"],
+                             "best": scored[0]["control_id"] if scored else None}
+    return out
+
+
+def compare(before: dict, after: dict) -> dict:
+    """Pair-by-pair and duty-by-duty differences between two results."""
+    def pairs(res):
+        return {(p["unit_id"], p["control_id"]): p for p in res["pairs"]}
+    pb, pa = pairs(before), pairs(after)
+    rows = []
+    for k in sorted(set(pb) | set(pa)):
+        b, a = pb.get(k), pa.get(k)
+        tb = b["tuple"] if b and b["status"] == "scored" else None
+        ta = a["tuple"] if a and a["status"] == "scored" else None
+        r3 = lambda x: None if x is None else round(x, 3)     # differences below 0.001 are not shown as changes
+        row = {"unit_id": k[0], "control_id": k[1], "title": (a or b)["control_title"],
+               "before": {"status": b["status"] if b else "absent", "alignment": tb and r3(tb["alignment"]), "realization": tb and r3(tb["realization"])},
+               "after": {"status": a["status"] if a else "absent", "alignment": ta and r3(ta["alignment"]), "realization": ta and r3(ta["realization"])}}
+        if tb and ta:
+            row["d_alignment"] = round(row["after"]["alignment"] - row["before"]["alignment"], 3)
+            row["d_realization"] = round((row["after"]["realization"] or 0) - (row["before"]["realization"] or 0), 3)
+        row["changed"] = row["before"] != row["after"]
+        rows.append(row)
+    rows.sort(key=lambda r: (not r["changed"], -abs(r.get("d_realization") or 0), -abs(r.get("d_alignment") or 0)))
+    db, da = duty_status(before), duty_status(after)
+    duties = [{"unit_id": u, **da.get(u, db.get(u)), "before": db.get(u, {}).get("status"), "after": da.get(u, {}).get("status")}
+              for u in sorted(set(db) | set(da)) if db.get(u, {}).get("status") != da.get(u, {}).get("status")]
+    for d in duties:
+        d.pop("status", None)
+    prov = lambda r: (r["provenance"]["config_status"], r["provenance"]["embedder"]["model_id"], r["provenance"]["embedder"].get("revision"))
+    return {"summary": {"before": summarise(before), "after": summarise(after)},
+            "same_scorer": prov(before) == prov(after),
+            "same_clauses": sorted({u["clause_id"] for u in before["units"]}) == sorted({u["clause_id"] for u in after["units"]}),
+            "duties": duties, "pairs": rows, "unchanged": sum(not r["changed"] for r in rows)}
+
+
 def save(user: dict, body: bytes, clause_ids: list[str]) -> bytes:
     """Store a result for this user and return it with a `saved_run` note added."""
     res = json.loads(body)
@@ -108,6 +165,29 @@ def list_runs(request: Request):
                            "FROM runs WHERE user_id = ? ORDER BY created_utc DESC, id DESC", (user["id"],)).fetchall()
     return {"limit": MAX_RUNS, "runs": [{**dict(r), "clause_ids": r["clause_ids"].split(","),
                                          "summary": json.loads(r["summary"])} for r in rows]}
+
+
+def _load(con, user: dict, run_id: int) -> tuple[dict, dict]:
+    row = con.execute("SELECT id, name, created_utc, ssp_name, result FROM runs WHERE id = ? AND user_id = ?",
+                      (run_id, user["id"])).fetchone()
+    if not row:
+        raise HTTPException(404, "That saved run was not found.")
+    meta = {"id": row["id"], "name": row["name"], "created_utc": row["created_utc"], "ssp_name": row["ssp_name"]}
+    return meta, json.loads(zlib.decompress(row["result"]))
+
+
+@router.get("/compare")
+def compare_runs(a: int, b: int, request: Request):
+    """Compare two of the user's runs; the older one is treated as 'before'."""
+    user = _owner(request)
+    if a == b:
+        raise HTTPException(400, "Choose two different runs to compare.")
+    with connect() as con:
+        _table(con)
+        ma, ra = _load(con, user, a)
+        mb, rb = _load(con, user, b)
+    (m1, r1), (m2, r2) = sorted([(ma, ra), (mb, rb)], key=lambda x: (x[0]["created_utc"], x[0]["id"]))
+    return {"before": m1, "after": m2, **compare(r1, r2)}
 
 
 @router.get("/{run_id}")
