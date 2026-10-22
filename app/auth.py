@@ -201,5 +201,6 @@ def delete_account(c: Confirm, request: Request, response: Response):
 
 @router.get("/me")
 def me(request: Request):
+    from .admin import is_admin
     u = current_user(request)
-    return {"email": u["email"] if u else None}
+    return {"email": u["email"] if u else None, "admin": is_admin(u)}

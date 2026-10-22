@@ -9,6 +9,7 @@ import Account from "./Account.jsx";
 import History from "./History.jsx";
 import Compare from "./Compare.jsx";
 import Privacy from "./Privacy.jsx";
+import Admin from "./Admin.jsx";
 
 const VIEWS = [
   { id: "home", label: "Home" },
@@ -35,7 +36,9 @@ export default function App() {
     try { window.localStorage.setItem("pcef.present", present ? "1" : "0"); } catch { /* storage unavailable */ }
   }, [present]);
   const [user, setUser] = useState(null);
-  useEffect(() => { api.me().then((r) => setUser(r.email)).catch(() => {}); }, []);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const refreshMe = () => api.me().then((r) => { setUser(r.email); setIsAdmin(!!r.admin); }).catch(() => {});
+  useEffect(() => { refreshMe(); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   const [meta, setMeta] = useState(null);
   const [err, setErr] = useState("");
   const [tries, setTries] = useState(0);
@@ -60,7 +63,9 @@ export default function App() {
           </div>
         </div>
         <nav aria-label="Sections">
-          {[...VIEWS.slice(0, 2), ...(user ? [{ id: "history", label: "My runs" }] : []), ...VIEWS.slice(2)].map((v) => (
+          {[...VIEWS.slice(0, 2), ...(user ? [{ id: "history", label: "My runs" }] : []), ...VIEWS.slice(2)]
+            .filter((v) => v.id !== "panel" || (meta && meta.panel_available && (!meta.panel_restricted || isAdmin)))
+            .concat(isAdmin ? [{ id: "admin", label: "Admin" }] : []).map((v) => (
             <button key={v.id} data-nav={v.id} className={"nav-item" + (view === v.id ? " on" : "")} onClick={() => go(v.id)}>{v.label}</button>
           ))}
           <button className="nav-item tour-link" onClick={() => go("explore", "tour")} disabled={!meta}>Take the tour</button>
@@ -92,7 +97,8 @@ export default function App() {
         {view === "history" && <History user={user} onOpen={(r, asReport) => go("explore", asReport ? "report" : null, r)} onSignIn={() => go("account")}
                                               onCompare={(ids) => { setComparing(ids); go("compare"); }} />}
         {view === "compare" && comparing && <Compare ids={comparing} onBack={() => go("history")} />}
-        {view === "account" && <Account user={user} onUser={(u) => { setUser(u); if (u) go("home"); }} onPrivacy={() => go("privacy")} />}
+        {view === "account" && <Account user={user} onUser={(u) => { setUser(u); refreshMe(); if (u) go("home"); }} onPrivacy={() => go("privacy")} />}
+        {view === "admin" && isAdmin && <Admin onPanel={() => go("panel")} />}
         {view === "privacy" && <Privacy meta={meta} user={user} onAccount={() => go("account")} />}
         {view === "learn" && <Learn key={topic} start={topic} onSample={meta ? () => go("explore", "sample") : undefined} />}
       </main>

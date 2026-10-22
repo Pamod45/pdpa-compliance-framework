@@ -22,6 +22,8 @@ export const api = {
   renameRun: (id, name) => req(`/api/runs/${id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name }) }),
   deleteRun: (id) => req(`/api/runs/${id}`, { method: "DELETE" }),
   compareRuns: (a, b) => req(`/api/runs/compare?a=${a}&b=${b}`),
+  adminUsers: () => req("/api/admin/users"),
+  adminDeleteUser: (id) => req(`/api/admin/users/${id}`, { method: "DELETE" }),
   deleteAccount: (password) => req("/api/auth/delete", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ password }) }),
   panelItems: () => req("/api/panel/items"),
   panelProgress: (expert) => req(`/api/panel/progress?expert=${encodeURIComponent(expert)}`),
