@@ -460,3 +460,22 @@ html.present .tuple span { font-size: 1.15em; }
 .hrename { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.2rem; }
 .hrename input { font: inherit; padding: 0.35rem 0.5rem; border: 1px solid #b5c2ca; border-radius: var(--r-sm); flex: 1; min-width: 0; }
 @media (max-width: 900px) { .hrow { grid-template-columns: 1fr; } }
+
+/* compare runs */
+.hrow { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+.hrow.picked { border-color: var(--align); box-shadow: 0 0 0 1px var(--align); }
+.hpick input { width: 1.1rem; height: 1.1rem; accent-color: var(--align); }
+.hbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem 1rem; }
+.cruns { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 0.9rem 1.1rem; margin: 0.8rem 0 1rem; }
+.cruns h3 { margin: 0.1rem 0; } .cruns .arrow { font-size: 1.5rem; color: #9aa9b3; }
+.cstats { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
+.cstat { border-radius: var(--r-md); padding: 0.7rem 1rem; display: flex; flex-direction: column; gap: 0.15rem; min-width: 12rem; background: var(--paper); border: 1px solid var(--line); }
+.cstat span:first-child { font-size: 0.84rem; color: var(--muted); } .cstat b { font-size: 1.35rem; }
+.cstat.a { background: var(--align-soft); border-color: transparent; } .cstat.r { background: var(--real-soft); border-color: transparent; }
+.delta { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82rem; }
+.delta.up { color: var(--real); } .delta.down { color: var(--flag); } .delta.same, .delta.none { color: var(--muted); }
+.ctable { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); margin: 0.5rem 0 1.4rem; font-size: 0.88rem; }
+.ctable th, .ctable td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ctable tr.same td { color: var(--muted); }
+.ctable .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); margin-right: 0.3rem; }
+@media (max-width: 900px) { .hrow { grid-template-columns: auto minmax(0, 1fr); } .cruns { grid-template-columns: 1fr; } .cruns .arrow { display: none; } }

@@ -74,3 +74,27 @@ def test_run_limit(client, monkeypatch):
     assert client.post("/api/run", data=RUN).json()["saved_run"]["id"]
     second = client.post("/api/run", data=RUN).json()["saved_run"]
     assert second["id"] is None and "Delete some" in second["note"]
+
+
+def test_compare_two_runs(client):
+    sign_up(client)
+    before = client.post("/api/run", data=RUN).json()["saved_run"]["id"]
+    variant = Path(__file__).resolve().parents[1] / "data/raw/ssps/fleettrack_variants/fleettrack_partial.json"
+    with variant.open("rb") as fh:
+        after = client.post("/api/run", data={"clause_ids": "PDPA-s10"},
+                            files={"ssp": ("partial.json", fh, "application/json")}).json()["saved_run"]["id"]
+    c = client.get(f"/api/runs/compare?a={after}&b={before}").json()
+    assert c["before"]["id"] == before and c["after"]["id"] == after       # oldest first, whatever the order asked
+    assert c["same_scorer"] and c["same_clauses"]
+    assert c["unchanged"] + sum(r["changed"] for r in c["pairs"]) == len(c["pairs"])
+    assert any(r["changed"] for r in c["pairs"])                           # the partial plan scores differently
+    assert client.get(f"/api/runs/compare?a={before}&b={before}").status_code == 400
+
+
+def test_same_plan_twice_has_no_changes(client):
+    sign_up(client)
+    a = client.post("/api/run", data=RUN).json()["saved_run"]["id"]
+    b = client.post("/api/run", data=RUN).json()["saved_run"]["id"]
+    c = client.get(f"/api/runs/compare?a={a}&b={b}").json()
+    assert c["duties"] == [] and c["unchanged"] == len(c["pairs"])
+    assert c["summary"]["before"] == c["summary"]["after"]

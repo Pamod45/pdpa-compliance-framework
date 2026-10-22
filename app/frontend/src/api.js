@@ -21,6 +21,7 @@ export const api = {
   getRun: (id) => req(`/api/runs/${id}`),
   renameRun: (id, name) => req(`/api/runs/${id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name }) }),
   deleteRun: (id) => req(`/api/runs/${id}`, { method: "DELETE" }),
+  compareRuns: (a, b) => req(`/api/runs/compare?a=${a}&b=${b}`),
   panelItems: () => req("/api/panel/items"),
   panelProgress: (expert) => req(`/api/panel/progress?expert=${encodeURIComponent(expert)}`),
   panelSave: (rec) => req("/api/panel/response", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(rec) }),
