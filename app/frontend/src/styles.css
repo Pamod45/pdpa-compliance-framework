@@ -529,3 +529,26 @@ html.present .tuple span { font-size: 1.15em; }
 
 .consent { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.88rem; margin-bottom: 0.7rem; max-width: 70ch; }
 .consent input { margin-top: 0.2rem; accent-color: var(--align); }
+
+/* learn: method reference */
+.learn-group { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.9rem 0 0.2rem 0.7rem; }
+.learn-group:first-child { margin-top: 0; }
+.learn-body .lt { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.4rem 0 0.9rem; }
+.learn-body .lt th, .learn-body .lt td { text-align: left; vertical-align: top; padding: 0.4rem 0.55rem; border-bottom: 1px solid var(--line); }
+.learn-body .small-t { font-size: 0.8rem; } .learn-body .small-t td, .learn-body .small-t th { padding: 0.25rem 0.4rem; }
+.formula { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.84rem; background: var(--paper); border-left: 3px solid var(--align); padding: 0.55rem 0.8rem; border-radius: var(--r-sm); margin: 0.5rem 0 0.8rem; line-height: 1.6; overflow-x: auto; }
+.mcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 0.8rem; margin: 0.6rem 0 1rem; }
+.mcard { border: 1px solid var(--line); border-top: 3px solid var(--align); border-radius: var(--r-sm); padding: 0.75rem 0.9rem; min-width: 0; }
+.mcard h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+.walk-link { margin-top: 0.4rem; }
+.faq dt, .glossary dt { font-weight: 600; margin-top: 0.8rem; }
+.faq dd, .glossary dd { margin: 0.2rem 0 0; color: var(--ink); }
+.glossary dt { margin-top: 0.55rem; }
+.learn-body:has(.mcards) { max-width: none; }
+/* sidebar: scroll instead of cutting off on short screens */
+.side { overflow-y: auto; overscroll-behavior: contain; gap: 1.2rem; }
+.side nav { display: flex; flex-direction: column; flex: none; }
+.side .prov { flex: none; padding-top: 0.8rem; }
+@media (max-height: 820px) { .side { gap: 0.8rem; padding-top: 1rem; padding-bottom: 1rem; } .side .nav-item { padding-top: 0.42rem; padding-bottom: 0.42rem; } }
+.mcard.wide { grid-column: 1 / -1; }
+.tscroll { overflow-x: auto; }

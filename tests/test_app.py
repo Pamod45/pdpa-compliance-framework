@@ -26,8 +26,15 @@ def test_meta_and_run_and_bad_upload():
         assert c.post("/api/run", data={"clause_ids": ""}).status_code in (400, 422)
 
 
-def test_panel_rejects_out_of_range():
+def as_admin(c, monkeypatch, tmp_path):
+    monkeypatch.setenv("PCEF_DB", str(tmp_path / "test.sqlite3"))
+    monkeypatch.setenv("PCEF_ADMIN_EMAILS", "owner@example.com")
+    assert c.post("/api/auth/signup", json={"email": "owner@example.com", "password": "correct horse battery"}).status_code == 200
+
+
+def test_panel_rejects_out_of_range(monkeypatch, tmp_path):
     with TestClient(app) as c:
+        as_admin(c, monkeypatch, tmp_path)
         r = c.post("/api/panel/response", json={"expert": "T", "pair": "p", "pack_sha256": "x", "blind_alignment": 1.5,
                                                 "blind_realization": 0, "confidence": "low",
                                                 "defensible_alignment": "pcef", "defensible_realization": "pcef"})
@@ -35,11 +42,12 @@ def test_panel_rejects_out_of_range():
         assert not PANEL_OUT.exists() or "1.5" not in PANEL_OUT.read_text()
 
 
-def test_upload_size_limit_and_closed_panel(monkeypatch):
+def test_upload_size_limit_and_closed_panel(monkeypatch, tmp_path):
     import app.server as srv
     monkeypatch.setattr(srv, "MAX_UPLOAD_BYTES", 10)
     monkeypatch.setattr(srv, "PANEL_WRITES", False)
     with TestClient(app) as c:
+        as_admin(c, monkeypatch, tmp_path)
         big = c.post("/api/run", data={"clause_ids": "PDPA-s10"}, files={"ssp": ("x.json", b"{" + b" " * 50 + b"}", "application/json")})
         assert big.status_code == 413
         r = c.post("/api/panel/response", json={"expert": "T", "pair": "p", "pack_sha256": "x", "blind_alignment": 0.5,
@@ -72,3 +80,11 @@ def test_walkthrough_follows_two_sample_pairs():
         assert w["ssp"]["roles"] == ["controller", "processor"]
         assert all(k["role_check_other"]["passed"] is False for k in w["cases"])   # controller duties drop for a processor-only plan
         assert all(k["ssp_entry"]["control-id"] == k["pair"]["control_id"] for k in w["cases"])
+
+
+def test_meta_serves_the_frozen_constants():
+    with TestClient(app) as c:
+        k = c.get("/api/meta").json()
+    assert len(k["config_sha256"]) == 12
+    assert k["constants"]["compatibility"]["technical"]["technical"] == 1.0
+    assert k["constants"]["specificity_full_words"] > 0 and k["constants"]["negation_cues"]

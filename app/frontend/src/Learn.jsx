@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SspPrimer from "./SspPrimer.jsx";
+import { AlignmentMeasures, ClauseToDuties, FrozenSettings, Glossary, PairingGates, PlanNormalised, ReadingFAQ,
+         RealizationTopic, TextModel } from "./LearnMethod.jsx";
 
 const TOPICS = [
   { id: "read", title: "How to read the results", body: (
@@ -19,23 +21,37 @@ const TOPICS = [
       <p>NIST Special Publication 800-53 Revision 5 is a catalog of security and privacy controls published by the US National Institute of Standards and Technology. Controls are grouped into families, such as AC (access control), IR (incident response) and PT (PII processing and transparency).</p>
       <p>Each control is written as a statement with numbered parts, for example AC-2a, AC-2b. PCEF treats each smallest part as a row and checks your plan row by row.</p>
     </>) },
-  { id: "ssp", title: "What is an SSP and OSCAL?", body: (onSample) => <SspPrimer onSample={onSample} /> },
+  { id: "ssp", title: "What is an SSP and OSCAL?", body: ({ onSample }) => <SspPrimer onSample={onSample} /> },
+  { id: "duties", group: "How the method works", title: "How a clause becomes duties", body: (p) => <ClauseToDuties {...p} /> },
+  { id: "rows", title: "How a plan is normalised", body: (p) => <PlanNormalised {...p} /> },
+  { id: "model", title: "The text model", body: (p) => <TextModel {...p} /> },
+  { id: "gates", title: "Pairing and gates", body: (p) => <PairingGates {...p} /> },
+  { id: "alignment", title: "The Alignment measures", body: (p) => <AlignmentMeasures {...p} /> },
+  { id: "realization", title: "How Realization is scored", body: (p) => <RealizationTopic {...p} /> },
+  { id: "frozen", title: "Why the settings are frozen", body: (p) => <FrozenSettings {...p} /> },
+  { id: "faq", group: "Reference", title: "Reading the results: questions", body: () => <ReadingFAQ /> },
+  { id: "glossary", title: "Glossary", body: () => <Glossary /> },
   { id: "legal", title: "Is this a legal opinion?", body: (
     <>
       <p>No. PCEF is decision support. It shows how well a plan's controls line up with the duties in the law, and how far the plan describes them as built. It cannot see your actual systems, only what the plan says, and it does not decide whether an organisation complies with the law. Use it to find where to look, then check with a qualified person.</p>
     </>) },
 ];
 
-export default function Learn({ start = "read", onSample }) {
+export default function Learn({ start = "read", onSample, meta, onWalk }) {
   const [open, setOpen] = useState(start);
   return (
     <div className="learn">
       <header className="page-head"><h1>Learn the basics</h1><p>Short answers to what the results mean and what the documents are.</p></header>
       <div className="learn-grid">
         <nav className="learn-nav" aria-label="Topics">
-          {TOPICS.map((t) => <button key={t.id} className={"nav-item light" + (open === t.id ? " on" : "")} onClick={() => setOpen(t.id)}>{t.title}</button>)}
+          {TOPICS.map((t, i) => (
+            <React.Fragment key={t.id}>
+              {(i === 0 || t.group) && <span className="learn-group">{t.group || "Getting started"}</span>}
+              <button className={"nav-item light" + (open === t.id ? " on" : "")} onClick={() => { setOpen(t.id); window.scrollTo(0, 0); }}>{t.title}</button>
+            </React.Fragment>))}
         </nav>
-        <article className="learn-body">{TOPICS.filter((t) => t.id === open).map((t) => <div key={t.id}><h2>{t.title}</h2>{typeof t.body === "function" ? t.body(onSample) : t.body}</div>)}</article>
+        <article className="learn-body">{TOPICS.filter((t) => t.id === open).map((t) => <div key={t.id}><h2>{t.title}</h2>{typeof t.body === "function" ? (meta ? t.body({ onSample, meta, onWalk })
+          : <p className="muted">Loading the scorer settings...</p>) : t.body}</div>)}</article>
       </div>
     </div>
   );

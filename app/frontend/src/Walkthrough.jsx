@@ -227,11 +227,11 @@ function Report({ c, onSample }) {
   );
 }
 
-export default function Walkthrough({ meta, onSample }) {
+export default function Walkthrough({ meta, onSample, startStage = 1 }) {
   const [w, setW] = useState(null);
   const [err, setErr] = useState("");
   const [ci, setCi] = useState(0);
-  const [st, setSt] = useState(0);
+  const [st, setSt] = useState(Math.min(Math.max(startStage - 1, 0), 6));
   useEffect(() => { api.walkthrough().then(setW).catch((e) => setErr(e.message)); }, []);
   if (err) return <p className="alert">{err}</p>;
   if (!w) return <p className="muted"><span className="spinner" aria-hidden="true" />Running the sample for the walkthrough...</p>;

@@ -1,9 +1,9 @@
 """
 Admin role: site owners named in PCEF_ADMIN_EMAILS (comma-separated).
 
-When admins are configured, the expert panel and the admin pages are open to them only. When none
-are configured (a local run), the panel stays open as before so the evaluation workflow still works.
-Create the admin account yourself before adding its email here: whoever registers an address first owns it.
+The expert panel and the admin pages are open to admins only. To run a panel session locally, set
+PCEF_ADMIN_EMAILS to your own address and sign in with it. Create the admin account yourself before
+adding its email here: whoever registers an address first owns it.
 """
 
 from __future__ import annotations
@@ -26,12 +26,8 @@ def is_admin(user: dict | None) -> bool:
     return bool(user) and user["email"] in admin_emails()
 
 
-def panel_restricted() -> bool:
-    return bool(admin_emails())
-
-
 def require_panel_access(request: Request) -> None:
-    if panel_restricted() and not is_admin(current_user(request)):
+    if not is_admin(current_user(request)):
         raise HTTPException(403, "The expert panel is open to site admins only.")
 
 

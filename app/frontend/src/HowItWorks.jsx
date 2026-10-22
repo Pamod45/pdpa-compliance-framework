@@ -1,12 +1,12 @@
 import React from "react";
 import Walkthrough from "./Walkthrough.jsx";
 
-export default function HowItWorks({ meta, onSample }) {
+export default function HowItWorks({ meta, onSample, startStage }) {
   return (
     <div className="how">
       <header className="page-head"><h1>How scoring works</h1>
         <p>PCEF scores how well a security plan meets a privacy law, in two separate parts that are never merged. Every step is a fixed rule, so the same input always gives the same output.</p></header>
-      {meta ? <Walkthrough meta={meta} onSample={onSample} /> : <p className="muted">Loading the text model. The first start can take a minute.</p>}
+      {meta ? <Walkthrough meta={meta} onSample={onSample} startStage={startStage} /> : <p className="muted">Loading the text model. The first start can take a minute.</p>}
       <section className="limits">
         <h2>What the evaluation found it cannot do</h2>
         <ul>
