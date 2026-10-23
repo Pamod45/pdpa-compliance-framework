@@ -154,6 +154,20 @@ function Drawer({ pick, res, meta, onClose }) {
   );
 }
 
+// How the three inputs connect: the NIST control sits between the law and the plan.
+function Bridge() {
+  return (
+    <figure className="bridge" aria-label="How PCEF connects the law, the NIST standard and your plan">
+      <div className="bnode law"><span className="btag">The law · built in</span><b>PDPA duty</b><span>s.10: keep personal data confidential and intact</span></div>
+      <div className="barrow a"><span>Alignment</span><small>Is this the right control for the duty?</small></div>
+      <div className="bnode nist"><span className="btag">The bridge · built in</span><b>NIST SP 800-53 control</b><span>AC-3 Access Enforcement</span></div>
+      <div className="barrow r"><span>Realization</span><small>Does the plan show it built?</small></div>
+      <div className="bnode plan"><span className="btag">You provide</span><b>Your security plan (SSP)</b><span>Every request checks the user's role and company before returning data</span></div>
+      <figcaption className="small">The law and your plan are never compared directly. Each duty is linked to standard NIST controls, and your plan is checked against those controls.</figcaption>
+    </figure>
+  );
+}
+
 export default function Explore({ meta, start, initial, user, onSignIn, onPrivacy }) {
   const [res, setRes] = useState(initial);
   const [took, setTook] = useState(0);
@@ -188,6 +202,7 @@ export default function Explore({ meta, start, initial, user, onSignIn, onPrivac
         <p>Upload your System Security Plan and choose the clauses. You get a summary of which legal duties your controls cover and how far your plan shows them built, then every detail behind it.</p>
         {user && <p className="small save-note">Signed in: runs you score are saved to My runs, including the plan text they quote. <button className="link" onClick={onPrivacy}>Privacy</button></p>}
       </header>
+      <Bridge />
       {showInvite && (
         <div className="invite">
           <span><b>New here?</b> A one-minute tour runs the sample and explains each part of the result.</span>
