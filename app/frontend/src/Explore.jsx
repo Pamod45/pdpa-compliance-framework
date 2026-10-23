@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { api, f3 } from "./api.js";
 import { AlignmentTrace, Inputs, RealizationTrace } from "./Trace.jsx";
-import { download, key, summarise, toCSV } from "./summary.js";
+import { GUIDE, download, key, summarise, toCSV } from "./summary.js";
 import { ClauseControls, Controls, Gaps, Overview } from "./Views.jsx";
 import Report from "./Report.jsx";
 import DraftNote from "./DraftNote.jsx";
@@ -104,6 +104,38 @@ function RunBar({ meta, onResult, start, wantSample }) {
 
 const TABS = [["overview", "Overview"], ["clauses", "Clause to controls"], ["gaps", "Gaps"], ["controls", "Controls"], ["map", "Map"]];
 
+// Plain-language reading of one pair for the person acting on it. Uses the overview's reading guide.
+function Reading({ pick, r }) {
+  const a = pick.tuple.alignment, rv = pick.tuple.realization ?? 0;
+  const declared = !!r && Object.values(r.rows).some((v) => (v.by_components || []).some((b) => (b.negation_hits || []).length > 0));
+  const fit = a >= GUIDE, shown = rv >= GUIDE;
+  let means, todo;
+  if (!fit) {
+    means = "This control only partly matches what the duty asks for.";
+    todo = "Look at the other controls listed for this duty. This one is not the main way to meet it.";
+  } else if (shown) {
+    means = "The right kind of control for this duty, and your plan shows it built.";
+    todo = "Nothing to fix here. Keep the evidence your plan points to ready for an audit.";
+  } else if (declared) {
+    means = "The right kind of control for this duty, but your plan says it is not done yet.";
+    todo = "Build it, then update the plan. Until then this control cannot be used to show the duty is met.";
+  } else {
+    means = "The right kind of control for this duty, but your plan does not show it built.";
+    todo = "Build it, or describe what is already in place: name the component, files, settings and how it works.";
+  }
+  return (
+    <section className="reading" aria-label="What this means">
+      <div className="reading-chips">
+        <span className={"rchip " + (fit ? "ok" : "low")}>{fit ? "Right kind of control" : "Weak fit to the duty"}</span>
+        <span className={"rchip " + (shown ? "ok" : "low")}>{shown ? "Shown built in the plan" : declared ? "Plan says not done yet" : "Not shown built in the plan"}</span>
+      </div>
+      <p><b>What this means:</b> {means}</p>
+      <p><b>What to do:</b> {todo}</p>
+      <p className="small">Read at {GUIDE} on each score. This is a reading guide, not a pass mark.</p>
+    </section>
+  );
+}
+
 function Drawer({ pick, res, meta, onClose }) {
   if (!pick) return null;
   return (
@@ -112,6 +144,7 @@ function Drawer({ pick, res, meta, onClose }) {
         <button className="close" onClick={onClose} aria-label="Close">Close</button>
         <h2>{pick.unit_id} &times; {pick.control_id.toUpperCase()}</h2>
         <p className="tuple"><span className="a"><Term k="alignment">Alignment</Term> {f3(pick.tuple.alignment)}</span><span className="r"><Term k="realization">Realization</Term> {f3(pick.tuple.realization)}</span></p>
+        <Reading pick={pick} r={res.realization[pick.control_id]} />
         {pick.gates.applicability.flags.length > 0 && <p className="note">Assumptions the applicability check made: {pick.gates.applicability.flags.join("; ")}.</p>}
         <Inputs ctx={pick.context} />
         <AlignmentTrace p={pick} constants={meta.constants} />
